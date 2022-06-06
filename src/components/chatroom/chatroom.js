@@ -15,31 +15,27 @@ const Chatroom = (props) => {
   const [token, setToken] = authToken;
 
   const [messages, setMessages] = useState([]);
+  const [chatInfo, setChatInfo] = useState({
+    Id: "",
+    Member1: "",
+    Member2: "",
+    Member1Name: "",
+    Member2Name: "",
+  });
   const [socket, setSocket] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
+  const [recipientName, setRecipientName] = useState("");
 
   useEffect(() => {
-    if(!user) {
-      return navigate('/')
-    };
+    if (!user) {
+      return navigate("/");
+    }
+    fetchMessages();
+    fetchChatInfo();
 
-    fetch(`/chatroom/${params.chatId}/messages`, {
-      headers: {
-        Authorization: "Bearer " + token,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error();
-      }
-      return res.json();
-    })
-    .then((res) => {
-      setMessages(res);
-    })
-    .catch((error) => console.log(error));
-
+    return() => {
+      console.log(socket)
+    }
   }, []);
 
   useEffect(() => {
@@ -47,24 +43,97 @@ const Chatroom = (props) => {
     setSocket(newSocket);
   }, [setSocket]);
 
+  useEffect(() => {
+    if (socket) {
+      socket.emit("room identifier", params.chatId);
+
+      socket.on("message", (message) => {
+        console.log(message);
+      });
+
+      socket.on("typing", (id) => {
+        if (id != user.id) {
+          setIsTyping(true);
+          setTimeout(() => {
+            setIsTyping(false);
+          }, 2000);
+          return;
+        }
+      });
+    }
+  }, [socket]);
+
   const emitMessage = (text) => {
     socket.emit("message", text);
+  };
 
-    socket.on("message", (message) => {
-      console.log(message);
-    });
-  }
+  const sendServerTyping = () => {
+    socket.emit("typing", user.displayname, user.id);
+  };
+
+  const fetchMessages = () => {
+    fetch(`/chatroom/${params.chatId}/messages`, {
+      headers: {
+        Authorization: "Bearer " + token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error();
+        }
+        return res.json();
+      })
+      .then((res) => {
+        setMessages(res);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const fetchChatInfo = () => {
+    fetch(`/chatroom/${params.chatId}`, {
+      headers: {
+        Authorization: "Bearer " + token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error();
+        }
+        return res.json();
+      })
+      .then((res) => {
+        setChatInfo(res[0]);
+        if (res[0].Member1 === user.id) {
+          return setRecipientName(res[0].Member2Name);
+        }
+        setRecipientName(res[0].Member1Name);
+      })
+      .catch((error) => console.log(error));
+  };
 
   const mappedMessages = messages.map((message) => (
-    <Message key={message.Id} message={message} />
+    <Message
+      key={message.Id}
+      message={message}
+      user={user}
+      recipientName={recipientName}
+    />
   ));
 
   return (
     <div>
       {mappedMessages}
-      <CreateMessage emitMessage={emitMessage}/>
+      <CreateMessage
+        emitMessage={emitMessage}
+        sendServerTyping={sendServerTyping}
+        isTyping={isTyping}
+      />
     </div>
-  )
+  );
 };
 
 export default Chatroom;

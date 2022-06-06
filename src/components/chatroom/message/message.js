@@ -16,7 +16,7 @@ const Message = (props) => {
         if(props.message.UserId === user.id) {
             return <div className="userMessage">User: {props.message.Text}</div>
         }
-        return <div className="otherMessage">Other Person: {props.message.Text}</div>
+        return <div className="otherMessage">{props.recipientName}: {props.message.Text}</div>
     }
 
     return(
