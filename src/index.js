@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./mainapp/App";
 import SignIn from "./components/auth/sign-in";
 import HomePage from "./components/home/home";
+import Chatroom from "./components/chatroom/chatroom";
+import SignUp from "./components/auth/sign-up";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,6 +14,8 @@ root.render(
       <Route path="/" element={<App />}>
         <Route path="/" element={<HomePage />} />
         <Route path="sign-in" element={<SignIn />} />
+        <Route path="sign-up" element={<SignUp />} />
+        <Route path="/chat/:chatId" element={<Chatroom />} />
       </Route>
     </Routes>
   </BrowserRouter>

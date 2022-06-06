@@ -9,7 +9,7 @@ function App() {
   const [token, setToken] = useState(null);
 
   return (
-    <div>
+    <div className='appContainer'>
       <Header />
       <AuthContext.Provider value={{userInfo: [user, setUser], authToken: [token, setToken]}}>
         <Outlet />

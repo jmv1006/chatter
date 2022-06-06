@@ -12,7 +12,6 @@ const HomePage = () => {
     const [token, setToken] = authToken;
 
     useEffect(() => {
-        console.log("Mounted")
         /*
         const socket = io("http://localhost:4000/")
         socket.emit("message", "Hello from frontend!!")

@@ -1,5 +1,7 @@
 import { useEffect, useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../../contexts/authcontext";
+import ChatBanner from "./chatbanner";
 
 const ChatList = () => {
   const { userInfo, authToken } = useContext(AuthContext);
@@ -25,21 +27,16 @@ const ChatList = () => {
         return res.json();
       })
       .then((res) => {
-        console.log(res);
-        setChats(chats => res)
+        setChats((chats) => res);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  const mappedChats = chats.map((chat) => 
-    <div key={chat.Id}>Chat</div>
-  )
+  const mappedChats = chats.map((chat) => (
+    <ChatBanner key={chat.Id} chat={chat} user={user} token={token} />
+  ));
 
-  return (
-    <div>
-        {mappedChats}
-    </div>
-  )
+  return <div>{mappedChats}</div>;
 };
 
 export default ChatList;

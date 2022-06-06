@@ -1,16 +1,11 @@
 import { useState, useContext } from "react";
-import AuthContext from "../../contexts/authcontext";
 import { useNavigate } from "react-router-dom";
 
-const SignIn = () => {
-    const {userInfo, authToken} = useContext(AuthContext);
-
-    const [user, setUser] = userInfo;
-    const [token, setToken] = authToken;
+const SignUp = () => {
 
     const navigate = useNavigate();
 
-    const [formInfo, setFormInfo] = useState({username: '', password: ''})
+    const [formInfo, setFormInfo] = useState({username: '', password: '', confirmedpassword: '', displayname: ''})
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -23,13 +18,13 @@ const SignIn = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch('/auth/sign-in', {
+        fetch('/auth/sign-up', {
             method: "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({username: formInfo.username, password: formInfo.password})
+            body: JSON.stringify(formInfo)
         })
         .then(res => {
             if(!res.ok) {
@@ -38,23 +33,24 @@ const SignIn = () => {
             return res.json()
         })
         .then(res => {
-            setUser(res.user)
-            setToken(res.token)
-            navigate("/")
+            console.log(res)
+            navigate("/sign-in")
         })
         .catch(error => console.log(error))
     };
 
     return(
         <div>
-            <h2>Sign In Here</h2>
+            <h2>Sign Up Here</h2>
             <form onSubmit={handleSubmit}>
                 <input type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} required></input>
+                <input type="text" placeholder="Display Name" name="displayname" value={formInfo.displayname} onChange={handleChange} required></input>
                 <input type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} required></input>
+                <input type="password" placeholder="Confirm Password" name="confirmedpassword" value={formInfo.confirmedpassword} onChange={handleChange} required></input>
                 <button type="submit">Submit</button>
             </form>
         </div>
     )
 }
 
-export default SignIn;
+export default SignUp;
