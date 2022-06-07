@@ -11,6 +11,7 @@ const ChatList = () => {
 
   const [chats, setChats] = useState([]);
   const [error, setError] = useState(false);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     fetch(`/chatroom/users/${user.id}`, {
@@ -38,6 +39,7 @@ const ChatList = () => {
 
   return (
     <div>
+      Your Conversations:
       {mappedChats}
       <button><Link to="/chat/create">create chatroom</Link></button>
     </div>

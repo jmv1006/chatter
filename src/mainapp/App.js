@@ -9,6 +9,10 @@ function App() {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
 
+  useEffect(() => {
+    console.log(user)
+  });
+  
   return (
     <div className="appContainer">
       <Header />

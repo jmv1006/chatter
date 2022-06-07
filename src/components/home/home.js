@@ -12,14 +12,7 @@ const HomePage = () => {
     const [token, setToken] = authToken;
 
     useEffect(() => {
-        /*
-        const socket = io("http://localhost:4000/")
-        socket.emit("message", "Hello from frontend!!")
-
-        socket.on("message", (message) => {
-            console.log(message)
-        });
-        */
+       
     }, [])
 
     return(

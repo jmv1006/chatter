@@ -45,7 +45,6 @@ const CreateChatroom = () => {
             return res.json()
         })
         .then(res => {
-            console.log(res[0])
             handleSearchResult(res[0])
         })
         .catch(error => console.log(error))
@@ -59,7 +58,7 @@ const CreateChatroom = () => {
         <div>
             Create Chatroom Here
             <form onSubmit={handleSubmit}>
-                <label>Enter a user id</label>
+                <label>Enter a user id or email</label>
                 <input type="text" name="input" placeholder="Enter Info Here" value={input.input} onChange={handleChange} required />
                 <button type="submit">Search</button>
             </form>

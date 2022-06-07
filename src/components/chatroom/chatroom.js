@@ -32,15 +32,15 @@ const Chatroom = (props) => {
     }
     fetchMessages();
     fetchChatInfo();
-
-    return () => {
-      console.log(socket);
-    };
   }, []);
 
   useEffect(() => {
     const newSocket = io("http://localhost:4000/");
     setSocket(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
   }, [setSocket]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ const Chatroom = (props) => {
           setIsTyping(true);
           setTimeout(() => {
             setIsTyping(false);
-          }, 2000);
+          }, 2500);
           return;
         }
       });
