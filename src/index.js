@@ -6,6 +6,7 @@ import SignIn from "./components/auth/sign-in";
 import HomePage from "./components/home/home";
 import Chatroom from "./components/chatroom/chatroom";
 import SignUp from "./components/auth/sign-up";
+import CreateChatroom from "./components/create-chatroom/create-chatroom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +17,7 @@ root.render(
         <Route path="sign-in" element={<SignIn />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="/chat/:chatId" element={<Chatroom />} />
+        <Route path="/chat/create" element={<CreateChatroom />} />
       </Route>
     </Routes>
   </BrowserRouter>

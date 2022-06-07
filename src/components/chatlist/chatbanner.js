@@ -18,7 +18,7 @@ const ChatBanner = (props) => {
         Authorization: "Bearer " + props.token,
         Accept: "application/json",
         "Content-Type": "application/json",
-      },
+      }
     })
       .then((res) => {
         if (!res.ok) {

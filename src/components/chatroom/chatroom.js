@@ -33,9 +33,9 @@ const Chatroom = (props) => {
     fetchMessages();
     fetchChatInfo();
 
-    return() => {
-      console.log(socket)
-    }
+    return () => {
+      console.log(socket);
+    };
   }, []);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Chatroom = (props) => {
       socket.emit("room identifier", params.chatId);
 
       socket.on("message", (message) => {
-        console.log(message);
+        fetchMessages();
       });
 
       socket.on("typing", (id) => {
@@ -64,7 +64,7 @@ const Chatroom = (props) => {
   }, [socket]);
 
   const emitMessage = (text) => {
-    socket.emit("message", text);
+    socket.emit("message", text, user, chatInfo);
   };
 
   const sendServerTyping = () => {
@@ -131,6 +131,8 @@ const Chatroom = (props) => {
         emitMessage={emitMessage}
         sendServerTyping={sendServerTyping}
         isTyping={isTyping}
+        user={user}
+        token={token}
       />
     </div>
   );
