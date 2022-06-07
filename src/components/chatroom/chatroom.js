@@ -1,4 +1,4 @@
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../../contexts/authcontext";
 import Message from "./message/message";
@@ -9,6 +9,7 @@ import './chatroom.css';
 const Chatroom = (props) => {
   const params = useParams();
   const navigate = useNavigate();
+  const dummydiv = useRef(null);
 
   const { userInfo, authToken } = useContext(AuthContext);
 
@@ -38,7 +39,6 @@ const Chatroom = (props) => {
   useEffect(() => {
     const newSocket = io("http://localhost:4000/");
     setSocket(newSocket);
-
     return () => {
       newSocket.close();
     };
@@ -48,7 +48,7 @@ const Chatroom = (props) => {
     if (socket) {
       socket.emit("room identifier", params.chatId);
 
-      socket.on("message", (message) => {
+      socket.on("roommessage", (message) => {
         fetchMessages();
       });
 
@@ -65,7 +65,7 @@ const Chatroom = (props) => {
   }, [socket]);
 
   const emitMessage = (text) => {
-    socket.emit("message", text, user, chatInfo);
+    socket.emit("roommessage", text, user, chatInfo);
   };
 
   const sendServerTyping = () => {
@@ -88,6 +88,7 @@ const Chatroom = (props) => {
       })
       .then((res) => {
         setMessages(res);
+        dummydiv.current.scrollIntoView({ behavior: "smooth" });
       })
       .catch((error) => console.log(error));
   };
@@ -130,8 +131,8 @@ const Chatroom = (props) => {
       <div className="recipientName">{recipientName}</div>
       <div className="messagesContainer">
         {mappedMessages}
+        <div ref={dummydiv} />
       </div>
-
       <CreateMessage
         emitMessage={emitMessage}
         sendServerTyping={sendServerTyping}

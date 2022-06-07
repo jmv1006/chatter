@@ -1,0 +1,8 @@
+.notificationBanner {
+    width: 15rem;
+    height: 2rem;;
+    position: fixed;
+    margin-top: 1.5rem;
+    background-color: teal;
+    color: white;
+}
