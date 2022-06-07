@@ -1,0 +1,39 @@
+.recipientName {
+    border: 1px solid black;
+    width: 100%;
+    height: 2.35rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.35rem;
+}
+
+.userMessage {
+   width: 95vw;
+   display: flex;
+   flex-direction: row;
+   justify-content: flex-end;
+}
+
+.otherMessage {
+    width: 95vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.userText {
+    border: 2px solid blue;
+    max-width: 16rem;
+    color: white;
+    background-color: blue;
+    padding: .25rem;;
+}
+
+.otherText {
+    border: 2px solid lightgray;
+    max-width: 16rem;
+    color: black;
+    background-color: lightgray;
+    padding: .25rem;;
+}

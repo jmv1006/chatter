@@ -26,16 +26,4 @@ describe("Home Page", () => {
         expect(screen.getByText("Welcome to Chatter."))
     });
 
-
-    it("renders chats if user is signed in", () => {
-        render(
-            <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
-                    <HomePage />
-                </AuthContext.Provider>
-            </BrowserRouter>
-        );
-        expect(screen.getByText("Your Conversations:"))
-    })
-
 })

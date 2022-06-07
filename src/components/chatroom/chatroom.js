@@ -4,6 +4,7 @@ import AuthContext from "../../contexts/authcontext";
 import Message from "./message/message";
 import CreateMessage from "./create-message/create-message";
 import { io } from "socket.io-client";
+import './chatroom.css';
 
 const Chatroom = (props) => {
   const params = useParams();
@@ -56,7 +57,7 @@ const Chatroom = (props) => {
           setIsTyping(true);
           setTimeout(() => {
             setIsTyping(false);
-          }, 2500);
+          }, 1000);
           return;
         }
       });
@@ -125,8 +126,12 @@ const Chatroom = (props) => {
   ));
 
   return (
-    <div>
-      {mappedMessages}
+    <div className="chatroomContainer">
+      <div className="recipientName">{recipientName}</div>
+      <div className="messagesContainer">
+        {mappedMessages}
+      </div>
+
       <CreateMessage
         emitMessage={emitMessage}
         sendServerTyping={sendServerTyping}

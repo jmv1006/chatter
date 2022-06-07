@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import './create-message.css';
 
 const CreateMessage = (props) => {
   const params = useParams();
@@ -40,10 +41,11 @@ const CreateMessage = (props) => {
   };
 
   return (
-    <div>
+    <div className="createMessageContainer">
       {props.isTyping ? "Typing..." : null}
-      <form onSubmit={handleSubmit}>
-        <input
+      <form onSubmit={handleSubmit} className="newMessageForm">
+        <textarea
+          className="messageTextInput"
           type="text"
           placeholder="Message Here..."
           name="text"
@@ -51,7 +53,7 @@ const CreateMessage = (props) => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Send</button>
+        <button type="submit" className="messageSendButton">Send</button>
       </form>
     </div>
   );

@@ -40,7 +40,7 @@ const ChatList = () => {
   return (
     <div>
       Your Conversations:
-      {mappedChats}
+      {chats.length === 0 ? "No Conversations! Click 'Create Chatroom' below to create one." : mappedChats}
       <button><Link to="/chat/create">create chatroom</Link></button>
     </div>
   )
