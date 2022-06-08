@@ -1,19 +1,24 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./chatlist.css";
 
 const ChatBanner = (props) => {
+  const navigate = useNavigate();
+
   const [recipientName, setRecipientName] = useState("");
   const [recentMessage, setRecentMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (props.chat.Member1 === props.user.id) {
       handleRecentMessageFetch();
       handleUsernameFetch(props.chat.Member2);
+      setIsLoading(true)
       return;
     }
     handleUsernameFetch(props.chat.Member1);
     handleRecentMessageFetch();
+    setIsLoading(true)
   }, []);
 
   const handleUsernameFetch = (id) => {
@@ -32,6 +37,7 @@ const ChatBanner = (props) => {
       })
       .then((res) => {
         setRecipientName(res[0].DisplayName);
+        setIsLoading(false)
       })
       .catch((error) => console.log(error));
   };
@@ -57,9 +63,14 @@ const ChatBanner = (props) => {
       .catch((error) => console.log(error));
   };
 
+  const navigateToChat = () => {
+    navigate("/chat/" + props.chat.Id);
+  };
+
   return (
-    <div className="chatBanner">
-      <Link to={"/chat/" + props.chat.Id}>{recipientName}</Link>
+    <div className="chatBanner" onClick={navigateToChat}>
+      {isLoading ? "Loading..." : null}
+      <div className="chatBannerName">{recipientName}</div>
       <div className="recentMsg">{recentMessage}</div>
     </div>
   );

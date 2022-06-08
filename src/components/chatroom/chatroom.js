@@ -57,10 +57,11 @@ const Chatroom = (props) => {
 
       socket.on("typing", (id) => {
         if (id != user.id) {
+          dummydiv.current.scrollIntoView({ behavior: "smooth" });
           setIsTyping(true);
           setTimeout(() => {
             setIsTyping(false);
-          }, 1000);
+          }, 2000);
           return;
         }
       });
@@ -129,7 +130,6 @@ const Chatroom = (props) => {
       key={message.Id}
       message={message}
       user={user}
-      recipientName={recipientName}
     />
   ));
 
@@ -139,9 +139,9 @@ const Chatroom = (props) => {
       <div className="messagesContainer">
         {isLoading ? "Loading..." : null}
         {mappedMessages}
+        {isTyping ? <Message key={"typing"} message={{userId: "typing", Text: "Typing..."}} /> : null}
         <div ref={dummydiv} />
       </div>
-      <div className="typingContainer">{isTyping ? "Typing..." : null}</div>
       <CreateMessage
         emitMessage={emitMessage}
         sendServerTyping={sendServerTyping}

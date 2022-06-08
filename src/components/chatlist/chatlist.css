@@ -6,9 +6,13 @@
     justify-content: flex-start;
     align-items: center;
     gap: 1rem;
-    border: 2px solid blue;
+    padding-top: 1rem;
 }
 
+.pageLabel {
+    height: 2rem;
+    font-size: 1.5rem;
+}
 
 .chatBanner {
     display: flex;
@@ -16,11 +20,38 @@
     justify-content: center;
     align-items: flex-start;
     border: 2px solid gray;
-    width: 96%;
+    width: 95%;
     height: 3rem;
     padding-left: .5rem;
 }
 
+.chatBanner:hover {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 2px solid gray;
+    width: 95%;
+    height: 3rem;
+    padding-left: .5rem;
+    background-color: #ebeced;
+    cursor: pointer;
+}
+
+.chatBannerName {
+    color: black;
+}
+
 .recentMsg {
     color: gray;
+}
+
+.createChatBtn {
+    width: 50%;
+    height: 2.5rem;
+}
+
+.createChatLink {
+    text-decoration: none;
+    color: black;
 }
