@@ -13,6 +13,7 @@ const SignIn = () => {
 
     const [formInfo, setFormInfo] = useState({username: '', password: ''})
     const [error, setError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         if(user) {
@@ -31,6 +32,7 @@ const SignIn = () => {
 
     const handleSubmit = (e) => {
         setError(false)
+        setIsLoading(true)
         e.preventDefault()
         fetch('/auth/sign-in', {
             method: "POST",
@@ -49,9 +51,11 @@ const SignIn = () => {
         .then(res => {
             setUser(res.user)
             setToken(res.token)
+            setIsLoading(false)
             navigate("/")
         })
         .catch(error => {
+            setIsLoading(false)
             setError(true)
         })
     };
@@ -62,7 +66,7 @@ const SignIn = () => {
             <form onSubmit={handleSubmit} className="signInForm">
                 <input type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} className="signInInput" required></input>
                 <input type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} className="signInInput" required></input>
-                <button type="submit" className="authBtn">Sign In</button>
+                <button type="submit" className="authBtn">{isLoading ? "Signing In..." : "Sign In"}</button>
             </form>
             {error ? <div className="formError">Invalid Username or Password</div> : null}
         </div>

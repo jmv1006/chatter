@@ -25,14 +25,17 @@
 }
 
 .authBtn {
-    width: 100%;
-    height: 2.25rem;
+    width: 95%;
+    border: none;
+    height: 2.35rem;
+    background-color: #47a9ff;
 }
 
 .authBtn:hover {
-    width: 100%;
-    height: 2.25rem;
+    width: 95%;
+    height: 2.35rem;
     cursor: pointer;
+    border: 2px solid black;
 }
 
 .authBtnLink {
@@ -80,8 +83,19 @@
 
 .signUpBtn {
     width: 95%;
-    height: 2.25rem;
-    margin-top: 1rem;;
+    height: 2.35rem;
+    margin-top: 1rem;
+    background-color: #47a9ff;
+    border: none;
+}
+
+.signUpBtn:hover {
+    width: 95%;
+    height: 2.35rem;
+    margin-top: 1rem;
+    background-color: #47a9ff;
+    border: 2px solid black;
+    cursor: pointer;
 }
 
 .formError {

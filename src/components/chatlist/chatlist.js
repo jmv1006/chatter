@@ -43,9 +43,7 @@ const ChatList = () => {
   return (
     <div className="chatlistContainer">
       <div className="pageLabel">Your Conversations:</div>
-      {chats.length === 0
-        ? "No Conversations! Click 'Create Chatroom' below to create one."
-        : mappedChats}
+      {mappedChats}
       <button className="createChatBtn">
         <Link to="/chat/create" className="createChatLink">Create Chatroom</Link>
       </button>

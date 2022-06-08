@@ -14,21 +14,21 @@
 }
 
 .userText {
-    border: 2px solid blue;
-    max-width: 18rem;
+    border: 2px solid #047ae0;
+    max-width: 13rem;
     color: white;
-    background-color: blue;
-    padding: .25rem;
+    background-color: #047ae0;
+    padding: .22rem;
     overflow-wrap: break-word;
     border-radius:.75rem;
 }
 
 .otherText {
     border: 2px solid lightgray;
-    max-width: 18rem;
+    max-width: 13rem;
     color: black;
     background-color: lightgray;
-    padding: .25rem;
+    padding: .22rem;
     overflow-wrap: break-word;
     border-radius:.75rem;
 }

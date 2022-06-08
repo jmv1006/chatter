@@ -49,6 +49,16 @@
 .createChatBtn {
     width: 50%;
     height: 2.5rem;
+    background-color: #47a9ff;
+    border: none;
+}
+
+.createChatBtn:hover {
+    width: 50%;
+    height: 2.5rem;
+    cursor: pointer;
+    background-color: #47a9ff;
+    border: 2px solid black;
 }
 
 .createChatLink {

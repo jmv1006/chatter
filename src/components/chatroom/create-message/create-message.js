@@ -6,6 +6,7 @@ const CreateMessage = (props) => {
   const params = useParams();
 
   const [message, setMessage] = useState({ text: "" });
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleChange = (e) => {
     props.sendServerTyping();
@@ -17,6 +18,7 @@ const CreateMessage = (props) => {
   };
 
   const handleSubmit = (e) => {
+    setIsLoading(true)
     e.preventDefault();
     fetch(`/chatroom/${params.chatId}/create-message`, {
       method: "POST",
@@ -34,10 +36,13 @@ const CreateMessage = (props) => {
         return res.json();
       })
       .then((res) => {
+        setIsLoading(false)
         props.emitMessage(message.text);
         setMessage({text: ''})
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setIsLoading(false)
+      });
   };
 
   return (
@@ -52,7 +57,7 @@ const CreateMessage = (props) => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className="messageSendButton">Send</button>
+        <button type="submit" className="messageSendButton">{isLoading ? "Sending..." : "Send"}</button>
       </form>
     </div>
   );

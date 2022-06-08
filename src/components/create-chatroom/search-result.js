@@ -5,8 +5,10 @@ const SearchResult = (props) => {
   const navigate = useNavigate();
 
   const [error, setError] = useState(false);
+  const [buttonText, setButtonText] = useState("Create Chat")
 
   const createChat = () => {
+    setButtonText("Creating Chat...")
     const body = {
       member1: props.user.id,
       member2: props.result.Id,
@@ -32,10 +34,14 @@ const SearchResult = (props) => {
         return res.json();
       })
       .then((res) => {
+        setButtonText("Success")
         navigate("/");
       })
       .catch((error) => {
-        setError(true)
+        setButtonText("Error Creating Chat")
+        setTimeout(() => {
+          setButtonText("Create Chat")
+        }, 2000)
       });
   };
 
@@ -43,7 +49,7 @@ const SearchResult = (props) => {
     <div className="searchResult">
       {props.result.DisplayName} ({props.result.Username})
       <button className="searchResultBtn" onClick={createChat}>
-        {error ? "Error Creating Chatroom" : "Create Chat"}
+        {buttonText}
       </button>
     </div>
   );

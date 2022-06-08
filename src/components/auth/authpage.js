@@ -1,7 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './auth.css';
 
 const AuthPage = () => {
+    const navigate = useNavigate();
+
+    const navigateToSignUp = () => {
+        navigate('/sign-up')
+    };
+
+    const navigateToSignIn = () => {
+        navigate('/sign-in')
+    };
+
     return(
         <div className="authPageContainer">
             <div className="authTitle">Welcome to Chatter.</div>
@@ -9,8 +19,8 @@ const AuthPage = () => {
                 A Simple Messaging App.
             </div>
             <div className="authBtnContainer">
-                <Link to="/sign-up" className="authBtnLink"><button>Sign Up</button></Link>
-                <Link to="/sign-in" className="authBtnLink"><button>Sign In</button></Link>
+                <button onClick={navigateToSignUp} className="authBtn">Sign Up</button>
+                <button onClick={navigateToSignIn} className="authBtn">Sign In</button>
             </div>
         </div>
     )
