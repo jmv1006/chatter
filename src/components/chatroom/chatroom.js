@@ -139,9 +139,9 @@ const Chatroom = (props) => {
       <div className="messagesContainer">
         {isLoading ? "Loading..." : null}
         {mappedMessages}
-        <div className="typingContainer">{isTyping ? "Typing..." : null}</div>
         <div ref={dummydiv} />
       </div>
+      <div className="typingContainer">{isTyping ? "Typing..." : null}</div>
       <CreateMessage
         emitMessage={emitMessage}
         sendServerTyping={sendServerTyping}

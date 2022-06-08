@@ -9,14 +9,14 @@
 }
 
 .userMessage {
-   width: 95vw;
+   width: 97vw;
    display: flex;
    flex-direction: row;
    justify-content: flex-end;
 }
 
 .otherMessage {
-    width: 95vw;
+    width: 97vw;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
