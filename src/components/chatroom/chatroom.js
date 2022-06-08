@@ -34,6 +34,7 @@ const Chatroom = (props) => {
     }
     fetchMessages();
     fetchChatInfo();
+    dummydiv.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -64,6 +65,10 @@ const Chatroom = (props) => {
     }
   }, [socket]);
 
+  useEffect(() => {
+    dummydiv.current.scrollIntoView({ behavior: "smooth" });
+  }, [messages])
+
   const emitMessage = (text) => {
     socket.emit("roommessage", text, user, chatInfo);
   };
@@ -88,7 +93,6 @@ const Chatroom = (props) => {
       })
       .then((res) => {
         setMessages(res);
-        dummydiv.current.scrollIntoView({ behavior: "smooth" });
       })
       .catch((error) => console.log(error));
   };
@@ -108,6 +112,7 @@ const Chatroom = (props) => {
         return res.json();
       })
       .then((res) => {
+        console.log(res)
         setChatInfo(res[0]);
         if (res[0].Member1 === user.id) {
           return setRecipientName(res[0].Member2Name);
@@ -131,6 +136,7 @@ const Chatroom = (props) => {
       <div className="recipientName">{recipientName}</div>
       <div className="messagesContainer">
         {mappedMessages}
+        <div className="typingContainer">{isTyping ? "Typing..." : null}</div>
         <div ref={dummydiv} />
       </div>
       <CreateMessage

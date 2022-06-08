@@ -1,5 +1,26 @@
-.chatBanner {
-    border: 2px solid gray;
+.chatlistContainer {
+    border: 2px solid red;
     width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+
+.chatBanner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    border: 2px solid gray;
+    width: 96%;
     height: 3rem;
+    padding-left: .5rem;
+}
+
+.recentMsg {
+    color: gray;
 }

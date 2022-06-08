@@ -42,7 +42,6 @@ const CreateMessage = (props) => {
 
   return (
     <div className="createMessageContainer">
-      {props.isTyping ? "Typing..." : null}
       <form onSubmit={handleSubmit} className="newMessageForm">
         <textarea
           className="messageTextInput"

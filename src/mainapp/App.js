@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "../components/header/header";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import "./app.css";
 import AuthContext from "../contexts/authcontext";
 import { io } from "socket.io-client";

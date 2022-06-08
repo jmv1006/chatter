@@ -3,14 +3,9 @@ import AuthContext from "../../../contexts/authcontext";
 import './message.css';
 
 const Message = (props) => {
-    const { userInfo, authToken } = useContext(AuthContext);
+    const { userInfo } = useContext(AuthContext);
 
     const [user, setUser] = userInfo;
-    const [token, setToken] = authToken;
-
-    useEffect(() => {
-    
-    }, [])
 
     const handleMessage = () => {
         if(props.message.UserId === user.id) {

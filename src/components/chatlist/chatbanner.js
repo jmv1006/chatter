@@ -60,7 +60,7 @@ const ChatBanner = (props) => {
   return (
     <div className="chatBanner">
       <Link to={"/chat/" + props.chat.Id}>{recipientName}</Link>
-      {recentMessage}
+      <div className="recentMsg">{recentMessage}</div>
     </div>
   );
 };

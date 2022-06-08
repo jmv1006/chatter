@@ -16,7 +16,7 @@ const HomePage = () => {
     }, [])
 
     return(
-        <div>
+        <div className="homepageContainer">
             {user ? <ChatList /> : <AuthPage />}
         </div>
     )

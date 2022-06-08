@@ -6,9 +6,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: .35rem;
+    gap: .5rem;
     overflow-y: auto;
     overflow-x: hidden;
     height: 50rem;
     padding:1rem;
+}
+
+.typingContainer {
+    width: 100%;
+    text-align: left;
 }

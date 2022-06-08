@@ -24,16 +24,20 @@
 
 .userText {
     border: 2px solid blue;
-    max-width: 16rem;
+    max-width: 18rem;
     color: white;
     background-color: blue;
-    padding: .25rem;;
+    padding: .25rem;
+    overflow-wrap: break-word;
+    border-radius:.75rem;
 }
 
 .otherText {
     border: 2px solid lightgray;
-    max-width: 16rem;
+    max-width: 18rem;
     color: black;
     background-color: lightgray;
-    padding: .25rem;;
+    padding: .25rem;
+    overflow-wrap: break-word;
+    border-radius:.75rem;
 }

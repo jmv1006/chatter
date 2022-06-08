@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
 import { Link } from "react-router-dom";
+import "./chatlist.css";
 
 const ChatList = () => {
   const { userInfo, authToken } = useContext(AuthContext);
@@ -10,10 +11,12 @@ const ChatList = () => {
   const [token, setToken] = authToken;
 
   const [chats, setChats] = useState([]);
-  const [error, setError] = useState(false);
-  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+    fetchChats()
+  }, []);
+
+  const fetchChats = () => {
     fetch(`/chatroom/users/${user.id}`, {
       headers: {
         Authorization: "Bearer " + token,
@@ -28,22 +31,26 @@ const ChatList = () => {
         return res.json();
       })
       .then((res) => {
-        setChats((chats) => res);
+        setChats(res);
       })
       .catch((error) => console.log(error));
-  }, []);
+  };
 
   const mappedChats = chats.map((chat) => (
     <ChatBanner key={chat.Id} chat={chat} user={user} token={token} />
   ));
 
   return (
-    <div>
+    <div className="chatlistContainer">
       Your Conversations:
-      {chats.length === 0 ? "No Conversations! Click 'Create Chatroom' below to create one." : mappedChats}
-      <button><Link to="/chat/create">create chatroom</Link></button>
+      {chats.length === 0
+        ? "No Conversations! Click 'Create Chatroom' below to create one."
+        : mappedChats}
+      <button>
+        <Link to="/chat/create">Create Chatroom</Link>
+      </button>
     </div>
-  )
+  );
 };
 
 export default ChatList;
