@@ -2,7 +2,6 @@ import { useContext } from "react";
 import AuthPage from "../auth/authpage";
 import AuthContext from '../../contexts/authcontext';
 import ChatList from "../chatlist/chatlist";
-import { io } from "socket.io-client";
 
 const HomePage = () => {
 

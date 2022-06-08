@@ -40,7 +40,7 @@ const Chatroom = (props) => {
   }, []);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:4000/");
+    const newSocket = io("https://jmv1006-chatterapi.herokuapp.com/");
     setSocket(newSocket);
     return () => {
       newSocket.close();
