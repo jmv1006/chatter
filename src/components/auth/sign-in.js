@@ -51,14 +51,14 @@ const SignIn = () => {
     };
 
     return(
-        <div>
-            <h2>Sign In Here</h2>
-            <form onSubmit={handleSubmit}>
-                <input class={error ? "authInputError" : "authInput"} type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} required></input>
-                <input class={error ? "authInputError" : "authInput"} type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} required></input>
-                <button type="submit">Submit</button>
+        <div className="signUpPageContainer">
+            <h2>Sign In</h2>
+            <form onSubmit={handleSubmit} className="signInForm">
+                <input type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} class="signInInput" required></input>
+                <input type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} class="signInInput" required></input>
+                <button type="submit" className="authBtn">Sign In</button>
             </form>
-            {error ? "Invalid Username or Password" : null}
+            {error ? <div className="formError">Invalid Username or Password</div> : null}
         </div>
     )
 }

@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
+import './auth.css';
 
 const AuthPage = (props) => {
     return(
-        <div>
-            <h2>Welcome to Chatter.</h2>
-            <button><Link to="/sign-up">Sign Up</Link></button>
-            <button><Link to="/sign-in">Sign In</Link></button>
+        <div className="authPageContainer">
+            <div className="authTitle">Welcome to Chatter.</div>
+            <div className="authPageDescription">
+                A Simple Messaging App.
+            </div>
+            <div className="authBtnContainer">
+                <Link to="/sign-up" className="authBtnLink"><button>Sign Up</button></Link>
+                <Link to="/sign-in" className="authBtnLink"><button>Sign In</button></Link>
+            </div>
         </div>
     )
 }

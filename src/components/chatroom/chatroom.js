@@ -115,7 +115,6 @@ const Chatroom = (props) => {
         return res.json();
       })
       .then((res) => {
-        console.log(res)
         setChatInfo(res[0]);
         if (res[0].Member1 === user.id) {
           return setRecipientName(res[0].Member2Name);

@@ -1,0 +1,3 @@
+/auth/* https://jmv1006-chatterapi.herokuapp.com/auth/:splat 200
+/chatroom/* https://jmv1006-chatterapi.herokuapp.com/chatroom/:splat 200
+/* /index.html 200
