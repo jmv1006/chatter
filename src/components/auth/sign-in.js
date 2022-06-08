@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import AuthContext from "../../contexts/authcontext";
 import { useNavigate } from "react-router-dom";
+import './auth.css';
 
 const SignIn = () => {
     const {userInfo, authToken} = useContext(AuthContext);
@@ -11,6 +12,7 @@ const SignIn = () => {
     const navigate = useNavigate();
 
     const [formInfo, setFormInfo] = useState({username: '', password: ''})
+    const [error, setError] = useState(false);
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -22,6 +24,7 @@ const SignIn = () => {
     };
 
     const handleSubmit = (e) => {
+        setError(false)
         e.preventDefault()
         fetch('/auth/sign-in', {
             method: "POST",
@@ -42,17 +45,20 @@ const SignIn = () => {
             setToken(res.token)
             navigate("/")
         })
-        .catch(error => console.log(error))
+        .catch(error => {
+            setError(true)
+        })
     };
 
     return(
         <div>
             <h2>Sign In Here</h2>
             <form onSubmit={handleSubmit}>
-                <input type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} required></input>
-                <input type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} required></input>
+                <input class={error ? "authInputError" : "authInput"} type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} required></input>
+                <input class={error ? "authInputError" : "authInput"} type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} required></input>
                 <button type="submit">Submit</button>
             </form>
+            {error ? "Invalid Username or Password" : null}
         </div>
     )
 }

@@ -27,11 +27,13 @@ const Chatroom = (props) => {
   const [socket, setSocket] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
   const [recipientName, setRecipientName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (!user) {
       return navigate("/");
     }
+    setIsLoading(true)
     fetchMessages();
     fetchChatInfo();
     dummydiv.current.scrollIntoView({ behavior: "smooth" });
@@ -93,6 +95,7 @@ const Chatroom = (props) => {
       })
       .then((res) => {
         setMessages(res);
+        setIsLoading(false)
       })
       .catch((error) => console.log(error));
   };
@@ -135,6 +138,7 @@ const Chatroom = (props) => {
     <div className="chatroomContainer">
       <div className="recipientName">{recipientName}</div>
       <div className="messagesContainer">
+        {isLoading ? "Loading..." : null}
         {mappedMessages}
         <div className="typingContainer">{isTyping ? "Typing..." : null}</div>
         <div ref={dummydiv} />

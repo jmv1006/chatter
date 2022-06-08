@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import AuthPage from "../auth/authpage";
 import AuthContext from '../../contexts/authcontext';
 import ChatList from "../chatlist/chatlist";
@@ -10,10 +10,6 @@ const HomePage = () => {
 
     const [user, setUser] = userInfo;
     const [token, setToken] = authToken;
-
-    useEffect(() => {
-       
-    }, [])
 
     return(
         <div className="homepageContainer">
