@@ -5,10 +5,9 @@ import ChatList from "../chatlist/chatlist";
 
 const HomePage = () => {
 
-    const {userInfo, authToken} = useContext(AuthContext);
+    const {userInfo} = useContext(AuthContext);
 
-    const [user, setUser] = userInfo;
-    const [token, setToken] = authToken;
+    const [user] = userInfo;
 
     return(
         <div className="homepageContainer">

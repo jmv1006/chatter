@@ -7,8 +7,8 @@ import "./chatlist.css";
 const ChatList = () => {
   const { userInfo, authToken } = useContext(AuthContext);
 
-  const [user, setUser] = userInfo;
-  const [token, setToken] = authToken;
+  const [user] = userInfo;
+  const [token] = authToken;
 
   const [chats, setChats] = useState([]);
 

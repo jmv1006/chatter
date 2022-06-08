@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import './auth.css';
 
-const AuthPage = (props) => {
+const AuthPage = () => {
     return(
         <div className="authPageContainer">
             <div className="authTitle">Welcome to Chatter.</div>

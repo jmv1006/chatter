@@ -8,7 +8,6 @@ const Message = (props) => {
     const [user] = userInfo;
 
     const handleMessage = () => {
-        console.log(props.message)
         if(props.message.UserId === user.id) {
             return <div className="userMessage"><div className="userText">{props.message.Text}</div></div>
         }

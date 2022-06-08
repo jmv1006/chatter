@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchResult = (props) => {
   const navigate = useNavigate();
+
+  const [error, setError] = useState(false);
 
   const createChat = () => {
     const body = {
@@ -32,14 +35,16 @@ const SearchResult = (props) => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        setError(true)
       });
   };
 
   return (
-    <div>
-      {props.result.DisplayName}
-      <button onClick={createChat}>Create Chat</button>
+    <div className="searchResult">
+      {props.result.DisplayName} ({props.result.Username})
+      <button className="searchResultBtn" onClick={createChat}>
+        {error ? "Error Creating Chatroom" : "Create Chat"}
+      </button>
     </div>
   );
 };

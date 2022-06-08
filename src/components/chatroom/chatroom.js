@@ -4,7 +4,7 @@ import AuthContext from "../../contexts/authcontext";
 import Message from "./message/message";
 import CreateMessage from "./create-message/create-message";
 import { io } from "socket.io-client";
-import './chatroom.css';
+import "./chatroom.css";
 
 const Chatroom = (props) => {
   const params = useParams();
@@ -13,8 +13,8 @@ const Chatroom = (props) => {
 
   const { userInfo, authToken } = useContext(AuthContext);
 
-  const [user, setUser] = userInfo;
-  const [token, setToken] = authToken;
+  const [user] = userInfo;
+  const [token] = authToken;
 
   const [messages, setMessages] = useState([]);
   const [chatInfo, setChatInfo] = useState({
@@ -33,7 +33,7 @@ const Chatroom = (props) => {
     if (!user) {
       return navigate("/");
     }
-    setIsLoading(true)
+    setIsLoading(true);
     fetchMessages();
     fetchChatInfo();
     dummydiv.current.scrollIntoView({ behavior: "smooth" });
@@ -70,7 +70,7 @@ const Chatroom = (props) => {
 
   useEffect(() => {
     dummydiv.current.scrollIntoView({ behavior: "smooth" });
-  }, [messages])
+  }, [messages]);
 
   const emitMessage = (text) => {
     socket.emit("roommessage", text, user, chatInfo);
@@ -96,7 +96,7 @@ const Chatroom = (props) => {
       })
       .then((res) => {
         setMessages(res);
-        setIsLoading(false)
+        setIsLoading(false);
       })
       .catch((error) => console.log(error));
   };
@@ -126,11 +126,7 @@ const Chatroom = (props) => {
   };
 
   const mappedMessages = messages.map((message) => (
-    <Message
-      key={message.Id}
-      message={message}
-      user={user}
-    />
+    <Message key={message.Id} message={message} user={user} />
   ));
 
   return (
@@ -139,7 +135,12 @@ const Chatroom = (props) => {
       <div className="messagesContainer">
         {isLoading ? "Loading..." : null}
         {mappedMessages}
-        {isTyping ? <Message key={"typing"} message={{userId: "typing", Text: "Typing..."}} /> : null}
+        {isTyping ? (
+          <Message
+            key={"typing"}
+            message={{ userId: "typing", Text: "Typing..." }}
+          />
+        ) : null}
         <div ref={dummydiv} />
       </div>
       <CreateMessage

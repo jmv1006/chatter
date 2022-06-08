@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../contexts/authcontext";
 import { useNavigate } from "react-router-dom";
 import './auth.css';
@@ -13,6 +13,12 @@ const SignIn = () => {
 
     const [formInfo, setFormInfo] = useState({username: '', password: ''})
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        if(user) {
+            navigate('/')
+        }
+    }, [])
 
     const handleChange = (e) => {
         const value = e.target.value;
@@ -54,8 +60,8 @@ const SignIn = () => {
         <div className="signUpPageContainer">
             <h2>Sign In</h2>
             <form onSubmit={handleSubmit} className="signInForm">
-                <input type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} class="signInInput" required></input>
-                <input type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} class="signInInput" required></input>
+                <input type="email" placeholder="Username" name="username" value={formInfo.username} onChange={handleChange} className="signInInput" required></input>
+                <input type="password" placeholder="Password" name="password" value={formInfo.password} onChange={handleChange} className="signInInput" required></input>
                 <button type="submit" className="authBtn">Sign In</button>
             </form>
             {error ? <div className="formError">Invalid Username or Password</div> : null}

@@ -12,6 +12,7 @@ const SignUp = () => {
   });
   
   const[error, setError] = useState(false);
+  const [buttonText, setButtonText] = useState("Sign Up")
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -23,6 +24,7 @@ const SignUp = () => {
   };
 
   const handleSubmit = (e) => {
+    setButtonText("Signing Up...")
     e.preventDefault();
     fetch("/auth/sign-up", {
       method: "POST",
@@ -39,10 +41,14 @@ const SignUp = () => {
         return res.json();
       })
       .then((res) => {
-        navigate("/sign-in");
+        setButtonText("Successful")
+        setTimeout(() => {
+          navigate("/sign-in");
+        }, 1500);
       })
       .catch((error) => {
-          setError(true)
+        setButtonText("Sign Up")
+        setError(true)
       });
   };
 
@@ -99,7 +105,7 @@ const SignUp = () => {
             <div className="inputSecondaryInfo">Must Match Password</div>
         </div>
         {error ? <div className="formError">Error Signing Up: Please Ensure All Requirements Are Met</div> : null}
-        <button type="submit" className="signUpBtn">Submit</button>
+        <button type="submit" className="signUpBtn">{buttonText}</button>
       </form>
     </div>
   );
