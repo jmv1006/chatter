@@ -19,7 +19,7 @@ function App() {
         setNotification(object);
       });
     }
-  }, [user]);
+  }, [user]);  
 
   return (
     <div className="appContainer">
