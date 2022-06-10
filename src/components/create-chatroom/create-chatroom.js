@@ -81,7 +81,7 @@ const CreateChatroom = () => {
           {isLoading ? "Searching..." : "Search"}
         </button>
       </form>
-      {error ? "Could Not Find User" : null}
+      {error ? "User Not Found" : null}
       <div className="searchResultContainer">
         {result && <SearchResult token={token} result={result} user={user} />}
       </div>

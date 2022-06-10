@@ -57,7 +57,7 @@ const SignUp = () => {
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit} className="signUpForm">
         <div className="inputContainer">
-            <label for="username">Username (E-mail)</label>
+            <label htmlFor="username">Username (E-mail)</label>
             <input
             type="email"
             name="username"
@@ -69,7 +69,7 @@ const SignUp = () => {
             <div className="inputSecondaryInfo">Required</div>
         </div>
         <div className="inputContainer">
-            <label for="displayname">Display Name</label>
+            <label htmlFor="displayname">Display Name</label>
             <input
             type="text"
             name="displayname"
@@ -81,7 +81,7 @@ const SignUp = () => {
             <div className="inputSecondaryInfo">Required</div>
         </div>
         <div className="inputContainer">
-            <label for="password">Password</label>
+            <label htmlFor="password">Password</label>
             <input
             type="password"
             name="password"
@@ -93,7 +93,7 @@ const SignUp = () => {
             <div className="inputSecondaryInfo">Must Be At Least 3 Characters Long</div>
         </div>
         <div className="inputContainer">
-            <label for="confirmedpassword">Confirm Password</label>
+            <label htmlFor="confirmedpassword">Confirm Password</label>
             <input
             type="password"
             name="confirmedpassword"
