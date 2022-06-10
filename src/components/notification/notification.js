@@ -18,6 +18,7 @@ const Notification = (props) => {
             return;
         }
 
+        
         setTimeout(() => {
             closeNotification()
         }, 6000);
@@ -37,8 +38,7 @@ const Notification = (props) => {
     }
 
     const navigateToChat = () => {
-        navigate('/')
-        //navigate(`/chat/${props.info.chatInfo.Id}`)
+        navigate(`/chat/${props.info.chatInfo.Id}`)
         closeNotification()
     };
 
@@ -47,7 +47,7 @@ const Notification = (props) => {
             <div onClick={navigateToChat} className="notificationLink">
                 {props.info.user.displayname}: {handleText()}
             </div>
-            <button onClick={closeNotification}>X</button>
+            <button onClick={closeNotification} className="notificationBtn">X</button>
         </div>
     )
 }

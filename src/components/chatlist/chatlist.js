@@ -1,22 +1,25 @@
 import { useEffect, useContext, useState } from "react";
 import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./chatlist.css";
 
 const ChatList = () => {
+  const navigate = useNavigate();
   const { userInfo, authToken } = useContext(AuthContext);
 
   const [user] = userInfo;
   const [token] = authToken;
 
   const [chats, setChats] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchChats()
+    fetchChats();
   }, []);
 
   const fetchChats = () => {
+    setIsLoading(true);
     fetch(`/chatroom/users/${user.id}`, {
       headers: {
         Authorization: "Bearer " + token,
@@ -32,8 +35,15 @@ const ChatList = () => {
       })
       .then((res) => {
         setChats(res);
+        setIsLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        // Error fetching chats
+      });
+  };
+
+  const navigateToCreateChat = () => {
+    navigate("/chat/create");
   };
 
   const mappedChats = chats.map((chat) => (
@@ -43,9 +53,13 @@ const ChatList = () => {
   return (
     <div className="chatlistContainer">
       <div className="pageLabel">Your Conversations:</div>
+      {mappedChats.length === 0 && !isLoading
+        ? 'Click "Create Chatroom" To Begin A Chat!'
+        : null}
+      {isLoading && mappedChats.length === 0 ? "Loading Chats..." : null}
       {mappedChats}
-      <button className="createChatBtn">
-        <Link to="/chat/create" className="createChatLink">Create Chatroom</Link>
+      <button className="createChatBtn" onClick={navigateToCreateChat}>
+        Create Chatroom
       </button>
     </div>
   );

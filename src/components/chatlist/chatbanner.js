@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "./chatlist.css";
+import AuthContext from "../../contexts/authcontext";
 
 const ChatBanner = (props) => {
+  const { notificationHandler } = useContext(AuthContext);
+
+  const [notification] = notificationHandler;
+
   const navigate = useNavigate();
 
   const [recipientName, setRecipientName] = useState("");
@@ -20,6 +25,12 @@ const ChatBanner = (props) => {
     handleRecentMessageFetch();
     setIsLoading(true)
   }, []);
+
+  useEffect(() => {
+    if(notification) {
+      handleRecentMessageFetch()
+    }
+  }, [notification])
 
   const handleUsernameFetch = (id) => {
     fetch(`/auth/users/${id}`, {

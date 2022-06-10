@@ -3,20 +3,34 @@
     height: 3rem;;
     position: fixed;
     margin-top: 1.5rem;
-    background-color: teal;
-    color: white;
+    background-color: #ebeced;
     padding: .25rem;;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    cursor: pointer;
 }
 
 .notificationLink {
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
 .notificationLink:hover {
-    color: white;
+    color: black;
     text-decoration: underline;
+    cursor: pointer;
+}
+
+.notificationBtn {
+    width: 15%;
+    height: 55%;
+    background-color: #47a9ff;
+    border: none;
+}
+.notificationBtn:hover {
+    width: 15%;
+    background-color: #47a9ff;
+    border: 1px solid black;
+    cursor: pointer;
 }

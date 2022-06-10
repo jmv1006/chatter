@@ -25,7 +25,7 @@ function App() {
     <div className="appContainer">
       <Header />
       {notification ? (<Notification info={notification} setNotification={setNotification} user={user}/>) : null}
-      <AuthContext.Provider value={{ userInfo: [user, setUser], authToken: [token, setToken] }}>
+      <AuthContext.Provider value={{ userInfo: [user, setUser], authToken: [token, setToken], notificationHandler: [notification, setNotification]}}>
         <Outlet />
       </AuthContext.Provider>
     </div>

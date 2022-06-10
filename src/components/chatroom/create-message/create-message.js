@@ -48,7 +48,7 @@ const CreateMessage = (props) => {
   return (
     <div className="createMessageContainer">
       <form onSubmit={handleSubmit} className="newMessageForm">
-        <textarea
+        <input
           className="messageTextInput"
           type="text"
           placeholder="Message Here..."

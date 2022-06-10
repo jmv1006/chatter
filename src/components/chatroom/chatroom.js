@@ -72,6 +72,12 @@ const Chatroom = (props) => {
     dummydiv.current.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    fetchMessages();
+    fetchChatInfo();
+  }, [params.chatId])
+
   const emitMessage = (text) => {
     socket.emit("roommessage", text, user, chatInfo);
   };
