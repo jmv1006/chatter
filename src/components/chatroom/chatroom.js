@@ -128,7 +128,9 @@ const Chatroom = (props) => {
         }
         setRecipientName(res[0].Member1Name);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        //error fetching chat info
+      });
   };
 
   const mappedMessages = messages.map((message) => (
