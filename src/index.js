@@ -8,6 +8,7 @@ import Chatroom from "./components/chatroom/chatroom";
 import SignUp from "./components/auth/sign-up";
 import CreateChatroom from "./components/create-chatroom/create-chatroom";
 import NotFound from "./components/404/not-found";
+import ErrorPage from "./components/error/error";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

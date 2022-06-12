@@ -6,10 +6,11 @@ import "./chatlist.css";
 
 const ChatList = () => {
   const navigate = useNavigate();
-  const { userInfo, authToken } = useContext(AuthContext);
+  const { userInfo, authToken, notificationHandler } = useContext(AuthContext);
 
   const [user] = userInfo;
   const [token] = authToken;
+  const [notification, setNotification] = notificationHandler;
 
   const [chats, setChats] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,12 @@ const ChatList = () => {
   useEffect(() => {
     fetchChats();
   }, []);
+
+  useEffect(() => {
+    if(notification) {
+      setNotification(false)
+    }
+  }, [notification])
 
   const fetchChats = () => {
     setIsLoading(true);

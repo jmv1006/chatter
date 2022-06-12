@@ -74,6 +74,14 @@ const ChatBanner = (props) => {
       .catch((error) => console.log(error));
   };
 
+  const handleText = () => {
+    if(recentMessage.length > 30) {
+      const reducedMsg = recentMessage.substring(0, 30)
+      return reducedMsg + "...."
+  }
+  return recentMessage;
+  }
+
   const navigateToChat = () => {
     navigate("/chat/" + props.chat.Id);
   };
@@ -82,7 +90,7 @@ const ChatBanner = (props) => {
     <div className="chatBanner" onClick={navigateToChat}>
       {isLoading ? "Loading..." : null}
       <div className="chatBannerName">{recipientName}</div>
-      <div className="recentMsg">{recentMessage}</div>
+      <div className="recentMsg">{handleText()}</div>
     </div>
   );
 };
