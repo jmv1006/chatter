@@ -1,22 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
+import { useNavigate } from "react-router-dom";
 import "./chatlist.css";
 
-<<<<<<< HEAD
-const ChatList = () => {
+const ChatList = (props) => {
   const navigate = useNavigate();
   const { userInfo, authToken, notificationHandler } = useContext(AuthContext);
-=======
-const ChatList = (props) => {
-  const { userInfo, authToken } = useContext(AuthContext);
->>>>>>> origin/main
 
   const [user] = userInfo;
   const [token] = authToken;
   const [notification, setNotification] = notificationHandler;
 
-<<<<<<< HEAD
   const [chats, setChats] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -59,9 +54,6 @@ const ChatList = (props) => {
   };
 
   const mappedChats = chats.map((chat) => (
-=======
-  const mappedChats = props.chats.map((chat) => (
->>>>>>> origin/main
     <ChatBanner key={chat.Id} chat={chat} user={user} token={token} />
   ));
 
