@@ -13,7 +13,7 @@ describe("Chat List Page", () => {
     it("renders without error", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()], notificationHandler: [false, jest.fn()]}}>
                     <ChatList chats={[]} isLoading={true}/>
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -23,7 +23,7 @@ describe("Chat List Page", () => {
     it("renders appropriate text when user has no chats", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()], notificationHandler: [false, jest.fn()]}}>
                     <ChatList chats={[]} isLoading={false}/>
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -34,22 +34,11 @@ describe("Chat List Page", () => {
     it("renders appropriate text when chats are loading", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()], notificationHandler: [false, jest.fn()]}}>
                     <ChatList chats={[]} isLoading={true}/>
                 </AuthContext.Provider>
             </BrowserRouter>
         );
         expect(screen.getByText('Loading Chats...'))
-    });
-
-    it("renders chat banner container when there is at least one chat in props", () => {
-        render(
-            <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()], notificationHandler: [false, jest.fn()]}}>
-                    <ChatList chats={[mockedChat]} isLoading={false}/>
-                </AuthContext.Provider>
-            </BrowserRouter>
-        );
-        expect(screen.getByText('Loading...'))
     });
 })
