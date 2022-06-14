@@ -9,7 +9,7 @@ describe("Create Chatroom Page", () => {
     it("renders without error", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <CreateChatroom />
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -19,7 +19,7 @@ describe("Create Chatroom Page", () => {
     it("calls handle submit function on button press", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <CreateChatroom />
                 </AuthContext.Provider>
             </BrowserRouter>

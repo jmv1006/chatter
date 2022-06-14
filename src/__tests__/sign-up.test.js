@@ -9,7 +9,7 @@ describe("Sign Up Page", () => {
     it("renders without error", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <SignUp />
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -19,7 +19,7 @@ describe("Sign Up Page", () => {
     it("calls handle submit function on button press", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <SignUp />
                 </AuthContext.Provider>
             </BrowserRouter>

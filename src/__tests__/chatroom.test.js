@@ -12,7 +12,7 @@ describe("Chatroom Page", () => {
     it("renders without error", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <Chatroom />
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -22,7 +22,7 @@ describe("Chatroom Page", () => {
     it("renders sending on send button click", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <Chatroom />
                 </AuthContext.Provider>
             </BrowserRouter>

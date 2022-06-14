@@ -42,14 +42,14 @@ function App() {
         res.json();
       })
       .then((res) => {
-        setUser(null);
+        window.location.reload()
       });
   };
 
   return (
     <div className="appContainer">
       <Header />
-      {user && <button onClick={logout}>Log Out</button>}
+      { user && <button onClick={logout}>Log Out</button> }
       {notification ? (
         <Notification
           info={notification}

@@ -8,7 +8,7 @@ describe("Home Page", () => {
     it("renders without error", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <HomePage />
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -18,7 +18,7 @@ describe("Home Page", () => {
     it("renders auth page if no user is signed in", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [null, jest.fn()], authToken: [null, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [null, jest.fn()]}}>
                     <HomePage />
                 </AuthContext.Provider>
             </BrowserRouter>
@@ -30,7 +30,7 @@ describe("Home Page", () => {
     it("renders chat list page if user is signed in", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], authToken: [{}, jest.fn()]}}>
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
                     <HomePage />
                 </AuthContext.Provider>
             </BrowserRouter>
