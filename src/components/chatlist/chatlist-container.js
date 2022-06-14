@@ -3,44 +3,23 @@ import AuthContext from "../../contexts/authcontext";
 import { useNavigate } from "react-router-dom";
 import "./chatlist.css";
 import ChatList from "./chatlist";
+import useFetch from "../../hooks/use-fetch";
 
 const ChatListContainer = () => {
   const navigate = useNavigate();
-  const { userInfo, authToken } = useContext(AuthContext);
+  const { userInfo } = useContext(AuthContext);
 
   const [user] = userInfo;
-  const [token] = authToken;
 
   const [chats, setChats] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+
+  const {response, error, isLoading, reFetch} = useFetch(`/chatroom/users/${user.id}`)
 
   useEffect(() => {
-    fetchChats();
-  }, []);
-
-  const fetchChats = () => {
-    setIsLoading(true);
-    fetch(`/chatroom/users/${user.id}`, {
-      headers: {
-        Authorization: "Bearer " + token,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setChats(res);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setIsLoading(false);
-      });
-  };
+    if(response) {
+      setChats(response)
+    }
+  }, [response])
 
   const navigateToCreateChat = () => {
     navigate("/chat/create");

@@ -8,7 +8,7 @@ import Chatroom from "./components/chatroom/chatroom";
 import SignUp from "./components/auth/sign-up";
 import CreateChatroom from "./components/create-chatroom/create-chatroom";
 import NotFound from "./components/404/not-found";
-import ErrorPage from "./components/error/error";
+import SessionExpired from "./components/session-expired/session-expired";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -20,6 +20,7 @@ root.render(
         <Route path="sign-up" element={<SignUp />} />
         <Route path="/chat/:chatId" element={<Chatroom />} />
         <Route path="/chat/create" element={<CreateChatroom />} />
+        <Route path="/session-expired" element={<SessionExpired />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

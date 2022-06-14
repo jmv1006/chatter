@@ -5,11 +5,10 @@ import SearchResult from "./search-result";
 import "./create-chatroom.css";
 
 const CreateChatroom = () => {
-  const { userInfo, authToken } = useContext(AuthContext);
+  const { userInfo } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [user] = userInfo;
-  const [token] = authToken;
 
   const [input, setInput] = useState({ input: "" });
   const [result, setResult] = useState(null);
@@ -39,7 +38,6 @@ const CreateChatroom = () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
       },
     })
       .then((res) => {
@@ -83,7 +81,7 @@ const CreateChatroom = () => {
       </form>
       {error ? "User Not Found" : null}
       <div className="searchResultContainer">
-        {result && <SearchResult token={token} result={result} user={user} />}
+        {result && <SearchResult result={result} user={user} />}
       </div>
     </div>
   );

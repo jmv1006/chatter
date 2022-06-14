@@ -1,5 +1,5 @@
-import { useEffect, useContext } from "react"
-import AuthContext from "../../../contexts/authcontext";
+import { useContext } from "react"
+import AuthContext from "../../../../contexts/authcontext";
 import './message.css';
 
 const Message = (props) => {

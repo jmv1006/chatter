@@ -5,25 +5,26 @@ import "./app.css";
 import AuthContext from "../contexts/authcontext";
 import { io } from "socket.io-client";
 import Notification from "../components/notification/notification";
-import ErrorPage from "../components/error/error";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(false);
-  const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
-    fetch('/api')
-    .then(res =>{
-      if(!res.ok) {
-        throw new Error()
-      }
-    })
-    .catch(error => {
-      setApiError(true)
-    })
-  }, [])
+    fetch("/auth/session")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error();
+        }
+        return res.json();
+      })
+      .then((res) => {
+        setUser(res.user);
+      })
+      .catch((err) => {
+        //refresh token does not exist
+      });
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -33,14 +34,35 @@ function App() {
         setNotification(object);
       });
     }
-  }, [user]);  
+  }, [user]);
+
+  const logout = () => {
+    fetch("/auth/log-out")
+      .then((res) => {
+        res.json();
+      })
+      .then((res) => {
+        setUser(null);
+      });
+  };
 
   return (
     <div className="appContainer">
       <Header />
-      {notification ? (<Notification info={notification} setNotification={setNotification} user={user}/>) : null}
-      {apiError ? <ErrorPage /> : null}
-      <AuthContext.Provider value={{ userInfo: [user, setUser], authToken: [token, setToken], notificationHandler: [notification, setNotification]}}>
+      {user && <button onClick={logout}>Log Out</button>}
+      {notification ? (
+        <Notification
+          info={notification}
+          setNotification={setNotification}
+          user={user}
+        />
+      ) : null}
+      <AuthContext.Provider
+        value={{
+          userInfo: [user, setUser],
+          notificationHandler: [notification, setNotification],
+        }}
+      >
         <Outlet />
       </AuthContext.Provider>
     </div>

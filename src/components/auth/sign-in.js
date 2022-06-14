@@ -4,10 +4,9 @@ import { useNavigate } from "react-router-dom";
 import './auth.css';
 
 const SignIn = () => {
-    const {userInfo, authToken} = useContext(AuthContext);
+    const {userInfo} = useContext(AuthContext);
 
     const [user, setUser] = userInfo;
-    const [token, setToken] = authToken;
 
     const navigate = useNavigate();
 
@@ -50,7 +49,7 @@ const SignIn = () => {
         })
         .then(res => {
             setUser(res.user)
-            setToken(res.token)
+            //setToken(res.token)
             setIsLoading(false)
             navigate("/")
         })

@@ -21,7 +21,6 @@ const SearchResult = (props) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + props.token,
       },
       body: JSON.stringify(body),
     })

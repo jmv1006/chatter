@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import './create-message.css';
+import "./create-message.css";
 
 const CreateMessage = (props) => {
   const params = useParams();
 
   const [message, setMessage] = useState({ text: "" });
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     props.sendServerTyping();
@@ -18,30 +18,33 @@ const CreateMessage = (props) => {
   };
 
   const handleSubmit = (e) => {
-    setIsLoading(true)
+    setIsLoading(true);
     e.preventDefault();
     fetch(`/chatroom/${params.chatId}/create-message`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: "Bearer " + props.token,
       },
       body: JSON.stringify({ text: message.text, userid: props.user.id }),
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error();
+          throw new Error(res.status);
         }
         return res.json();
       })
       .then((res) => {
-        setIsLoading(false)
+        setIsLoading(false);
         props.emitMessage(message.text);
-        setMessage({text: ''})
+        setMessage({ text: "" });
       })
       .catch((error) => {
-        setIsLoading(false)
+        if (error.message == "401") {
+          //Token expired
+          window.location.reload();
+        }
+        setIsLoading(false);
       });
   };
 
@@ -57,7 +60,9 @@ const CreateMessage = (props) => {
           onChange={handleChange}
           required
         />
-        <button type="submit" className="messageSendButton">{isLoading ? "Sending..." : "Send"}</button>
+        <button type="submit" className="messageSendButton">
+          {isLoading ? "Sending..." : "Send"}
+        </button>
       </form>
     </div>
   );

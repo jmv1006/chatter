@@ -35,7 +35,7 @@ const ChatBanner = (props) => {
   const handleUsernameFetch = (id) => {
     fetch(`/auth/users/${id}`, {
       headers: {
-        Authorization: "Bearer " + props.token,
+        //Authorization: "Bearer " + props.token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -50,13 +50,14 @@ const ChatBanner = (props) => {
         setRecipientName(res[0].DisplayName);
         setIsLoading(false)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        //error fetching info
+      });
   };
 
   const handleRecentMessageFetch = () => {
     fetch(`/chatroom/${props.chat.Id}/messages`, {
       headers: {
-        Authorization: "Bearer " + props.token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
@@ -71,15 +72,17 @@ const ChatBanner = (props) => {
         const index = res.length - 1;
         setRecentMessage(res[index].Text);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        //error getting info
+      });
   };
 
   const handleText = () => {
     if(recentMessage.length > 30) {
       const reducedMsg = recentMessage.substring(0, 30)
       return reducedMsg + "...."
-  }
-  return recentMessage;
+    }
+    return recentMessage;
   }
 
   const navigateToChat = () => {
