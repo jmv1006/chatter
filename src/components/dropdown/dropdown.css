@@ -1,0 +1,67 @@
+.dropDownContainer {
+    position: absolute;
+    width: 100%;
+    height: 12rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-top: 1rem;
+    background-color: #404040;
+    color: white;
+}
+
+.exitBtnContainer {
+    width: 95%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.dropDownCloseBtn {
+    background-color: #47a9ff;
+    border: none;
+    width: 2rem;
+    height: 1.5rem;
+}
+
+.dropDownCloseBtn:hover {
+    background-color: #47a9ff;
+    border: none;
+    width: 2rem;
+    height: 1.5rem;
+    cursor: pointer;
+    border: 1px solid black;
+}
+
+.interactionContainer {
+    width: 95%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2rem;
+}
+
+.dropDownAction {
+    border: 1px solid white;
+    width: 85%;
+    height: 2.5rem;
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropDownAction:hover {
+    border: 2px solid white;
+    width: 85%;
+    height: 2.5rem;
+    font-size: 1.6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: underline;
+    cursor: pointer;
+}

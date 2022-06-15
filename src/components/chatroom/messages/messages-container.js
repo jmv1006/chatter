@@ -1,10 +1,11 @@
 import useFetch from "../../../hooks/use-fetch";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import Message from "./message/message";
 
 const MessagesContainer = (props) => {
   const params = useParams();
+  const buttonRef = useRef(null);
 
   const [messages, setMessages] = useState([]);
 
@@ -13,7 +14,7 @@ const MessagesContainer = (props) => {
     error: messagesError,
     isLoading: messagesAreLoading,
     reFetch: messagesReFetch,
-  } = useFetch(`/chatroom/${params.chatId}/messages`);
+  } = useFetch(`/chatroom/${params.chatId}/messages/`);
 
   useEffect(() => {
     if (messagesResponse) {
@@ -32,6 +33,10 @@ const MessagesContainer = (props) => {
       });
     }
   }, [props.socket]);
+
+  useEffect(() => {
+    messagesReFetch();
+  }, [params.chatId]);
 
   const mappedMessages = messages.map((message) => (
     <Message key={message.Id} message={message} user={props.user} />

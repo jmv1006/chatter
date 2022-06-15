@@ -1,14 +1,19 @@
 import { useState, useEffect } from "react";
 import Header from "../components/header/header";
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import "./app.css";
 import AuthContext from "../contexts/authcontext";
 import { io } from "socket.io-client";
 import Notification from "../components/notification/notification";
+import DropDown from "../components/dropdown/dropdown";
+import Footer from "../components/footer/footer";
 
 function App() {
+  const params = useParams();
+
   const [user, setUser] = useState(null);
   const [notification, setNotification] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 
   useEffect(() => {
     fetch("/auth/session")
@@ -46,10 +51,20 @@ function App() {
       });
   };
 
+  const toggleDropDown = () => {
+    if (dropDown) {
+      setDropDown(false);
+      return;
+    }
+    setDropDown(true);
+  };
+
   return (
     <div className="appContainer">
-      <Header />
-      {user && <button onClick={logout}>Log Out</button>}
+      <Header user={user} toggleDropDown={toggleDropDown} />
+      {dropDown && (
+        <DropDown toggleDropDown={toggleDropDown} user={user} logout={logout} />
+      )}
       {notification ? (
         <Notification
           info={notification}
@@ -65,6 +80,7 @@ function App() {
       >
         <Outlet />
       </AuthContext.Provider>
+      {!params.chatId && <Footer />}
     </div>
   );
 }

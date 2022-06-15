@@ -38,7 +38,6 @@ const Chatroom = (props) => {
     if (!user) {
       return navigate("/");
     }
-    dummydiv.current.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   useEffect(() => {
@@ -78,6 +77,8 @@ const Chatroom = (props) => {
 
   useEffect(() => {
     chatInfoReFetch();
+    const newSocket = io("https://jmv1006-chatterapi.herokuapp.com/");
+    setSocket(newSocket);
   }, [params.chatId]);
 
   const emitMessage = (text) => {
