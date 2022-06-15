@@ -35,7 +35,6 @@ const ChatBanner = (props) => {
   const handleUsernameFetch = (id) => {
     fetch(`/auth/users/${id}`, {
       headers: {
-        //Authorization: "Bearer " + props.token,
         Accept: "application/json",
         "Content-Type": "application/json",
       },
