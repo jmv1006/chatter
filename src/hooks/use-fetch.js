@@ -39,7 +39,6 @@ const useFetch = (url) => {
         .catch((error) => {
             if(error.message == '401') {
                 logout()
-                window.location.reload()
             }
             setIsLoading(false)
             setError(true)
@@ -57,6 +56,8 @@ const useFetch = (url) => {
         })
         .then((res) => {
             setUser(null);
+            navigate('/')
+            window.location.reload()
         });
     };
 

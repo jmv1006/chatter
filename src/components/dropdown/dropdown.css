@@ -46,7 +46,7 @@
 
 .dropDownAction {
     border: 1px solid white;
-    width: 85%;
+    width: 60%;
     height: 2.5rem;
     font-size: 1.6rem;
     display: flex;
@@ -55,8 +55,8 @@
 }
 
 .dropDownAction:hover {
-    border: 2px solid white;
-    width: 85%;
+    border: 1px solid white;
+    width: 60%;
     height: 2.5rem;
     font-size: 1.6rem;
     display: flex;

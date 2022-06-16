@@ -15,7 +15,7 @@ const UserInfo = (props) => {
   const [user, setUser] = useState(null);
   const [chat, setChat] = useState(null);
   const [isCurrentUser, setIsCurrentUser] = useState(false);
-  const [buttonText, setButtonText] = useState("Create Chat")
+  const [buttonText, setButtonText] = useState("Create Chat");
 
   const { response, error, isLoading, reFetch } = useFetch(
     `/auth/users/${params.userId}`
@@ -54,11 +54,11 @@ const UserInfo = (props) => {
         }
       });
     }
-  }, [chatResponse]);
+  }, [chatResponse, user, currentUser]);
 
   const createChat = () => {
-    setButtonText("Creating Chat...")
-    
+    setButtonText("Creating Chat...");
+
     const body = {
       member1: currentUser.id,
       member2: user.Id,
@@ -74,23 +74,22 @@ const UserInfo = (props) => {
       },
       body: JSON.stringify(body),
     })
-    .then((res) => {  
-      if (!res.ok) {
-        throw new Error(res)
-      }
-      return res.json();
-    })
-    .then((res) => {
-      setButtonText("Success")
-      navigate("/");
-    })
-    .catch((error) => {
-      setButtonText("Error Creating Chat");
-      setTimeout(() => {
-        setButtonText("Create Chat");
-      }, 2000);
-    });
-      
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(res);
+        }
+        return res.json();
+      })
+      .then((res) => {
+        setButtonText("Success");
+        navigate("/");
+      })
+      .catch((error) => {
+        setButtonText("Error Creating Chat");
+        setTimeout(() => {
+          setButtonText("Create Chat");
+        }, 2000);
+      });
   };
 
   return (
@@ -102,7 +101,12 @@ const UserInfo = (props) => {
       </div>
       <div className="userInfoUsername">E-mail: {user && user.Username}</div>
       {chat && <Link to={`/chat/${chat.Id}`}>Go To Chat</Link>}
-      {!chat && !isLoading && !isCurrentUser ? <button onClick={createChat} className="createChatBtn">{buttonText}</button> : null}
+      {!chat & !isLoading & !chatIsLoading & !isCurrentUser ? (
+        <button onClick={createChat} className="createChatBtn">
+          {buttonText}
+        </button>
+      ) : null}
+      {isCurrentUser && <Link to={'/'}>Back To Home</Link>}
     </div>
   );
 };
