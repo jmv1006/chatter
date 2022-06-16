@@ -1,11 +1,10 @@
-import useFetch from "../../../hooks/use-fetch";
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
+import useFetch from "../../../hooks/use-fetch";
 import Message from "./message/message";
 
 const MessagesContainer = (props) => {
   const params = useParams();
-  const buttonRef = useRef(null);
 
   const [messages, setMessages] = useState([]);
 

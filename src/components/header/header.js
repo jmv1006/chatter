@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import "./header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripLines } from "@fortawesome/free-solid-svg-icons";
+import "./header.css";
 
 const Header = (props) => {
   const navigate = useNavigate();

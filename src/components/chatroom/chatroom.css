@@ -16,6 +16,20 @@
     font-weight: bold;
 }
 
+.recipientNameLink {
+    font-size: 1.35rem;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+.recipientNameLink:hover {
+    font-size: 1.35rem;
+    font-weight: bold;
+    color: black;
+    text-decoration: underline;
+}
+
 .messagesContainer {
     width: 100%;
     display: flex;

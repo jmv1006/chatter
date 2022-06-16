@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
 import "./chatlist.css";
@@ -14,7 +14,6 @@ const ChatList = (props) => {
       setNotification(false);
     }
   }, [notification]);
-
 
   const mappedChats = props.chats.map((chat) => (
     <ChatBanner key={chat.Id} chat={chat} user={user} /*token={token}*/ />

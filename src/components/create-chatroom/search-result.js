@@ -4,11 +4,10 @@ import { useNavigate } from "react-router-dom";
 const SearchResult = (props) => {
   const navigate = useNavigate();
 
-  const [error, setError] = useState(false);
-  const [buttonText, setButtonText] = useState("Create Chat")
+  const [buttonText, setButtonText] = useState("Create Chat");
 
   const createChat = () => {
-    setButtonText("Creating Chat...")
+    setButtonText("Creating Chat...");
     const body = {
       member1: props.user.id,
       member2: props.result.Id,
@@ -33,14 +32,14 @@ const SearchResult = (props) => {
         return res.json();
       })
       .then((res) => {
-        setButtonText("Success")
+        setButtonText("Success");
         navigate("/");
       })
       .catch((error) => {
-        setButtonText("Error Creating Chat")
+        setButtonText("Error Creating Chat");
         setTimeout(() => {
-          setButtonText("Create Chat")
-        }, 2000)
+          setButtonText("Create Chat");
+        }, 2000);
       });
   };
 

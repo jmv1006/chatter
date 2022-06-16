@@ -1,11 +1,11 @@
 import { useEffect, useContext, useState, useRef } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { io } from "socket.io-client";
 import AuthContext from "../../contexts/authcontext";
 import CreateMessage from "./create-message/create-message";
-import { io } from "socket.io-client";
-import "./chatroom.css";
-import useFetch from "../../hooks/use-fetch";
 import MessagesContainer from "./messages/messages-container";
+import useFetch from "../../hooks/use-fetch";
+import "./chatroom.css";
 
 const Chatroom = (props) => {
   const params = useParams();
@@ -32,7 +32,10 @@ const Chatroom = (props) => {
   });
   const [socket, setSocket] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
-  const [recipientName, setRecipientName] = useState("");
+  const [recipientInfo, setRecipientInfo] = useState({
+    name: "",
+    id: "",
+  });
 
   useEffect(() => {
     if (!user) {
@@ -44,9 +47,17 @@ const Chatroom = (props) => {
     if (chatInfoResponse) {
       setChatInfo(chatInfoResponse[0]);
       if (chatInfoResponse[0].Member1 === user.id) {
-        return setRecipientName(chatInfoResponse[0].Member2Name);
+        const recipientInfo = {
+          name: chatInfoResponse[0].Member2Name,
+          id: chatInfoResponse[0].Member2,
+        };
+        return setRecipientInfo(recipientInfo);
       }
-      setRecipientName(chatInfoResponse[0].Member1Name);
+      const recipientInfo = {
+        name: chatInfoResponse[0].Member1Name,
+        id: chatInfoResponse[0].Member1,
+      };
+      setRecipientInfo(recipientInfo);
     }
   }, [chatInfoResponse]);
 
@@ -95,7 +106,9 @@ const Chatroom = (props) => {
 
   return (
     <div className="chatroomContainer">
-      <div className="recipientName">{recipientName}</div>
+      <Link className="recipientNameLink" to={`/user/${recipientInfo.id}`}>
+        <div className="recipientName">{recipientInfo.name}</div>
+      </Link>
       <MessagesContainer
         user={user}
         isTyping={isTyping}

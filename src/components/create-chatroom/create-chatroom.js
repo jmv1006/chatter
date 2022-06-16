@@ -48,7 +48,7 @@ const CreateChatroom = () => {
       })
       .then((res) => {
         setIsLoading(false);
-        handleSearchResult(res[0]);
+        handleSearchResult(res);
       })
       .catch((error) => {
         setError(true);

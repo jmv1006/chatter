@@ -9,6 +9,7 @@ import SignUp from "./components/auth/sign-up";
 import CreateChatroom from "./components/create-chatroom/create-chatroom";
 import NotFound from "./components/404/not-found";
 import SessionExpired from "./components/session-expired/session-expired";
+import UserInfo from "./components/user-info/user-info-page";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -21,6 +22,7 @@ root.render(
         <Route path="/chat/:chatId" element={<Chatroom />} />
         <Route path="/chat/create" element={<CreateChatroom />} />
         <Route path="/session-expired" element={<SessionExpired />} />
+        <Route path="/user/:userId" element={<UserInfo />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

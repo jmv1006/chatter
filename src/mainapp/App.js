@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import Header from "../components/header/header";
 import { Outlet, useParams } from "react-router-dom";
-import "./app.css";
-import AuthContext from "../contexts/authcontext";
 import { io } from "socket.io-client";
+import AuthContext from "../contexts/authcontext";
+import Header from "../components/header/header";
 import Notification from "../components/notification/notification";
 import DropDown from "../components/dropdown/dropdown";
 import Footer from "../components/footer/footer";
+import "./app.css";
 
 function App() {
   const params = useParams();
@@ -42,13 +42,9 @@ function App() {
   }, [user]);
 
   const logout = () => {
-    fetch("/auth/log-out")
-      .then((res) => {
-        res.json();
-      })
-      .then((res) => {
-        window.location.reload();
-      });
+    fetch("/auth/log-out").then((res) => {
+      window.location.reload();
+    });
   };
 
   const toggleDropDown = () => {

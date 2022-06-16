@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import "./chatlist.css";
 import AuthContext from "../../contexts/authcontext";
+import "./chatlist.css";
 
 const ChatBanner = (props) => {
   const { notificationHandler } = useContext(AuthContext);
@@ -18,19 +18,19 @@ const ChatBanner = (props) => {
     if (props.chat.Member1 === props.user.id) {
       handleRecentMessageFetch();
       handleUsernameFetch(props.chat.Member2);
-      setIsLoading(true)
+      setIsLoading(true);
       return;
     }
     handleUsernameFetch(props.chat.Member1);
     handleRecentMessageFetch();
-    setIsLoading(true)
+    setIsLoading(true);
   }, []);
 
   useEffect(() => {
-    if(notification) {
-      handleRecentMessageFetch()
+    if (notification) {
+      handleRecentMessageFetch();
     }
-  }, [notification])
+  }, [notification]);
 
   const handleUsernameFetch = (id) => {
     fetch(`/auth/users/${id}`, {
@@ -46,8 +46,8 @@ const ChatBanner = (props) => {
         return res.json();
       })
       .then((res) => {
-        setRecipientName(res[0].DisplayName);
-        setIsLoading(false)
+        setRecipientName(res.DisplayName);
+        setIsLoading(false);
       })
       .catch((error) => {
         //error fetching info
@@ -77,12 +77,12 @@ const ChatBanner = (props) => {
   };
 
   const handleText = () => {
-    if(recentMessage.length > 30) {
-      const reducedMsg = recentMessage.substring(0, 30)
-      return reducedMsg + "...."
+    if (recentMessage.length > 30) {
+      const reducedMsg = recentMessage.substring(0, 30);
+      return reducedMsg + "....";
     }
     return recentMessage;
-  }
+  };
 
   const navigateToChat = () => {
     navigate("/chat/" + props.chat.Id);
