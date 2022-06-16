@@ -3,66 +3,57 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const useFetch = (url) => {
-    const { userInfo } = useContext(AuthContext);
-    const navigate = useNavigate();
+  const { userInfo } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const [user, setUser] = userInfo;
+  const [user, setUser] = userInfo;
 
-    const [response, setResponse] = useState(null)
-    const [error, setError] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        if(url) {
-            fetchData(url)
-        }
-    }, [url])
+  useEffect(() => {
+    if (url) {
+      fetchData(url);
+    }
+  }, [url]);
 
-    const fetchData = (url) => {
-        setIsLoading(true)
-        fetch(url, {
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          })
-        .then((res) => {
-            if (!res.ok) {
-            throw new Error(res.status);
-            }
-            return res.json();
-        })
-        .then(res => {
-            setIsLoading(false)
-            setResponse(res)
-        })
-        .catch((error) => {
-            if(error.message == '401') {
-                logout()
-            }
-            setIsLoading(false)
-            setError(true)
-        });
+  const fetchData = async (url) => {
+    setIsLoading(true);
+
+    const res = await fetch(url);
+
+    if (!res.ok) {
+      if (res.status === 401) {
+        logout();
+        return;
+      }
+      setIsLoading(false);
+      setError(true);
     }
 
-    const reFetch = () => {
-        fetchData(url)
-    }
+    const resJSON = await res.json();
+    setResponse(resJSON);
+    setIsLoading(false);
+  };
 
-    const logout = () => {
-        fetch("/auth/log-out")
-        .then((res) => {
-            res.json();
-        })
-        .then((res) => {
-            setUser(null);
-            navigate('/')
-            window.location.reload()
-        });
-    };
+  const reFetch = () => {
+    fetchData(url);
+  };
 
-    return { response, error, isLoading, reFetch}
+  const logout = () => {
+    fetch("/auth/log-out")
+      .then((res) => {
+        res.json();
+      })
+      .then((res) => {
+        setUser(null);
+        navigate("/");
+        window.location.reload();
+      });
+  };
 
-}
+  return { response, error, isLoading, reFetch };
+};
 
-export default useFetch
+export default useFetch;

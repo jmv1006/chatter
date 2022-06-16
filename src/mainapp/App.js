@@ -16,19 +16,17 @@ function App() {
   const [dropDown, setDropDown] = useState(false);
 
   useEffect(() => {
-    fetch("/auth/session")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setUser(res.user);
-      })
-      .catch((err) => {
-        //refresh token does not exist
-      });
+    const checkForSession = async () => {
+      const response = await fetch("/auth/session")
+      if(!response.ok) {
+        //User is unauthorized because cookie is expired or does not exist
+        return
+      }
+      const responseObj = await response.json()
+      const user = responseObj.user;
+      setUser(user)
+    };
+    checkForSession();
   }, []);
 
   useEffect(() => {
@@ -41,10 +39,9 @@ function App() {
     }
   }, [user]);
 
-  const logout = () => {
-    fetch("/auth/log-out").then((res) => {
-      window.location.reload();
-    });
+  const logout = async () => {
+    const res = await fetch("/auth/log-out")
+    window.location.reload()
   };
 
   const toggleDropDown = () => {
