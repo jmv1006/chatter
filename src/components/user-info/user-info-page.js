@@ -1,11 +1,12 @@
 import { useEffect, useState, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../../contexts/authcontext";
 import useFetch from "../../hooks/use-fetch";
 import "./user-info.css";
 
 const UserInfo = (props) => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const { userInfo } = useContext(AuthContext);
 
@@ -14,10 +15,12 @@ const UserInfo = (props) => {
   const [user, setUser] = useState(null);
   const [chat, setChat] = useState(null);
   const [isCurrentUser, setIsCurrentUser] = useState(false);
+  const [buttonText, setButtonText] = useState("Create Chat")
 
   const { response, error, isLoading, reFetch } = useFetch(
     `/auth/users/${params.userId}`
   );
+
   const {
     response: chatResponse,
     error: chatError,
@@ -32,7 +35,7 @@ const UserInfo = (props) => {
   }, [response]);
 
   useEffect(() => {
-    if (user) {
+    if (user && currentUser) {
       if (user.Id == currentUser.id) {
         setIsCurrentUser(true);
       }
@@ -40,7 +43,7 @@ const UserInfo = (props) => {
   }, [user]);
 
   useEffect(() => {
-    if (chatResponse && user) {
+    if (chatResponse && user && currentUser) {
       chatResponse.forEach((chat) => {
         if (
           (chat.Member1 === currentUser.id && chat.Member2 === user.Id) ||
@@ -53,14 +56,53 @@ const UserInfo = (props) => {
     }
   }, [chatResponse]);
 
+  const createChat = () => {
+    setButtonText("Creating Chat...")
+    
+    const body = {
+      member1: currentUser.id,
+      member2: user.Id,
+      member1name: currentUser.displayname,
+      member2name: user.DisplayName,
+    };
+
+    fetch(`/chatroom/create`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    })
+    .then((res) => {  
+      if (!res.ok) {
+        throw new Error(res)
+      }
+      return res.json();
+    })
+    .then((res) => {
+      setButtonText("Success")
+      navigate("/");
+    })
+    .catch((error) => {
+      setButtonText("Error Creating Chat");
+      setTimeout(() => {
+        setButtonText("Create Chat");
+      }, 2000);
+    });
+      
+  };
+
   return (
     <div className="userInfoPageContainer">
-      This is User Info:
-      <div>{user && user.Username}</div>
-      <div>{chat && <Link to={`/chat/${chat.Id}`}>Go To Chat</Link>}</div>
-      <div>
-        {!chat && !isLoading && !isCurrentUser ? <div>Create Chat</div> : null}
+      {isLoading && "Loading..."}
+      <div className="userInfoTopContainer">
+        <div className="userInfoDisplayName">{user && user.DisplayName}</div>
+        <div>User Id: {user && user.Id}</div>
       </div>
+      <div className="userInfoUsername">E-mail: {user && user.Username}</div>
+      {chat && <Link to={`/chat/${chat.Id}`}>Go To Chat</Link>}
+      {!chat && !isLoading && !isCurrentUser ? <button onClick={createChat} className="createChatBtn">{buttonText}</button> : null}
     </div>
   );
 };

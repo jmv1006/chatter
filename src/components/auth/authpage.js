@@ -6,7 +6,7 @@ const AuthPage = () => {
 
   const navigateToSignUp = () => {
     navigate("/sign-up");
-  };
+  };        
 
   const navigateToSignIn = () => {
     navigate("/sign-in");

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -114,6 +114,7 @@ const SignUp = () => {
         <button type="submit" className="signUpBtn">
           {buttonText}
         </button>
+        <div>Already Have An Account? <Link to="/sign-in">Sign In Here.</Link></div>
       </form>
     </div>
   );

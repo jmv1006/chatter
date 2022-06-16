@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../contexts/authcontext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./auth.css";
 
 const SignIn = () => {
@@ -68,7 +68,7 @@ const SignIn = () => {
       <form onSubmit={handleSubmit} className="signInForm">
         <input
           type="email"
-          placeholder="Username"
+          placeholder="Username (E-mail)"
           name="username"
           value={formInfo.username}
           onChange={handleChange}
@@ -88,6 +88,7 @@ const SignIn = () => {
           {isLoading ? "Signing In..." : "Sign In"}
         </button>
       </form>
+      <div>Don't Have An Account? <Link to="/sign-up">Sign Up Here.</Link></div>
       {error ? (
         <div className="formError">Invalid Username or Password</div>
       ) : null}

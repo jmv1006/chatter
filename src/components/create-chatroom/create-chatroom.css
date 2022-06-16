@@ -67,20 +67,26 @@
     justify-content: space-between;
     align-items: center;
     padding-left: 1rem;
-    padding-right: 1rem;
     gap: .5rem;
 }
 
+.searchResultRightSide {
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .searchResultBtn {
-    width: 40%;
-    height: 2rem;
+    width: 45%;
+    height: 2.25rem;
     background-color: #47a9ff;
     border: none;
 }
 
 .searchResultBtn:hover {
-    width: 40%;
-    height: 2rem;
+    width: 45%;
+    height: 2.25rem;
     cursor: pointer;
     background-color: #47a9ff;
     border: 2px solid black;

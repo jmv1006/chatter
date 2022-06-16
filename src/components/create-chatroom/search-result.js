@@ -43,12 +43,21 @@ const SearchResult = (props) => {
       });
   };
 
+  const redirectToUserInfo = () => {
+    navigate(`/user/${props.result.Id}`)
+  }
+
   return (
     <div className="searchResult">
       {props.result.DisplayName} ({props.result.Username})
-      <button className="searchResultBtn" onClick={createChat}>
-        {buttonText}
-      </button>
+      <div className="searchResultRightSide">
+        <button className="searchResultBtn" onClick={redirectToUserInfo}>
+          View
+        </button>
+        <button className="searchResultBtn" onClick={createChat}>
+          {buttonText}
+        </button>
+      </div>
     </div>
   );
 };
