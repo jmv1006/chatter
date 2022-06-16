@@ -20,7 +20,7 @@ const CreateMessage = (props) => {
   const handleSubmit = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    fetch(`/chatroom/${params.chatId}/create-message`, {
+    fetch(`/chatroom/${params.chatId}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
