@@ -23,9 +23,7 @@ const SearchResult = (props) => {
     })
       .then((res) => {
         if (!res.ok) {
-          res.json().then((res) => {
-            throw new Error(res);
-          });
+          throw new Error()
         }
         return res.json();
       })
@@ -34,6 +32,7 @@ const SearchResult = (props) => {
         navigate("/");
       })
       .catch((error) => {
+        console.log(error)
         setButtonText("Error Creating Chat");
         setTimeout(() => {
           setButtonText("Create Chat");

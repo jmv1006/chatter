@@ -24,7 +24,7 @@ const useFetch = (url) => {
     const res = await fetch(url);
 
     if (!res.ok) {
-      if (res.status === 401) {
+      if (res.status == 401) {
         logout();
         return;
       }
