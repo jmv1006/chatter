@@ -26,6 +26,7 @@ function App() {
       const user = responseObj.user;
       setUser(user)
     };
+    
     checkForSession();
   }, []);
 
@@ -40,8 +41,14 @@ function App() {
   }, [user]);
 
   const logout = async () => {
-    const res = await fetch("/auth/log-out")
-    window.location.reload()
+    const response = await fetch("/auth/log-out")
+    
+    if(!response.ok) {
+      //Error logging out
+      return
+    }
+
+    window.location.reload();
   };
 
   const toggleDropDown = () => {

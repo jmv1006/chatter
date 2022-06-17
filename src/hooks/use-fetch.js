@@ -42,16 +42,15 @@ const useFetch = (url) => {
     fetchData(url);
   };
 
-  const logout = () => {
-    fetch("/auth/log-out")
-      .then((res) => {
-        res.json();
-      })
-      .then((res) => {
-        setUser(null);
-        navigate("/");
-        window.location.reload();
-      });
+  const logout = async () => {
+    const response = await fetch("/auth/log-out");
+
+    if(!response.ok) {
+      //Error logging out
+      return
+    }
+
+    window.location.reload()
   };
 
   return { response, error, isLoading, reFetch };

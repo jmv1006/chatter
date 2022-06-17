@@ -10,9 +10,7 @@ const SearchResult = (props) => {
     setButtonText("Creating Chat...");
     const body = {
       member1: props.user.id,
-      member2: props.result.Id,
-      member1name: props.user.displayname,
-      member2name: props.result.DisplayName,
+      member2: props.result.Id
     };
 
     fetch(`/chatroom/create`, {
