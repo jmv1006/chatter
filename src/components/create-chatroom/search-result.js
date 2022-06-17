@@ -32,7 +32,6 @@ const SearchResult = (props) => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error)
         setButtonText("Error Creating Chat");
         setTimeout(() => {
           setButtonText("Create Chat");
