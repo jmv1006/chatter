@@ -30,6 +30,7 @@ const useFetch = (url) => {
       }
       setIsLoading(false);
       setError(true);
+      return
     }
 
     const resJSON = await res.json();

@@ -53,7 +53,7 @@ const UserInfo = (props) => {
           return;
         }
       });
-    }
+    };
   }, [chatResponse, user, currentUser]);
 
   const createChat = () => {
