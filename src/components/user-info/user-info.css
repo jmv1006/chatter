@@ -8,6 +8,13 @@
     gap: 1.5rem;
 }
 
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
 .userInfoTopContainer {
     width: 75%;
     text-align: center;
@@ -17,4 +24,38 @@
 
 .userInfoDisplayName {
     font-size: 2rem;
+}
+
+.editInfoContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.75rem;
+}
+
+.userInfoBtn {
+    width: 60%;
+    border: none;
+    height: 2.35rem;
+    background-color: #47a9ff;
+}
+
+.userInfoBtn:hover {
+    width: 60%;
+    height: 2.35rem;
+    cursor: pointer;
+    border: 2px solid black;
+}
+
+.editInfoInputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;;
+}
+
+.editInfoTitle {
+    font-size: 1.45rem;
+    font-weight: bold;
 }

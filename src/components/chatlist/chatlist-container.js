@@ -30,6 +30,7 @@ const ChatListContainer = () => {
   return (
     <div className="chatlistContainer">
       <div className="pageLabel">Your Conversations:</div>
+      {chats && chats.length === 0 && !isLoading ? 'Click "Create Chatroom" To Begin A Chat!' : null}
       {chats ? <ChatList chats={chats} isLoading={isLoading} /> : null}
       {isLoading ? "Loading Chats..." : null}
       <button className="createChatBtn" onClick={navigateToCreateChat}>

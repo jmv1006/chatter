@@ -49,7 +49,8 @@ const useFetch = (url) => {
       //Error logging out
       return
     }
-
+    
+    navigate('/')
     window.location.reload()
   };
 

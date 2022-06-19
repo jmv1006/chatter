@@ -1,6 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../../contexts/authcontext";
+import EditUserInfo from "./edit-user-info/edit-user-info";
+import Info from "./info";
 import useFetch from "../../hooks/use-fetch";
 import "./user-info.css";
 
@@ -16,6 +18,7 @@ const UserInfo = (props) => {
   const [chat, setChat] = useState(null);
   const [isCurrentUser, setIsCurrentUser] = useState(false);
   const [buttonText, setButtonText] = useState("Create Chat");
+  const [isEditing, setIsEditing] = useState(false);
 
   const { response, error, isLoading, reFetch } = useFetch(
     `/auth/users/${params.userId}`
@@ -58,7 +61,6 @@ const UserInfo = (props) => {
 
   const createChat = () => {
     setButtonText("Creating Chat...");
-
     const body = {
       member1: currentUser.id,
       member2: user.Id,
@@ -92,20 +94,21 @@ const UserInfo = (props) => {
       });
   };
 
+  const toggleIsEditing = () => {
+    if(isEditing) {
+      reFetch()
+      setIsEditing(false)
+      return
+    }
+    setIsEditing(true)
+  };
+
   return (
     <div className="userInfoPageContainer">
       {isLoading && "Loading..."}
-      <div className="userInfoTopContainer">
-        <div className="userInfoDisplayName">{user && user.DisplayName}</div>
-        <div>User Id: {user && user.Id}</div>
-      </div>
-      <div className="userInfoUsername">E-mail: {user && user.Username}</div>
-      {chat && <Link to={`/chat/${chat.Id}`}>Go To Chat</Link>}
-      {!chat & !isLoading & !chatIsLoading & !isCurrentUser ? (
-        <button onClick={createChat} className="createChatBtn">
-          {buttonText}
-        </button>
-      ) : null}
+      {!isEditing && <Info user={user} chat={chat} isLoading={isLoading} chatIsLoading={chatIsLoading} isCurrentUser={isCurrentUser} createChat={createChat} buttonText={buttonText}/>}
+      {isCurrentUser && isEditing ? <EditUserInfo user={user} toggleIsEditing={toggleIsEditing} /> : null}
+      {isCurrentUser && !isEditing ? <button  className="userInfoBtn" onClick={toggleIsEditing}>Edit Information</button> : null}
       {isCurrentUser && <Link to={'/'}>Back To Home</Link>}
     </div>
   );

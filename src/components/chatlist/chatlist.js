@@ -21,9 +21,6 @@ const ChatList = (props) => {
 
   return (
     <div className="chatList">
-      {mappedChats.length === 0 && !props.isLoading
-        ? 'Click "Create Chatroom" To Begin A Chat!'
-        : null}
       {mappedChats.length === 0 && props.isLoading ? "Loading Chats..." : null}
       {mappedChats}
     </div>
