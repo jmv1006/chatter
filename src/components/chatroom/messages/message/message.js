@@ -22,7 +22,7 @@ const Message = ({ message }) => {
     );
   };
 
-  return <div>{handleMessage()}</div>;
+  return handleMessage();
 };
 
 export default Message;

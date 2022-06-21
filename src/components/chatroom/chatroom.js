@@ -30,6 +30,7 @@ const Chatroom = (props) => {
     name: "",
     id: "",
   });
+  const [page, setPage] = useState(25);
 
 
   const {
@@ -39,13 +40,13 @@ const Chatroom = (props) => {
     reFetch: chatInfoReFetch,
   } = useFetch(`/chatroom/${params.chatId}`);
 
-  
   const {
     response: messagesResponse,
     error: messagesError,
     isLoading: messagesAreLoading,
     reFetch: messagesReFetch,
-  } = useFetch(`/chatroom/${params.chatId}/messages/`);
+  } = useFetch(`/chatroom/${params.chatId}/messages/${page}`);
+  
   
 
   useEffect(() => {
@@ -98,6 +99,10 @@ const Chatroom = (props) => {
   }, [socket]);
 
   useEffect(() => {
+    messagesReFetch()
+  }, [page])
+
+  useEffect(() => {
     chatInfoReFetch();
     const newSocket = io("https://jmv1006-chatterapi.herokuapp.com/");
     setSocket(newSocket);
@@ -130,6 +135,8 @@ const Chatroom = (props) => {
         messagesResponse={messagesResponse}
         messagesReFetch={messagesReFetch}
         messagesAreLoading={messagesAreLoading}
+        page={page}
+        setPage={setPage}
       />
       <CreateMessage
         emitMessage={emitMessage}

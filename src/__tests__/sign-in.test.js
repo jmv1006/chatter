@@ -30,6 +30,4 @@ describe("Sign In Page", () => {
         expect(screen.getByText("Signing In..."))
     });
 
-    it("")
-
 })

@@ -52,7 +52,7 @@ const ChatBanner = (props) => {
   };
 
   const handleRecentMessageFetch = async () => {
-    const res = await fetch(`/chatroom/${props.chat.Id}/messages`, {
+    const res = await fetch(`/chatroom/${props.chat.Id}/messages/25`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -66,13 +66,15 @@ const ChatBanner = (props) => {
 
     const resJSON = await res.json();
 
-    const index = resJSON.length - 1;
+    const index = resJSON.messages.length - 1;
 
     if(index <= 0) {
       return
     };
     
-    setRecentMessage(resJSON[index].Text);
+    const messages = resJSON.messages;
+
+    setRecentMessage(messages[index].Text);
   };
 
   const handleText = () => {
