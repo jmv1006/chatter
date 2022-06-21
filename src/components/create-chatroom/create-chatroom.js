@@ -29,31 +29,31 @@ const CreateChatroom = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setError(false);
     setIsLoading(true);
     e.preventDefault();
-    fetch(`/auth/users/${input.input}`, {
+
+    const response = await fetch(`/auth/users/${input.input}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setIsLoading(false);
-        handleSearchResult(res);
-      })
-      .catch((error) => {
-        setError(true);
-        setIsLoading(false);
-      });
+    });
+ 
+    if(!response.ok) {
+      if(response.status === 500) {
+        navigate('/error')
+        return
+      }
+      setError(true)
+      setIsLoading(false)
+    };
+
+    const resJSON = await response.json();
+    setIsLoading(false);
+    handleSearchResult(resJSON);
   };
 
   const handleSearchResult = (result) => {

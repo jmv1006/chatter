@@ -17,16 +17,16 @@ function App() {
 
   useEffect(() => {
     const checkForSession = async () => {
-      const response = await fetch("/auth/session")
-      if(!response.ok) {
+      const response = await fetch("/auth/session");
+      if (!response.ok) {
         //User is unauthorized because cookie is expired or does not exist
-        return
+        return;
       }
-      const responseObj = await response.json()
-      const user = responseObj.user;
-      setUser(user)
+      const responseObj = await response.json();
+      const userResponse = responseObj.user;
+      setUser(userResponse);
     };
-    
+
     checkForSession();
   }, []);
 
@@ -41,11 +41,11 @@ function App() {
   }, [user]);
 
   const logout = async () => {
-    const response = await fetch("/auth/log-out")
-    
-    if(!response.ok) {
+    const response = await fetch("/auth/log-out");
+
+    if (!response.ok) {
       //Error logging out
-      return
+      return;
     }
 
     window.location.reload();

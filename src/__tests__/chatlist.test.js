@@ -28,17 +28,7 @@ describe("Chat List Page", () => {
                 </AuthContext.Provider>
             </BrowserRouter>
         );
-        expect(screen.getByText('Click "Create Chatroom" To Begin A Chat!'))
+        expect(screen.getByText('Click Create Chatroom to Create a Chat!'))
     });
 
-    it("renders appropriate text when chats are loading", () => {
-        render(
-            <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()], notificationHandler: [false, jest.fn()]}}>
-                    <ChatList chats={[]} isLoading={true}/>
-                </AuthContext.Provider>
-            </BrowserRouter>
-        );
-        expect(screen.getByText('Loading Chats...'))
-    });
 })

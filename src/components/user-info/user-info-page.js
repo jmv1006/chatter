@@ -1,12 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import AuthContext from "../../contexts/authcontext";
 import EditUserInfo from "./edit-user-info/edit-user-info";
 import Info from "./info";
 import useFetch from "../../hooks/use-fetch";
 import "./user-info.css";
 
-const UserInfo = (props) => {
+const UserInfo = () => {
   const params = useParams();
   const navigate = useNavigate();
 
@@ -59,7 +60,12 @@ const UserInfo = (props) => {
     };
   }, [chatResponse, user, currentUser]);
 
-  const createChat = () => {
+  useEffect(() => {
+    reFetch();
+    chatReFetch();
+  },[params.userId])
+
+  const createChat = async () => {
     setButtonText("Creating Chat...");
     const body = {
       member1: currentUser.id,
@@ -68,30 +74,29 @@ const UserInfo = (props) => {
       member2name: user.DisplayName,
     };
 
-    fetch(`/chatroom/create`, {
+    const response = await  fetch(`/chatroom/create`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res);
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setButtonText("Success");
-        navigate("/");
-      })
-      .catch((error) => {
-        setButtonText("Error Creating Chat");
-        setTimeout(() => {
-          setButtonText("Create Chat");
-        }, 2000);
-      });
+    });
+
+    if(!response.ok) {
+      setButtonText("Error Creating Chat")
+      if(response.status === 500) {
+        navigate('/error')
+        return
+      }
+      setTimeout(() => {
+        setButtonText("Create Chat")
+      }, 2000)
+    };
+
+    await response.json();
+    setButtonText("Success");
+    navigate('/');
   };
 
   const toggleIsEditing = () => {
@@ -105,8 +110,8 @@ const UserInfo = (props) => {
 
   return (
     <div className="userInfoPageContainer">
-      {isLoading && "Loading..."}
-      {!isEditing && <Info user={user} chat={chat} isLoading={isLoading} chatIsLoading={chatIsLoading} isCurrentUser={isCurrentUser} createChat={createChat} buttonText={buttonText}/>}
+      {isLoading && <ClipLoader />}
+      {!isEditing && user ? <Info user={user} chat={chat} isLoading={isLoading} chatIsLoading={chatIsLoading} isCurrentUser={isCurrentUser} createChat={createChat} buttonText={buttonText}/> : null}
       {isCurrentUser && isEditing ? <EditUserInfo user={user} toggleIsEditing={toggleIsEditing} /> : null}
       {isCurrentUser && !isEditing ? <button  className="userInfoBtn" onClick={toggleIsEditing}>Edit Information</button> : null}
       {isCurrentUser && <Link to={'/'}>Back To Home</Link>}

@@ -27,7 +27,12 @@ const useFetch = (url) => {
       if (res.status == 401) {
         logout();
         return;
-      }
+      };
+      
+      if(res.status === 500) {
+        navigate('/error')
+      };
+
       setIsLoading(false);
       setError(true);
       return

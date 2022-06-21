@@ -14,14 +14,8 @@ const Chatroom = (props) => {
 
   const { userInfo } = useContext(AuthContext);
 
-  const {
-    response: chatInfoResponse,
-    error: chatInfoError,
-    isLoading: chatInfoIsLoading,
-    reFetch: chatInfoReFetch,
-  } = useFetch(`/chatroom/${params.chatId}`);
-
   const [user] = userInfo;
+
 
   const [chatInfo, setChatInfo] = useState({
     Id: "",
@@ -36,6 +30,23 @@ const Chatroom = (props) => {
     name: "",
     id: "",
   });
+
+
+  const {
+    response: chatInfoResponse,
+    error: chatInfoError,
+    isLoading: chatInfoIsLoading,
+    reFetch: chatInfoReFetch,
+  } = useFetch(`/chatroom/${params.chatId}`);
+
+  
+  const {
+    response: messagesResponse,
+    error: messagesError,
+    isLoading: messagesAreLoading,
+    reFetch: messagesReFetch,
+  } = useFetch(`/chatroom/${params.chatId}/messages/`);
+  
 
   useEffect(() => {
     if (!user) {
@@ -75,7 +86,7 @@ const Chatroom = (props) => {
 
       socket.on("typing", (id) => {
         if (id != user.id) {
-          dummydiv.current.scrollIntoView({ behavior: "smooth" });
+          scrollToBottom();
           setIsTyping(true);
           setTimeout(() => {
             setIsTyping(false);
@@ -90,6 +101,7 @@ const Chatroom = (props) => {
     chatInfoReFetch();
     const newSocket = io("https://jmv1006-chatterapi.herokuapp.com/");
     setSocket(newSocket);
+    scrollToBottom();
   }, [params.chatId]);
 
   const emitMessage = (text) => {
@@ -104,17 +116,20 @@ const Chatroom = (props) => {
     dummydiv.current.scrollIntoView({ behavior: "smooth" });
   };
 
+
   return (
     <div className="chatroomContainer">
       <Link className="recipientNameLink" to={`/user/${recipientInfo.id}`}>
         <div className="recipientName">{recipientInfo.name}</div>
       </Link>
       <MessagesContainer
-        user={user}
         isTyping={isTyping}
         scrollToBottom={scrollToBottom}
         dummydiv={dummydiv}
         socket={socket}
+        messagesResponse={messagesResponse}
+        messagesReFetch={messagesReFetch}
+        messagesAreLoading={messagesAreLoading}
       />
       <CreateMessage
         emitMessage={emitMessage}

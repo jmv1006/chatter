@@ -12,6 +12,7 @@ const SignUp = () => {
   });
 
   const [error, setError] = useState(false);
+  const [serverError, setServerError] = useState(false);
   const [buttonText, setButtonText] = useState("Sign Up");
 
   const handleChange = (e) => {
@@ -23,33 +24,34 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setButtonText("Signing Up...");
     e.preventDefault();
-    fetch("/auth/sign-up", {
+
+    const response = await fetch("/auth/sign-up", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formInfo),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setButtonText("Successful");
-        setTimeout(() => {
-          navigate("/sign-in");
-        }, 1500);
-      })
-      .catch((error) => {
-        setButtonText("Sign Up");
-        setError(true);
-      });
+    });
+
+    if(!response.ok) {
+      if(response.status === 500) {
+        //server error  
+        setServerError(true)
+        setButtonText("Sign Up")
+        return
+      }
+      setError(true)
+      setButtonText("Sign Up")
+    };
+
+    setButtonText("Successful");
+    setTimeout(() => {
+      navigate('/sign-in')
+    }, 1500)
   };
 
   return (
@@ -115,6 +117,7 @@ const SignUp = () => {
           {buttonText}
         </button>
         <div>Already Have An Account? <Link to="/sign-in">Sign In Here.</Link></div>
+        {serverError && <div className="formError">Error Connecting To Server</div>}
       </form>
     </div>
   );

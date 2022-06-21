@@ -12,6 +12,7 @@ const SignIn = () => {
 
   const [formInfo, setFormInfo] = useState({ username: "", password: "" });
   const [error, setError] = useState(false);
+  const [serverError, setServerError] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -29,11 +30,12 @@ const SignIn = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setError(false);
     setIsLoading(true);
     e.preventDefault();
-    fetch("/auth/sign-in", {
+
+    const response = await fetch("/auth/sign-in", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -43,23 +45,22 @@ const SignIn = () => {
         username: formInfo.username,
         password: formInfo.password,
       }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setUser(res.user);
-        //setToken(res.token)
-        setIsLoading(false);
-        navigate("/");
-      })
-      .catch((error) => {
-        setIsLoading(false);
-        setError(true);
-      });
+    });
+
+    if(!response.ok) {
+      if(response.status === 500) {
+        setServerError(true)
+        setIsLoading(false)
+        return
+      }
+      setError(true)
+      setIsLoading(false)
+    };
+
+    const responseJSON = await response.json();
+    setUser(responseJSON.user);
+    setIsLoading(false);
+    navigate('/')
   };
 
   return (
@@ -89,9 +90,8 @@ const SignIn = () => {
         </button>
       </form>
       <div>Don't Have An Account? <Link to="/sign-up">Sign Up Here.</Link></div>
-      {error ? (
-        <div className="formError">Invalid Username or Password</div>
-      ) : null}
+      {error && <div className="formError">Invalid Username or Password</div>}
+      {serverError && <div className="formError">Error Connecting To Server</div>}
     </div>
   );
 };

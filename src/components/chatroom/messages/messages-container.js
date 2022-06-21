@@ -1,19 +1,12 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../../../hooks/use-fetch";
+import { ClipLoader } from "react-spinners";
 import Message from "./message/message";
 
-const MessagesContainer = (props) => {
+const MessagesContainer = ({ isTyping, scrollToBottom, dummydiv, socket, messagesResponse, messagesReFetch, messagesAreLoading }) => {
   const params = useParams();
 
-  const [messages, setMessages] = useState([]);
-
-  const {
-    response: messagesResponse,
-    error: messagesError,
-    isLoading: messagesAreLoading,
-    reFetch: messagesReFetch,
-  } = useFetch(`/chatroom/${params.chatId}/messages/`);
+  const [messages, setMessages] = useState([]); 
 
   useEffect(() => {
     if (messagesResponse) {
@@ -22,36 +15,33 @@ const MessagesContainer = (props) => {
   }, [messagesResponse]);
 
   useEffect(() => {
-    props.scrollToBottom();
+    scrollToBottom()
   }, [messages]);
 
   useEffect(() => {
-    if (props.socket) {
-      props.socket.on("roommessage", (message) => {
-        messagesReFetch();
+    if (socket) {
+      socket.on("roommessage", async (message) => {
+        await messagesReFetch();
+        scrollToBottom();
       });
     }
-  }, [props.socket]);
+  }, [socket]);
 
   useEffect(() => {
     messagesReFetch();
   }, [params.chatId]);
 
   const mappedMessages = messages.map((message) => (
-    <Message key={message.Id} message={message} user={props.user} />
+    <Message key={message.Id} message={message} />
   ));
 
   return (
     <div className="messagesContainer">
-      {messagesAreLoading ? "Loading..." : null}
+      {messagesAreLoading && <ClipLoader />}
+      {!messagesAreLoading && messages.length === 0 ? "No Messages In Chatroom Yet!" : null}
       {mappedMessages}
-      {props.isTyping ? (
-        <Message
-          key={"typing"}
-          message={{ userId: "typing", Text: "Typing..." }}
-        />
-      ) : null}
-      <div ref={props.dummydiv} />
+      {isTyping ? (<Message key={"typing"} message={{ userId: "typing", Text: "Typing..." }} />) : null}
+      <div ref={dummydiv} />
     </div>
   );
 };

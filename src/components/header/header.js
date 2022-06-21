@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripLines } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 
-const Header = (props) => {
+const Header = ({toggleDropDown}) => {
   const navigate = useNavigate();
 
   const navigateHome = () => {
@@ -16,7 +16,7 @@ const Header = (props) => {
       </div>
       <FontAwesomeIcon
         icon={faGripLines}
-        onClick={props.toggleDropDown}
+        onClick={toggleDropDown}
         className="gripLines"
       />
     </div>

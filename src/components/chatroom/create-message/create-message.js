@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./create-message.css";
 
-const CreateMessage = (props) => {
+const CreateMessage = ({ sendServerTyping, user, emitMessage }) => {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [message, setMessage] = useState({ text: "" });
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    props.sendServerTyping();
+    sendServerTyping();
     const value = e.target.value;
     setMessage({
       ...message,
@@ -17,35 +18,31 @@ const CreateMessage = (props) => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-    fetch(`/chatroom/${params.chatId}`, {
+
+    const response = await  fetch(`/chatroom/${params.chatId}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text: message.text, userid: props.user.id }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(res.status);
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setIsLoading(false);
-        props.emitMessage(message.text);
-        setMessage({ text: "" });
-      })
-      .catch((error) => {
-        if (error.message == "401") {
-          //Token expired
-          window.location.reload();
-        }
-        setIsLoading(false);
-      });
+      body: JSON.stringify({ text: message.text, userid: user.id }),
+    });
+
+    if(!response.ok) {
+      if(response.status === 500) {
+        navigate('/error')
+        return
+      }
+      setIsLoading(false)
+    };
+
+    await response.json();
+    setIsLoading(false);
+    emitMessage(message.text);
+    setMessage({ text: "" });
   };
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import AuthContext from "../../contexts/authcontext";
 import ChatList from "./chatlist";
 import useFetch from "../../hooks/use-fetch";
@@ -30,9 +31,8 @@ const ChatListContainer = () => {
   return (
     <div className="chatlistContainer">
       <div className="pageLabel">Your Conversations:</div>
-      {chats && chats.length === 0 && !isLoading ? 'Click "Create Chatroom" To Begin A Chat!' : null}
       {chats ? <ChatList chats={chats} isLoading={isLoading} /> : null}
-      {isLoading ? "Loading Chats..." : null}
+      {isLoading && <ClipLoader />}
       <button className="createChatBtn" onClick={navigateToCreateChat}>
         Create Chatroom
       </button>

@@ -7,8 +7,8 @@ const EditUserInfo = ({ user, toggleIsEditing }) => {
     const navigate = useNavigate();
 
     const [inputValues, setInputValues] = useState({
-        username: "",
-        displayname: ""
+        username: user.Username,
+        displayname: user.DisplayName
     });
     const [buttonText, setButtonText] = useState("Save & Exit")
 
@@ -20,10 +20,6 @@ const EditUserInfo = ({ user, toggleIsEditing }) => {
         if(currentUser.id != user.Id) {
             navigate('/')
         }
-        setInputValues({
-            username: user.Username,
-            displayname: user.DisplayName
-        });
     }, [user])
 
     const handleChange = (e) => {

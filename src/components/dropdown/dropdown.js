@@ -1,43 +1,43 @@
 import { useNavigate } from "react-router-dom";
 import "./dropdown.css";
 
-const DropDown = (props) => {
+const DropDown = ({ toggleDropDown, logout, user}) => {
   const navigate = useNavigate();
 
   const navigateToSignIn = () => {
     navigate("/sign-in");
-    props.toggleDropDown();
+    toggleDropDown();
   };
 
   const navigateToSignUp = () => {
     navigate("/sign-up");
-    props.toggleDropDown();
+    toggleDropDown();
   };
 
   const navigateToMyInfo = () => {
-    navigate(`/user/${props.user.id}`);
-    props.toggleDropDown();
+    navigate(`/user/${user.id}`);
+    toggleDropDown();
   };
 
   return (
     <div className="dropDownContainer">
       <div className="interactionContainer">
-        {props.user && (
-          <div className="dropDownAction" onClick={props.logout}>
+        {user && (
+          <div className="dropDownAction" onClick={logout}>
             Sign Out
           </div>
         )}
-        {!props.user && (
+        {!user && (
           <div className="dropDownAction" onClick={navigateToSignIn}>
             Sign In
           </div>
         )}
-        {!props.user && (
+        {!user && (
           <div className="dropDownAction" onClick={navigateToSignUp}>
             Sign Up
           </div>
         )}
-        {props.user && (
+        {user && (
           <div className="dropDownAction" onClick={navigateToMyInfo}>
             My Information
           </div>
@@ -48,7 +48,3 @@ const DropDown = (props) => {
 };
 
 export default DropDown;
-
-/*
-
-*/

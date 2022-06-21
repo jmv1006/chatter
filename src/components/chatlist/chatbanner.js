@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import AuthContext from "../../contexts/authcontext";
 import "./chatlist.css";
 
@@ -32,48 +33,46 @@ const ChatBanner = (props) => {
     }
   }, [notification]);
 
-  const handleUsernameFetch = (id) => {
-    fetch(`/auth/users/${id}`, {
+  const handleUsernameFetch = async (id) => {
+    const res = await fetch(`/auth/users/${id}`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setRecipientName(res.DisplayName);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        //error fetching info
-      });
+      }
+    });
+
+    if(!res.ok) {
+      //error
+      return
+    }
+
+    const resJSON = await res.json();
+    setRecipientName(resJSON.DisplayName);
+    setIsLoading(false);
   };
 
-  const handleRecentMessageFetch = () => {
-    fetch(`/chatroom/${props.chat.Id}/messages`, {
+  const handleRecentMessageFetch = async () => {
+    const res = await fetch(`/chatroom/${props.chat.Id}/messages`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error();
-        }
-        return res.json();
-      })
-      .then((res) => {
-        const index = res.length - 1;
-        setRecentMessage(res[index].Text);
-      })
-      .catch((error) => {
-        //error getting info
-      });
+    });
+
+    if(!res.ok) {
+      //error fetching
+      return
+    };
+
+    const resJSON = await res.json();
+
+    const index = resJSON.length - 1;
+
+    if(index <= 0) {
+      return
+    };
+    
+    setRecentMessage(resJSON[index].Text);
   };
 
   const handleText = () => {
@@ -90,7 +89,7 @@ const ChatBanner = (props) => {
 
   return (
     <div className="chatBanner" onClick={navigateToChat}>
-      {isLoading ? "Loading..." : null}
+      {isLoading && <ClipLoader />}
       <div className="chatBannerName">{recipientName}</div>
       <div className="recentMsg">{handleText()}</div>
     </div>

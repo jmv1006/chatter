@@ -3,7 +3,7 @@ import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
 import "./chatlist.css";
 
-const ChatList = (props) => {
+const ChatList = ({chats, isLoading}) => {
   const { userInfo, notificationHandler } = useContext(AuthContext);
 
   const [user] = userInfo;
@@ -15,13 +15,13 @@ const ChatList = (props) => {
     }
   }, [notification]);
 
-  const mappedChats = props.chats.map((chat) => (
+  const mappedChats = chats.map((chat) => (
     <ChatBanner key={chat.Id} chat={chat} user={user} /*token={token}*/ />
   ));
 
   return (
     <div className="chatList">
-      {mappedChats.length === 0 && props.isLoading ? "Loading Chats..." : null}
+      {chats.length === 0 && !isLoading ? "Click Create Chatroom to Create a Chat!" : null}
       {mappedChats}
     </div>
   );

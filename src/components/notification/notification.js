@@ -2,19 +2,19 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./notification.css";
 
-const Notification = (props) => {
+const Notification = ({ info, user, setNotification}) => {
   const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     handleText();
     //filter notifications
-    if (props.info.user.id == props.user.id) {
-      props.setNotification(false);
+    if (info.user.id == user.id) {
+      setNotification(false);
       return;
     }
-    if (params.chatId && props.info.chatInfo.Id == params.chatId) {
-      props.setNotification(false);
+    if (params.chatId && info.chatInfo.Id == params.chatId) {
+      setNotification(false);
       return;
     }
 
@@ -24,26 +24,26 @@ const Notification = (props) => {
   }, []);
 
   const closeNotification = () => {
-    props.setNotification(false);
+    setNotification(false);
   };
 
   const handleText = () => {
-    if (props.info.message.length > 25) {
-      const reducedMsg = props.info.message.substr(0, 25);
+    if (info.message.length > 25) {
+      const reducedMsg = info.message.substr(0, 25);
       return reducedMsg + "...";
     }
-    return props.info.message;
+    return info.message;
   };
 
   const navigateToChat = () => {
-    navigate(`/chat/${props.info.chatInfo.Id}`);
+    navigate(`/chat/${info.chatInfo.Id}`);
     closeNotification();
   };
 
   return (
     <div className="notificationBanner">
       <div onClick={navigateToChat} className="notificationLink">
-        {props.info.user.displayname}: {handleText()}
+        {info.user.displayname}: {handleText()}
       </div>
       <button onClick={closeNotification} className="notificationBtn">
         X

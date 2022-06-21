@@ -1,51 +1,50 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchResult = (props) => {
+const SearchResult = ({ user, result, }) => {
   const navigate = useNavigate();
 
   const [buttonText, setButtonText] = useState("Create Chat");
 
-  const createChat = () => {
+  const createChat = async () => {
     setButtonText("Creating Chat...");
     const body = {
-      member1: props.user.id,
-      member2: props.result.Id
+      member1: user.id,
+      member2: result.Id
     };
 
-    fetch(`/chatroom/create`, {
+    const response = await  fetch(`/chatroom/create`, {
       method: "POST",
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error()
-        }
-        return res.json();
-      })
-      .then((res) => {
-        setButtonText("Success");
-        navigate("/");
-      })
-      .catch((error) => {
-        setButtonText("Error Creating Chat");
-        setTimeout(() => {
-          setButtonText("Create Chat");
-        }, 2000);
-      });
+    });
+
+    if(!response.ok) {
+      if(response.status === 500) {
+        navigate('/error')
+        return
+      }
+      setButtonText("Error Creating Chat");
+      setTimeout(() => {
+        setButtonText("Create Chat")
+      }, 2000);
+    };
+
+    await response.json();
+    setButtonText("Success");
+    navigate('/');
   };
 
   const redirectToUserInfo = () => {
-    navigate(`/user/${props.result.Id}`)
+    navigate(`/user/${result.Id}`)
   }
 
   return (
     <div className="searchResult">
-      {props.result.DisplayName} ({props.result.Username})
+      {result.DisplayName} ({result.Username})
       <div className="searchResultRightSide">
         <button className="searchResultBtn" onClick={redirectToUserInfo}>
           View
