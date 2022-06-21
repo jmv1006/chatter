@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import "./dropdown.css";
 
-const DropDown = ({ toggleDropDown, logout, user}) => {
+type dropDownProps = {
+  toggleDropDown: () => void,
+  logout: () => void,
+  user: {id: string, displayname: string, username: string}
+}
+
+const DropDown = ({ toggleDropDown, logout, user} : dropDownProps) => {
   const navigate = useNavigate();
 
   const navigateToSignIn = () => {

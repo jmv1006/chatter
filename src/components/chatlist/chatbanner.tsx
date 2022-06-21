@@ -4,25 +4,42 @@ import { ClipLoader } from "react-spinners";
 import AuthContext from "../../contexts/authcontext";
 import "./chatlist.css";
 
-const ChatBanner = (props) => {
+interface ChatInterface {
+  Id: string,
+  Member1: string,
+  Member2: string
+};
+
+interface UserInterface {
+  id: string,
+  username: string,
+  displayame: string
+}
+
+type ChatBannerPropTypes = {
+  user: UserInterface,
+  chat: ChatInterface
+}
+
+const ChatBanner = ({user, chat}: ChatBannerPropTypes) => {
   const { notificationHandler } = useContext(AuthContext);
 
   const [notification] = notificationHandler;
 
   const navigate = useNavigate();
 
-  const [recipientName, setRecipientName] = useState("");
-  const [recentMessage, setRecentMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [recipientName, setRecipientName] = useState<string >("");
+  const [recentMessage, setRecentMessage] = useState<string >("");
+  const [isLoading, setIsLoading] = useState<boolean >(false);
 
   useEffect(() => {
-    if (props.chat.Member1 === props.user.id) {
+    if (chat.Member1 === user.id) {
       handleRecentMessageFetch();
-      handleUsernameFetch(props.chat.Member2);
+      handleUsernameFetch(chat.Member2);
       setIsLoading(true);
       return;
     }
-    handleUsernameFetch(props.chat.Member1);
+    handleUsernameFetch(chat.Member1);
     handleRecentMessageFetch();
     setIsLoading(true);
   }, []);
@@ -33,7 +50,7 @@ const ChatBanner = (props) => {
     }
   }, [notification]);
 
-  const handleUsernameFetch = async (id) => {
+  const handleUsernameFetch = async (id: string) => {
     const res = await fetch(`/auth/users/${id}`, {
       headers: {
         Accept: "application/json",
@@ -52,7 +69,7 @@ const ChatBanner = (props) => {
   };
 
   const handleRecentMessageFetch = async () => {
-    const res = await fetch(`/chatroom/${props.chat.Id}/messages/25`, {
+    const res = await fetch(`/chatroom/${chat.Id}/messages/25`, {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
@@ -86,7 +103,7 @@ const ChatBanner = (props) => {
   };
 
   const navigateToChat = () => {
-    navigate("/chat/" + props.chat.Id);
+    navigate("/chat/" + chat.Id);
   };
 
   return (

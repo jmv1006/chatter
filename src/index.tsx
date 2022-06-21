@@ -11,7 +11,7 @@ import NotFound from "./components/errors/not-found";
 import ServerError from "./components/errors/server-error";
 import UserInfo from "./components/user-info/user-info-page";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 root.render(
   <BrowserRouter>
     <Routes>

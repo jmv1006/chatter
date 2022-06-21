@@ -3,6 +3,11 @@ import AuthContext from "../../contexts/authcontext";
 import { useNavigate, Link } from "react-router-dom";
 import "./auth.css";
 
+type formInfoTypes = {
+  username: string,
+  password: string
+};
+
 const SignIn = () => {
   const { userInfo } = useContext(AuthContext);
 
@@ -10,10 +15,10 @@ const SignIn = () => {
 
   const navigate = useNavigate();
 
-  const [formInfo, setFormInfo] = useState({ username: "", password: "" });
-  const [error, setError] = useState(false);
-  const [serverError, setServerError] = useState(false)
-  const [isLoading, setIsLoading] = useState(false);
+  const [formInfo, setFormInfo] = useState<formInfoTypes >({ username: "", password: "" });
+  const [error, setError] = useState<boolean >(false);
+  const [serverError, setServerError] = useState<boolean >(false)
+  const [isLoading, setIsLoading] = useState<boolean >(false);
 
   useEffect(() => {
     if (user) {
@@ -21,7 +26,7 @@ const SignIn = () => {
     }
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const value = e.target.value;
 
     setFormInfo({
@@ -30,7 +35,7 @@ const SignIn = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     setIsLoading(true);
     e.preventDefault();
 

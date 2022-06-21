@@ -3,12 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGripLines } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 
-const Header = ({toggleDropDown}) => {
+type HeaderPropTypes = {
+  toggleDropDown: () => void;
+}
+
+const Header = ({ toggleDropDown } : HeaderPropTypes) => {
   const navigate = useNavigate();
 
   const navigateHome = () => {
     navigate("/");
   };
+  
   return (
     <div className="header">
       <div onClick={navigateHome} className="headerTitle">

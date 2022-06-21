@@ -6,13 +6,21 @@ import ChatList from "./chatlist";
 import useFetch from "../../hooks/use-fetch";
 import "./chatlist.css";
 
+interface ChatInterface {
+  Id: string,
+  Member1: string,
+  Member2: string
+};
+
 const ChatListContainer = () => {
   const navigate = useNavigate();
   const { userInfo } = useContext(AuthContext);
 
   const [user] = userInfo;
 
-  const [chats, setChats] = useState(null);
+  console.log(user)
+
+  const [chats, setChats] = useState<Array<ChatInterface> | null>(null);
 
   const { response, error, isLoading, reFetch } = useFetch(
     `/chatroom/users/${user.id}`

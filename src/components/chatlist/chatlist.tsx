@@ -3,7 +3,19 @@ import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
 import "./chatlist.css";
 
-const ChatList = ({chats, isLoading}) => {
+
+interface ChatInterface {
+  Id: string,
+  Member1: string,
+  Member2: string
+};
+
+type ChatListProps = {
+  chats: Array<ChatInterface>,
+  isLoading: boolean
+};
+
+const ChatList = ({chats, isLoading}: ChatListProps) => {
   const { userInfo, notificationHandler } = useContext(AuthContext);
 
   const [user] = userInfo;

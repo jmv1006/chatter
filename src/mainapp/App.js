@@ -66,18 +66,9 @@ function App() {
         <DropDown toggleDropDown={toggleDropDown} user={user} logout={logout} />
       )}
       {notification ? (
-        <Notification
-          info={notification}
-          setNotification={setNotification}
-          user={user}
-        />
+        <Notification info={notification} setNotification={setNotification} user={user}/>
       ) : null}
-      <AuthContext.Provider
-        value={{
-          userInfo: [user, setUser],
-          notificationHandler: [notification, setNotification],
-        }}
-      >
+      <AuthContext.Provider value={{userInfo: [user, setUser], notificationHandler: [notification, setNotification]}}>
         <Outlet />
       </AuthContext.Provider>
       {!params.chatId && <Footer />}

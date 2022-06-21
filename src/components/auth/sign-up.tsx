@@ -1,21 +1,28 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
+type IFormInfo = {
+  username: string,
+  password: string,
+  confirmedpassword: string,
+  displayname: string
+};
+
 const SignUp = () => {
   const navigate = useNavigate();
 
-  const [formInfo, setFormInfo] = useState({
+  const [formInfo, setFormInfo] = useState<IFormInfo >({
     username: "",
     password: "",
     confirmedpassword: "",
     displayname: "",
   });
 
-  const [error, setError] = useState(false);
-  const [serverError, setServerError] = useState(false);
-  const [buttonText, setButtonText] = useState("Sign Up");
+  const [error, setError] = useState<boolean >(false);
+  const [serverError, setServerError] = useState<boolean >(false);
+  const [buttonText, setButtonText] = useState<string >("Sign Up");
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const value = e.target.value;
 
     setFormInfo({
@@ -24,7 +31,7 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     setButtonText("Signing Up...");
     e.preventDefault();
 
