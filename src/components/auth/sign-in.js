@@ -31,7 +31,6 @@ const SignIn = () => {
   };
 
   const handleSubmit = async (e) => {
-    setError(false);
     setIsLoading(true);
     e.preventDefault();
 
@@ -55,6 +54,7 @@ const SignIn = () => {
       }
       setError(true)
       setIsLoading(false)
+      return
     };
 
     const responseJSON = await response.json();
@@ -90,7 +90,7 @@ const SignIn = () => {
         </button>
       </form>
       <div>Don't Have An Account? <Link to="/sign-up">Sign Up Here.</Link></div>
-      {error && <div className="formError">Invalid Username or Password</div>}
+      {error && <div className="formError">Incorrect Username or Password</div>}
       {serverError && <div className="formError">Error Connecting To Server</div>}
     </div>
   );
