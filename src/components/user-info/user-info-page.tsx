@@ -7,6 +7,18 @@ import Info from "./info";
 import useFetch from "../../hooks/use-fetch";
 import "./user-info.css";
 
+interface IUser {
+  Id: string,
+  Username: string,
+  DisplayName: string
+}
+
+interface IChat {
+  Id: string,
+  Member1: string,
+  Member2: string
+}
+
 const UserInfo = () => {
   const params = useParams();
   const navigate = useNavigate();
@@ -15,11 +27,11 @@ const UserInfo = () => {
 
   const [currentUser] = userInfo;
 
-  const [user, setUser] = useState(null);
-  const [chat, setChat] = useState(null);
-  const [isCurrentUser, setIsCurrentUser] = useState(false);
-  const [buttonText, setButtonText] = useState("Create Chat");
-  const [isEditing, setIsEditing] = useState(false);
+  const [user, setUser] = useState<IUser | null>(null);
+  const [chat, setChat] = useState<IChat | null>(null);
+  const [isCurrentUser, setIsCurrentUser] = useState<boolean >(false);
+  const [buttonText, setButtonText] = useState<string >("Create Chat");
+  const [isEditing, setIsEditing] = useState<boolean >(false);
 
   const { response, error, isLoading, reFetch } = useFetch(
     `/auth/users/${params.userId}`
@@ -48,7 +60,8 @@ const UserInfo = () => {
 
   useEffect(() => {
     if (chatResponse && user && currentUser) {
-      chatResponse.forEach((chat) => {
+      const chats: Array<IChat> = chatResponse;
+      chats.forEach((chat: IChat) => {
         if (
           (chat.Member1 === currentUser.id && chat.Member2 === user.Id) ||
           (chat.Member1 === user.Id && chat.Member2 === currentUser.id)
@@ -67,36 +80,39 @@ const UserInfo = () => {
 
   const createChat = async () => {
     setButtonText("Creating Chat...");
-    const body = {
-      member1: currentUser.id,
-      member2: user.Id,
-      member1name: currentUser.displayname,
-      member2name: user.DisplayName,
-    };
 
-    const response = await  fetch(`/chatroom/create`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-
-    if(!response.ok) {
-      setButtonText("Error Creating Chat")
-      if(response.status === 500) {
-        navigate('/error')
-        return
-      }
-      setTimeout(() => {
-        setButtonText("Create Chat")
-      }, 2000)
-    };
-
-    await response.json();
-    setButtonText("Success");
-    navigate('/');
+    if(user) {
+      const body = {
+        member1: currentUser.id,
+        member2: user.Id,
+        member1name: currentUser.displayname,
+        member2name: user.DisplayName,
+      };
+  
+      const response = await  fetch(`/chatroom/create`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+  
+      if(!response.ok) {
+        setButtonText("Error Creating Chat")
+        if(response.status === 500) {
+          navigate('/error')
+          return
+        }
+        setTimeout(() => {
+          setButtonText("Create Chat")
+        }, 2000)
+      };
+  
+      await response.json();
+      setButtonText("Success");
+      navigate('/');
+    }
   };
 
   const toggleIsEditing = () => {

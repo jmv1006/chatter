@@ -2,7 +2,7 @@ import AuthContext from "../contexts/authcontext";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const useFetch = (url) => {
+const useFetch = (url: string) => {
   const { userInfo } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const useFetch = (url) => {
     }
   }, [url]);
 
-  const fetchData = async (url) => {
+  const fetchData = async (url: string) => {
     setIsLoading(true);
 
     const res = await fetch(url);

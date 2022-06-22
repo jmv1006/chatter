@@ -2,14 +2,24 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AuthContext from "../../../contexts/authcontext";
 
-const EditUserInfo = ({ user, toggleIsEditing }) => {
+
+interface IUser {
+    Id: string,
+    Username: string,
+    DisplayName: string
+}
+
+type EditUserInfoPropTypes = {
+    user: IUser | null,
+    toggleIsEditing: () => void;
+}
+  
+const EditUserInfo = ({ user, toggleIsEditing }: EditUserInfoPropTypes) => {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [inputValues, setInputValues] = useState({
-        username: user.Username,
-        displayname: user.DisplayName
-    });
+    const [inputValues, setInputValues] = useState<any>(null);
+
     const [buttonText, setButtonText] = useState("Save & Exit")
 
     const { userInfo } = useContext(AuthContext);
@@ -17,12 +27,19 @@ const EditUserInfo = ({ user, toggleIsEditing }) => {
     const [currentUser] = userInfo;
 
     useEffect(() => {
-        if(currentUser.id != user.Id) {
-            navigate('/')
+        if(user) {
+            setInputValues({
+                username: user.Username,
+                displayname: user.DisplayName
+            })
+
+            if(currentUser.id != user.Id) {
+                navigate('/')
+            }
         }
     }, [user])
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         const value = e.target.value;
         setInputValues({
         ...inputValues,
