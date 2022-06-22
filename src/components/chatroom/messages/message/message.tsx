@@ -2,7 +2,18 @@ import { useContext } from "react";
 import AuthContext from "../../../../contexts/authcontext";
 import "./message.css";
 
-const Message = ({ message }) => {
+interface IMessage {
+  Text: string,
+  Id: string, 
+  Time: string,
+  UserId: string
+};
+
+type MessageProps = {
+  message: IMessage
+};
+
+const Message = ({ message }: MessageProps) => {
   const { userInfo } = useContext(AuthContext);
 
   const [user] = userInfo;

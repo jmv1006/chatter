@@ -8,6 +8,10 @@ interface UserInterface {
   displayame: string
 }
 
+interface IMessage {
+  text: string
+}
+
 type CreateMessagePropTypes = {
   sendServerTyping: () => void,
   user: UserInterface,
@@ -18,8 +22,8 @@ const CreateMessage = ({ sendServerTyping, user, emitMessage } : CreateMessagePr
   const params = useParams();
   const navigate = useNavigate();
 
-  const [message, setMessage] = useState({ text: "" });
-  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<IMessage >({ text: "" });
+  const [isLoading, setIsLoading] = useState<boolean >(false);
 
   const handleChange = (e: any) => {
     sendServerTyping();
@@ -31,7 +35,7 @@ const CreateMessage = ({ sendServerTyping, user, emitMessage } : CreateMessagePr
   };
 
   const handleSubmit = async (e: any) => {
-    setIsLoading(true);
+    setIsLoading(isLoading => true);
     e.preventDefault();
 
     const response = await  fetch(`/chatroom/${params.chatId}`, {
@@ -48,11 +52,11 @@ const CreateMessage = ({ sendServerTyping, user, emitMessage } : CreateMessagePr
         navigate('/error')
         return
       }
-      setIsLoading(false)
+      setIsLoading(isLoading => false);
     };
 
     await response.json();
-    setIsLoading(false);
+    setIsLoading(isLoading => false);
     emitMessage(message.text);
     setMessage({ text: "" });
   };

@@ -1,10 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import "./dropdown.css";
 
+interface IUser {
+  displayname: string,
+  id: string,
+  username: string
+};
+
 type dropDownProps = {
   toggleDropDown: () => void,
   logout: () => void,
-  user: {id: string, displayname: string, username: string}
+  user: IUser | null
 }
 
 const DropDown = ({ toggleDropDown, logout, user} : dropDownProps) => {
@@ -21,8 +27,10 @@ const DropDown = ({ toggleDropDown, logout, user} : dropDownProps) => {
   };
 
   const navigateToMyInfo = () => {
-    navigate(`/user/${user.id}`);
-    toggleDropDown();
+    if(user) {
+      navigate(`/user/${user.id}`);
+      toggleDropDown();
+    } 
   };
 
   return (

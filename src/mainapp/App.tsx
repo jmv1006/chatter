@@ -8,12 +8,32 @@ import DropDown from "../components/dropdown/dropdown";
 import Footer from "../components/footer/footer";
 import "./app.css";
 
+interface IUser {
+  displayname: string,
+  id: string,
+  username: string
+};
+
+interface IChatInfo {
+  Id: string, 
+  Member1: string, 
+  Member1Name: string,
+  Member2: string,
+  Member2Name: string
+};
+
+interface INotification {
+  message: string,
+  user: IUser,
+  chatInfo: IChatInfo
+};
+
 function App() {
   const params = useParams();
 
-  const [user, setUser] = useState(null);
-  const [notification, setNotification] = useState(false);
-  const [dropDown, setDropDown] = useState(false);
+  const [user, setUser] = useState<IUser | null>(null);
+  const [notification, setNotification] = useState<INotification | null>(null);
+  const [dropDown, setDropDown] = useState<boolean >(false);
 
   useEffect(() => {
     const checkForSession = async () => {
@@ -61,7 +81,7 @@ function App() {
 
   return (
     <div className="appContainer">
-      <Header user={user} toggleDropDown={toggleDropDown} />
+      <Header toggleDropDown={toggleDropDown} />
       {dropDown && (
         <DropDown toggleDropDown={toggleDropDown} user={user} logout={logout} />
       )}

@@ -4,6 +4,12 @@ import AuthContext from "../../contexts/authcontext";
 import SearchResult from "./search-result";
 import "./create-chatroom.css";
 
+interface ISearchResult {
+  DisplayName: string,
+  Id: string,
+  Username: string
+};
+
 const CreateChatroom = () => {
   const { userInfo } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -11,7 +17,7 @@ const CreateChatroom = () => {
   const [user] = userInfo;
 
   const [input, setInput] = useState({ input: "" });
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState<ISearchResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -21,7 +27,7 @@ const CreateChatroom = () => {
     }
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const value = e.target.value;
     setInput({
       ...input,
@@ -29,9 +35,9 @@ const CreateChatroom = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    setError(false);
-    setIsLoading(true);
+  const handleSubmit = async (e: any) => {
+    setError(error => false);
+    setIsLoading(isLoading => true);
     e.preventDefault();
 
     const response = await fetch(`/auth/users/${input.input}`, {
@@ -47,8 +53,8 @@ const CreateChatroom = () => {
         navigate('/error')
         return
       }
-      setError(true)
-      setIsLoading(false)
+      setError(error => true)
+      setIsLoading(isLoading => false)
     };
 
     const resJSON = await response.json();
@@ -56,7 +62,8 @@ const CreateChatroom = () => {
     handleSearchResult(resJSON);
   };
 
-  const handleSearchResult = (result) => {
+  const handleSearchResult = (result: ISearchResult) => {
+    console.log(result)
     setResult(result);
   };
 

@@ -116,9 +116,9 @@ const Chatroom = () => {
       socket.on("typing", (id) => {
         if (id != user.id) {
           scrollToBottom();
-          setIsTyping(true);
+          setIsTyping(isTyping => true);
           setTimeout(() => {
-            setIsTyping(false);
+            setIsTyping(isTyping => false);
           }, 2000);
           return;
         }
@@ -127,13 +127,13 @@ const Chatroom = () => {
   }, [socket]);
 
   useEffect(() => {
-    messagesReFetch()
+    messagesReFetch();
   }, [page])
 
   useEffect(() => {
     chatInfoReFetch();
     const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
-    setSocket(newSocket);
+    setSocket(socket => newSocket);
     scrollToBottom();
   }, [params.chatId]);
 

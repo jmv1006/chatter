@@ -2,29 +2,57 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./notification.css";
 
-const Notification = ({ info, user, setNotification}) => {
+interface IUser {
+  displayname: string,
+  id: string,
+  username: string
+};
+
+interface IChatInfo {
+  Id: string, 
+  Member1: string, 
+  Member1Name: string,
+  Member2: string,
+  Member2Name: string
+};
+
+interface INotification {
+  message: string,
+  user: IUser,
+  chatInfo: IChatInfo
+};
+
+type NotificationPropTypes = {
+  info: INotification,
+  user: IUser | null,
+  setNotification: (arg: null | INotification) => void;
+};
+
+const Notification = ({ info, user, setNotification} : NotificationPropTypes) => {
   const params = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
     handleText();
     //filter notifications
-    if (info.user.id == user.id) {
-      setNotification(false);
-      return;
+    if(user) {
+      if (info.user.id == user.id) {
+        setNotification(null);
+        return;
+      }
+      if (params.chatId && info.chatInfo.Id == params.chatId) {
+        setNotification(null);
+        return;
+      }
+  
+      setTimeout(() => {
+        closeNotification();
+      }, 6000);
     }
-    if (params.chatId && info.chatInfo.Id == params.chatId) {
-      setNotification(false);
-      return;
-    }
-
-    setTimeout(() => {
-      closeNotification();
-    }, 6000);
   }, []);
 
   const closeNotification = () => {
-    setNotification(false);
+    setNotification(null);
   };
 
   const handleText = () => {

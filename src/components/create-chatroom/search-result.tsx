@@ -1,10 +1,26 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SearchResult = ({ user, result, }) => {
+interface ISearchResult {
+  DisplayName: string,
+  Id: string,
+  Username: string
+};
+
+interface IUser {
+  id: string,
+  Username: string, 
+  DisplayName: string
+}
+
+type SearchResultPropTypes = {
+  result: ISearchResult,
+  user: IUser
+}
+const SearchResult = ({ user, result, } : SearchResultPropTypes) => {
   const navigate = useNavigate();
 
-  const [buttonText, setButtonText] = useState("Create Chat");
+  const [buttonText, setButtonText] = useState<string >("Create Chat");
 
   const createChat = async () => {
     setButtonText("Creating Chat...");

@@ -1,19 +1,45 @@
-import { useEffect, useState } from "react";
+import { Ref, RefObject, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { Socket } from "socket.io-client";
 import Message from "./message/message";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import '../chatroom.css'
 
-const MessagesContainer = ({ isTyping, scrollToBottom, dummydiv, socket, messagesResponse, messagesReFetch, messagesAreLoading, page, setPage }) => {
+interface IMessage {
+  Text: string,
+  Id: string, 
+  Time: string,
+  UserId: string
+};
+
+interface IMessagesResponse {
+  messages: Array<IMessage >,
+  messagesAmount: number
+};
+
+type MessagesContainerPropTypes = {
+  isTyping: boolean;
+  scrollToBottom: () => void,
+  dummydiv: RefObject<HTMLDivElement>,
+  socket: Socket | null,
+  messagesResponse: IMessagesResponse | null,
+  messagesReFetch: () => void,
+  messagesAreLoading: boolean,
+  page: number,
+  setPage: (value: number) => void
+};
+
+const MessagesContainer = ({ isTyping, scrollToBottom, dummydiv, socket, messagesResponse, messagesReFetch, messagesAreLoading, page, setPage } : MessagesContainerPropTypes) => {
   const params = useParams();
 
-  const [messages, setMessages] = useState([]); 
+  const [messages, setMessages] = useState<Array <IMessage>>([]); 
   const [totalMessagesAmount, setTotalMessagesAmount] = useState(0);
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
     if (messagesResponse) {
+      console.log(messagesResponse)
       setMessages(messagesResponse.messages); 
       setTotalMessagesAmount(messagesResponse.messagesAmount)
     }
@@ -55,7 +81,7 @@ const MessagesContainer = ({ isTyping, scrollToBottom, dummydiv, socket, message
       {page < totalMessagesAmount && <button className="loadMoreBtn" onClick={fetchMoreMessages}>{messagesAreLoading ? "Loading..." : "Load More"}</button>}
       {!messagesAreLoading && messages.length === 0 ? "No Messages In Chatroom Yet!" : null}
       {mappedMessages}
-      {isTyping ? (<Message key={"typing"} message={{ userId: "typing", Text: "Typing..." }} />) : null}
+      {isTyping ? (<Message key={"typing"} message={{ UserId: "typing", Text: "Typing...", Id: "typing", Time: "Now" }} />) : null}
       <div ref={dummydiv} />
     </div>
   );
