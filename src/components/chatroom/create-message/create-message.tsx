@@ -2,14 +2,26 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./create-message.css";
 
-const CreateMessage = ({ sendServerTyping, user, emitMessage }) => {
+interface UserInterface {
+  id: string,
+  username: string,
+  displayame: string
+}
+
+type CreateMessagePropTypes = {
+  sendServerTyping: () => void,
+  user: UserInterface,
+  emitMessage: (text: string) => void
+}
+
+const CreateMessage = ({ sendServerTyping, user, emitMessage } : CreateMessagePropTypes) => {
   const params = useParams();
   const navigate = useNavigate();
 
   const [message, setMessage] = useState({ text: "" });
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     sendServerTyping();
     const value = e.target.value;
     setMessage({
@@ -18,7 +30,7 @@ const CreateMessage = ({ sendServerTyping, user, emitMessage }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: any) => {
     setIsLoading(true);
     e.preventDefault();
 

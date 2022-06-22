@@ -1,37 +1,62 @@
 import { useEffect, useContext, useState, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 import AuthContext from "../../contexts/authcontext";
 import CreateMessage from "./create-message/create-message";
 import MessagesContainer from "./messages/messages-container";
 import useFetch from "../../hooks/use-fetch";
 import "./chatroom.css";
 
-const Chatroom = (props) => {
+interface ServerToClientEvents {
+  noArg: () => void;
+  basicEmit: (a: number, b: string, c: Buffer) => void;
+  withAck: (d: string, callback: (e: number) => void) => void;
+}
+
+interface ClientToServerEvents {
+  hello: () => void;
+}
+
+interface ChatInfoInterface {
+  Id: string,
+  Member1: string,
+  Member2: string,
+  Member1Name: string,
+  Member2Name: string,
+};
+
+interface IRecipientInfo {
+  name: string,
+  id: string
+};
+
+const Chatroom = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const dummydiv = useRef(null);
+  const dummydiv = useRef<HTMLDivElement>(null);
 
   const { userInfo } = useContext(AuthContext);
 
   const [user] = userInfo;
 
 
-  const [chatInfo, setChatInfo] = useState({
+  const [chatInfo, setChatInfo] = useState<ChatInfoInterface >({
     Id: "",
     Member1: "",
     Member2: "",
     Member1Name: "",
     Member2Name: "",
   });
-  const [socket, setSocket] = useState(null);
-  const [isTyping, setIsTyping] = useState(false);
-  const [recipientInfo, setRecipientInfo] = useState({
+
+  const [socket, setSocket] = useState<null | Socket>(null);
+
+  const [isTyping, setIsTyping] = useState<boolean >(false);
+
+  const [recipientInfo, setRecipientInfo] = useState<IRecipientInfo >({
     name: "",
     id: "",
   });
-  const [page, setPage] = useState(25);
-
+  const [page, setPage] = useState<number >(25);
 
   const {
     response: chatInfoResponse,
@@ -57,25 +82,28 @@ const Chatroom = (props) => {
 
   useEffect(() => {
     if (chatInfoResponse) {
-      setChatInfo(chatInfoResponse[0]);
-      if (chatInfoResponse[0].Member1 === user.id) {
+      const handleChatInfoResponse = async () => {
+        await setChatInfo(chatInfoResponse[0]);
+        if (chatInfo.Member1 === user.id) {
+          const recipientInfo = {
+            name: chatInfo.Member2Name,
+            id: chatInfo.Member2,
+          };
+          return setRecipientInfo(recipientInfo);
+        }
         const recipientInfo = {
-          name: chatInfoResponse[0].Member2Name,
-          id: chatInfoResponse[0].Member2,
+          name: chatInfo.Member1Name,
+          id: chatInfo.Member1,
         };
-        return setRecipientInfo(recipientInfo);
+        setRecipientInfo(recipientInfo);
       }
-      const recipientInfo = {
-        name: chatInfoResponse[0].Member1Name,
-        id: chatInfoResponse[0].Member1,
-      };
-      setRecipientInfo(recipientInfo);
-    }
+      handleChatInfoResponse();
+    };
   }, [chatInfoResponse]);
 
   useEffect(() => {
-    const newSocket = io("https://jmv1006-chatterapi.herokuapp.com/");
-    setSocket(newSocket);
+    const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
+    setSocket(socket => newSocket);
     return () => {
       newSocket.close();
     };
@@ -104,21 +132,21 @@ const Chatroom = (props) => {
 
   useEffect(() => {
     chatInfoReFetch();
-    const newSocket = io("https://jmv1006-chatterapi.herokuapp.com/");
+    const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
     setSocket(newSocket);
     scrollToBottom();
   }, [params.chatId]);
 
-  const emitMessage = (text) => {
-    socket.emit("roommessage", text, user, chatInfo);
+  const emitMessage = (text: string) => {
+    if(socket) socket.emit("roommessage", text, user, chatInfo);
   };
 
   const sendServerTyping = () => {
-    socket.emit("typing", user.displayname, user.id);
+    if(socket) socket.emit("typing", user.displayname, user.id);
   };
 
   const scrollToBottom = () => {
-    dummydiv.current.scrollIntoView({ behavior: "smooth" });
+    if(dummydiv.current) dummydiv.current.scrollIntoView({ behavior: "smooth" });
   };
 
 
@@ -141,7 +169,6 @@ const Chatroom = (props) => {
       <CreateMessage
         emitMessage={emitMessage}
         sendServerTyping={sendServerTyping}
-        isTyping={isTyping}
         user={user}
       />
     </div>

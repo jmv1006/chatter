@@ -18,8 +18,6 @@ const ChatListContainer = () => {
 
   const [user] = userInfo;
 
-  console.log(user)
-
   const [chats, setChats] = useState<Array<ChatInterface> | null>(null);
 
   const { response, error, isLoading, reFetch } = useFetch(
