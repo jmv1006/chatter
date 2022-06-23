@@ -1,23 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {UserInterface} from '../../shared/interfaces/interfaces'
 
 interface ISearchResult {
-  DisplayName: string,
-  Id: string,
-  Username: string
-};
-
-interface IUser {
+  displayname: string,
   id: string,
-  Username: string, 
-  DisplayName: string
-}
+  username: string
+};
 
 type SearchResultPropTypes = {
   result: ISearchResult,
-  user: IUser
+  user: UserInterface
 }
-const SearchResult = ({ user, result, } : SearchResultPropTypes) => {
+const SearchResult = ({ user, result } : SearchResultPropTypes) => {
   const navigate = useNavigate();
 
   const [buttonText, setButtonText] = useState<string >("Create Chat");
@@ -26,7 +21,7 @@ const SearchResult = ({ user, result, } : SearchResultPropTypes) => {
     setButtonText("Creating Chat...");
     const body = {
       member1: user.id,
-      member2: result.Id
+      member2: result.id
     };
 
     const response = await  fetch(`/chatroom/create`, {
@@ -55,12 +50,12 @@ const SearchResult = ({ user, result, } : SearchResultPropTypes) => {
   };
 
   const redirectToUserInfo = () => {
-    navigate(`/user/${result.Id}`)
+    navigate(`/user/${result.id}`)
   }
 
   return (
     <div className="searchResult">
-      {result.DisplayName} ({result.Username})
+      {result.displayname} ({result.username})
       <div className="searchResultRightSide">
         <button className="searchResultBtn" onClick={redirectToUserInfo}>
           View

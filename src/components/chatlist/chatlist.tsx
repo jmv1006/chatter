@@ -1,14 +1,8 @@
 import { useContext, useEffect } from "react";
+import { ChatInterface } from "../../shared/interfaces/interfaces";
 import AuthContext from "../../contexts/authcontext";
 import ChatBanner from "./chatbanner";
 import "./chatlist.css";
-
-
-interface ChatInterface {
-  Id: string,
-  Member1: string,
-  Member2: string
-};
 
 type ChatListProps = {
   chats: Array<ChatInterface>,

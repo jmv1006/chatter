@@ -1,12 +1,7 @@
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { UserInterface } from "../../shared/interfaces/interfaces";
 import "./notification.css";
-
-interface IUser {
-  displayname: string,
-  id: string,
-  username: string
-};
 
 interface IChatInfo {
   Id: string, 
@@ -18,13 +13,13 @@ interface IChatInfo {
 
 interface INotification {
   message: string,
-  user: IUser,
+  user: UserInterface,
   chatInfo: IChatInfo
 };
 
 type NotificationPropTypes = {
   info: INotification,
-  user: IUser | null,
+  user: UserInterface | null,
   setNotification: (arg: null | INotification) => void;
 };
 

@@ -1,23 +1,13 @@
 import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { UserInterface, ChatInterface } from "../../shared/interfaces/interfaces";
 import AuthContext from "../../contexts/authcontext";
 import EditUserInfo from "./edit-user-info/edit-user-info";
 import Info from "./info";
 import useFetch from "../../hooks/use-fetch";
 import "./user-info.css";
 
-interface IUser {
-  Id: string,
-  Username: string,
-  DisplayName: string
-}
-
-interface IChat {
-  Id: string,
-  Member1: string,
-  Member2: string
-}
 
 const UserInfo = () => {
   const params = useParams();
@@ -27,8 +17,8 @@ const UserInfo = () => {
 
   const [currentUser] = userInfo;
 
-  const [user, setUser] = useState<IUser | null>(null);
-  const [chat, setChat] = useState<IChat | null>(null);
+  const [user, setUser] = useState<UserInterface | null>(null);
+  const [chat, setChat] = useState<ChatInterface | null>(null);
   const [isCurrentUser, setIsCurrentUser] = useState<boolean >(false);
   const [buttonText, setButtonText] = useState<string >("Create Chat");
   const [isEditing, setIsEditing] = useState<boolean >(false);
@@ -52,7 +42,7 @@ const UserInfo = () => {
 
   useEffect(() => {
     if (user && currentUser) {
-      if (user.Id == currentUser.id) {
+      if (user.id == currentUser.id) {
         setIsCurrentUser(true);
       }
     }
@@ -60,11 +50,11 @@ const UserInfo = () => {
 
   useEffect(() => {
     if (chatResponse && user && currentUser) {
-      const chats: Array<IChat> = chatResponse;
-      chats.forEach((chat: IChat) => {
+      const chats: Array<ChatInterface> = chatResponse;
+      chats.forEach((chat: ChatInterface) => {
         if (
-          (chat.Member1 === currentUser.id && chat.Member2 === user.Id) ||
-          (chat.Member1 === user.Id && chat.Member2 === currentUser.id)
+          (chat.Member1 === currentUser.id && chat.Member2 === user.id) ||
+          (chat.Member1 === user.id && chat.Member2 === currentUser.id)
         ) {
           setChat(chat);
           return;
@@ -84,9 +74,9 @@ const UserInfo = () => {
     if(user) {
       const body = {
         member1: currentUser.id,
-        member2: user.Id,
+        member2: user.id,
         member1name: currentUser.displayname,
-        member2name: user.DisplayName,
+        member2name: user.displayname,
       };
   
       const response = await  fetch(`/chatroom/create`, {

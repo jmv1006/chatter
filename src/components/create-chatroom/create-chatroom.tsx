@@ -5,9 +5,9 @@ import SearchResult from "./search-result";
 import "./create-chatroom.css";
 
 interface ISearchResult {
-  DisplayName: string,
-  Id: string,
-  Username: string
+  displayname: string,
+  id: string,
+  username: string
 };
 
 const CreateChatroom = () => {
@@ -63,7 +63,6 @@ const CreateChatroom = () => {
   };
 
   const handleSearchResult = (result: ISearchResult) => {
-    console.log(result)
     setResult(result);
   };
 

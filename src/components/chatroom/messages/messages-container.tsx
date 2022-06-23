@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Socket } from "socket.io-client";
 import Message from "./message/message";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import '../chatroom.css'
 
 interface IMessage {
@@ -39,7 +38,6 @@ const MessagesContainer = ({ isTyping, scrollToBottom, dummydiv, socket, message
 
   useEffect(() => {
     if (messagesResponse) {
-      console.log(messagesResponse)
       setMessages(messagesResponse.messages); 
       setTotalMessagesAmount(messagesResponse.messagesAmount)
     }

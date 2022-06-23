@@ -1,13 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { UserInterface } from "../../../shared/interfaces/interfaces";
 import "./create-message.css";
-
-interface UserInterface {
-  id: string,
-  username: string,
-  displayame: string
-}
-
 interface IMessage {
   text: string
 }

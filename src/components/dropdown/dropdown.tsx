@@ -1,16 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { UserInterface } from "../../shared/interfaces/interfaces";
 import "./dropdown.css";
-
-interface IUser {
-  displayname: string,
-  id: string,
-  username: string
-};
 
 type dropDownProps = {
   toggleDropDown: () => void,
   logout: () => void,
-  user: IUser | null
+  user: UserInterface | null
 }
 
 const DropDown = ({ toggleDropDown, logout, user} : dropDownProps) => {

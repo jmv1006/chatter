@@ -1,16 +1,11 @@
 import { useEffect, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
+import { ChatInterface } from "../../shared/interfaces/interfaces";
 import AuthContext from "../../contexts/authcontext";
 import ChatList from "./chatlist";
 import useFetch from "../../hooks/use-fetch";
 import "./chatlist.css";
-
-interface ChatInterface {
-  Id: string,
-  Member1: string,
-  Member2: string
-};
 
 const ChatListContainer = () => {
   const navigate = useNavigate();

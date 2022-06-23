@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
+import { UserInterface } from "../shared/interfaces/interfaces";
 import AuthContext from "../contexts/authcontext";
 import Header from "../components/header/header";
 import Notification from "../components/notification/notification";
 import DropDown from "../components/dropdown/dropdown";
 import Footer from "../components/footer/footer";
 import "./app.css";
-
-interface IUser {
-  displayname: string,
-  id: string,
-  username: string
-};
 
 interface IChatInfo {
   Id: string, 
@@ -24,14 +19,14 @@ interface IChatInfo {
 
 interface INotification {
   message: string,
-  user: IUser,
+  user: UserInterface,
   chatInfo: IChatInfo
 };
 
 function App() {
   const params = useParams();
 
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<UserInterface | null>(null);
   const [notification, setNotification] = useState<INotification | null>(null);
   const [dropDown, setDropDown] = useState<boolean >(false);
 

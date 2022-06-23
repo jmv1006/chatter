@@ -1,20 +1,9 @@
 import { Link } from "react-router-dom";
-
-interface IUser {
-    Id: string,
-    Username: string,
-    DisplayName: string
-  }
-  
-  interface IChat {
-    Id: string,
-    Member1: string,
-    Member2: string
-  }
+import {UserInterface, ChatInterface} from '../../shared/interfaces/interfaces'
 
 type InfoPropTypes = {
-    user: IUser,
-    chat: IChat | null,
+    user: UserInterface,
+    chat: ChatInterface | null,
     isLoading: boolean,
     chatIsLoading: boolean,
     isCurrentUser: boolean,
@@ -26,10 +15,10 @@ const Info = ({ user, chat, isLoading, chatIsLoading, isCurrentUser, createChat,
     return(
         <div className="infoContainer">
             <div className="userInfoTopContainer">
-                <div className="userInfoDisplayName">{user && user.DisplayName}</div>
-                <div>User Id: {user && user.Id}</div>
+                <div className="userInfoDisplayName">{user && user.displayname}</div>
+                <div>User Id: {user && user.id}</div>
             </div>
-            <div className="userInfoUsername">E-mail: {user && user.Username}</div>
+            <div className="userInfoUsername">E-mail: {user && user.username}</div>
             {chat && <Link to={`/chat/${chat.Id}`}>Go To Chat</Link>}
             {!chat && !isLoading && !chatIsLoading && !isCurrentUser ? (<button onClick={createChat} className="createChatBtn">{buttonText}</button>) : null}
         </div>

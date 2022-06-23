@@ -2,19 +2,8 @@ import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import AuthContext from "../../contexts/authcontext";
+import { UserInterface, ChatInterface } from "../../shared/interfaces/interfaces";
 import "./chatlist.css";
-
-interface ChatInterface {
-  Id: string,
-  Member1: string,
-  Member2: string
-};
-
-interface UserInterface {
-  id: string,
-  username: string,
-  displayame: string
-}
 
 type ChatBannerPropTypes = {
   user: UserInterface,
@@ -64,7 +53,7 @@ const ChatBanner = ({user, chat}: ChatBannerPropTypes) => {
     }
 
     const resJSON = await res.json();
-    setRecipientName(resJSON.DisplayName);
+    setRecipientName(resJSON.displayname);
     setIsLoading(false);
   };
 
