@@ -75,19 +75,19 @@ function App() {
   };
 
   return (
-    <div className="appContainer">
-      <Header toggleDropDown={toggleDropDown} />
-      {dropDown && (
-        <DropDown toggleDropDown={toggleDropDown} user={user} logout={logout} />
-      )}
-      {notification ? (
-        <Notification info={notification} setNotification={setNotification} user={user}/>
-      ) : null}
-      <AuthContext.Provider value={{userInfo: [user, setUser], notificationHandler: [notification, setNotification]}}>
-        <Outlet />
-      </AuthContext.Provider>
-      {!params.chatId && <Footer />}
-    </div>
+      <div className="appContainer">
+        <Header toggleDropDown={toggleDropDown} />
+        {dropDown && (
+          <DropDown toggleDropDown={toggleDropDown} user={user} logout={logout} />
+        )}
+        {notification ? (
+          <Notification info={notification} setNotification={setNotification} user={user}/>
+        ) : null}
+        <AuthContext.Provider value={{userInfo: [user, setUser], notificationHandler: [notification, setNotification]}}>
+          <Outlet />
+        </AuthContext.Provider>
+        {!params.chatId && <Footer />}
+      </div>
   );
 }
 

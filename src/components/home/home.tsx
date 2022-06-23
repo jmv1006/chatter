@@ -1,7 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthPage from "../auth/authpage";
+import { useNavigate } from "react-router";
 import AuthContext from "../../contexts/authcontext";
 import ChatListContainer from "../chatlist/chatlist-container";
+import Dashboard from "../ui-redo/dashboard";
 
 const HomePage = () => {
   const { userInfo } = useContext(AuthContext);
@@ -10,7 +12,7 @@ const HomePage = () => {
 
   return (
     <div className="homepageContainer">
-      {user ? <ChatListContainer /> : <AuthPage />}
+      {user ? <Dashboard /> : <AuthPage />}
     </div>
   );
 };
