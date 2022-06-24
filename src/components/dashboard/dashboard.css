@@ -15,7 +15,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
+    gap: .5rem;
 }
 
 .conversationContainer {
@@ -33,18 +33,22 @@
     }
 }
 
-
 .recipientNameContainer {
     height: 5%;
 }
 
 .messagesContainer {
-    height: 90%;
+    height: 88%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
     overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 1.5%;
+    gap: .5rem;
+    padding-bottom: 1.5%;
 }
 
 .createMessageContainer {

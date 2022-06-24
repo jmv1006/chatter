@@ -22,7 +22,7 @@ const CreateMessage = ({ user, sendServerTyping, emitMessage }: CreateMessagePro
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         
-        const response = await  fetch(`/chatroom/${params.chatId}`, {
+        const response = await fetch(`/chatroom/${params.chatId}`, {
             method: "POST",
             headers: {
               Accept: "application/json",

@@ -42,9 +42,13 @@ const Conversation = () => {
 
 
     useEffect(() => {
-        chatInfoReFetch();
-        const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
-        setSocket(socket => newSocket);
+        const reloadInformation = () => {
+            setPage(25);
+            chatInfoReFetch();
+            const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
+            setSocket(socket => newSocket);
+        }
+        reloadInformation();
     }, [params.chatId]);
 
     useEffect(() => {
@@ -97,11 +101,14 @@ const Conversation = () => {
         }
     };
 
-    
+    const incrementPage = () => {
+        setPage(page + 25);
+    };
+
     return(
         <div className='conversationContainer'>
             <div className='recipientNameContainer'>{chatInfo && handleRecipientName()}</div>
-            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} />}
+            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping}/>}
             <CreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
         </div>
     )

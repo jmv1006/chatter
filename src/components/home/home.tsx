@@ -13,8 +13,8 @@ const HomePage = () => {
 
   return (
     <div className="homepageContainer">
-      {user ? "User" : <AuthPage />}
-      <Link to="/chats">Chats here</Link>
+      {user ? "Main Page Here" : <AuthPage />}
+      {user && <Link to="/chats">Chats here</Link>}
     </div>
   );
 };

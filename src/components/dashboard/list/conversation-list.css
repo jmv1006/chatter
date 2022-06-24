@@ -1,12 +1,18 @@
 .conversationBanner {
-    border: 2px solid blue;
     width: 100%;
     height: 5%;
     display: flex;
-    align-items: center;
-    justify-content: space-around;
+    flex-direction: column;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.bannerMessage {
+    color: gray;
+    margin-left: .5rem;
 }
 
 .createConversationBtn {
-    margin-top: 1rem;
+
 }
