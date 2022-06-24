@@ -3,7 +3,7 @@ import AuthPage from "../auth/authpage";
 import { useNavigate } from "react-router";
 import AuthContext from "../../contexts/authcontext";
 import ChatListContainer from "../chatlist/chatlist-container";
-import Dashboard from "../ui-redo/dashboard";
+import Dashboard from "../dashboard/dashboard";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {

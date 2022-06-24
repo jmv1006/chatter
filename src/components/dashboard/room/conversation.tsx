@@ -3,19 +3,19 @@ import { useParams } from 'react-router';
 import { Socket, io } from 'socket.io-client';
 import AuthContext from '../../../contexts/authcontext';
 import useFetch from '../../../hooks/use-fetch';
-import MessagesRedo from '../messages/messages-redo';
-import RedoCreateMessage from './create/redo-create';
+import MessagesContainer from './messages/container-messages';
+import CreateMessage from './create/create-message';
 import './conversation.css';
 
 interface ServerToClientEvents {
     noArg: () => void;
     basicEmit: (a: number, b: string, c: Buffer) => void;
     withAck: (d: string, callback: (e: number) => void) => void;
-}
+};
   
 interface ClientToServerEvents {
     hello: () => void;
-}
+};
 
 interface IChatInformation {
     Id: string,
@@ -32,14 +32,19 @@ const Conversation = () => {
 
     const [user] = userInfo;
 
-    const {response: messagesAndAmount, error: messagesError, isLoading: messagesAreLoading, reFetch: messagesReFetch} = useFetch(`/chatroom/${params.chatId}/messages/25`);
-    const {response: chatInfoReponse, error: chatInfoError, isLoading: chatInfoIsLoading, reFetch: chatInfoReFetch} = useFetch(`/chatroom/${params.chatId}`);
     const [socket, setSocket] = useState<null | Socket>(null);
     const [isTyping, setIsTyping] = useState(false);
     const [chatInfo, setChatInfo] = useState<null | IChatInformation>(null);
+    const [page, setPage] = useState(25);
+
+    const {response: messagesAndAmount, error: messagesError, isLoading: messagesAreLoading, reFetch: messagesReFetch} = useFetch(`/chatroom/${params.chatId}/messages/${page}`);
+    const {response: chatInfoReponse, error: chatInfoError, isLoading: chatInfoIsLoading, reFetch: chatInfoReFetch} = useFetch(`/chatroom/${params.chatId}`);
+
 
     useEffect(() => {
-        messagesReFetch();
+        chatInfoReFetch();
+        const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
+        setSocket(socket => newSocket);
     }, [params.chatId]);
 
     useEffect(() => {
@@ -90,14 +95,14 @@ const Conversation = () => {
             }
             return chatInfo.Member1Name;
         }
-    }
+    };
+
     
     return(
         <div className='conversationContainer'>
-            {chatInfo && handleRecipientName()}
-            {messagesAndAmount && <MessagesRedo messagesAndAmount={messagesAndAmount} />}
-            {isTyping && "Typing..."}
-            <RedoCreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
+            <div className='recipientNameContainer'>{chatInfo && handleRecipientName()}</div>
+            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} />}
+            <CreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
         </div>
     )
 };

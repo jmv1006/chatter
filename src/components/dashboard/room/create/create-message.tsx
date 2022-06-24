@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useParams } from "react-router";
 import { UserInterface } from "../../../../shared/interfaces/interfaces";
+import './create-message.css';
 
-type RedoCreateMessageProps = {
+type CreateMessageProps = {
     user: UserInterface,
     sendServerTyping: () => void,
     emitMessage: (text: string) => void;
 };
 
-const RedoCreateMessage = ({ user, sendServerTyping, emitMessage }: RedoCreateMessageProps) => {
+const CreateMessage = ({ user, sendServerTyping, emitMessage }: CreateMessageProps) => {
     const params = useParams();
 
     const [text, setText] = useState("");
@@ -37,16 +38,17 @@ const RedoCreateMessage = ({ user, sendServerTyping, emitMessage }: RedoCreateMe
         await response.json();
 
         emitMessage(text);
+        setText(text => "");
     };
 
     return(
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Message Here" value={text} onChange={handleChange} required/>
-                <button type="submit">Send</button>
+        <div className="createMessageContainer">
+            <form onSubmit={handleSubmit} className="createMessageForm">
+                <input className="messageInput" type="text" placeholder="Message Here" value={text} onChange={handleChange} required/>
+                <button className="messageSubmitBtn" type="submit">Send</button>
             </form>
         </div>
     )
 }
 
-export default RedoCreateMessage;
+export default CreateMessage;

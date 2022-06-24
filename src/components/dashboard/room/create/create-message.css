@@ -1,0 +1,17 @@
+.createMessageForm {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.messageInput {
+    width: 75%;
+    height: 80%;
+}
+
+.messageSubmitBtn {
+    width: 25%;
+    height: 90%;
+}

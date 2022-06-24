@@ -1,0 +1,16 @@
+
+.recipientNameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5%;
+    border-bottom: 1px solid black;
+}
+
+.createMessageContainer {
+    height: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

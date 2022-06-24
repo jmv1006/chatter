@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Message from './message';
 
 interface IMessages {
     Text: string, 
@@ -8,7 +9,7 @@ interface IMessages {
     Chatroom: string
 };
 
-const MessagesRedo = ({ messagesAndAmount } : any) => {
+const MessagesContainer = ({ messagesAndAmount, fetchMoreMessages } : any) => {
 
     const [messages, setMessages] = useState<Array <IMessages>>([]);
     const [messagesAmount, setMessagesAmount] = useState(0);
@@ -19,14 +20,15 @@ const MessagesRedo = ({ messagesAndAmount } : any) => {
     }, [messagesAndAmount]);
 
     const mappedMessages = messages.map((message) => 
-        <div key={message.Id}>{message.Text}</div>
+        <Message key={message.Id} message={message}/>
     )
 
     return(
-        <div>
+        <div className="messagesContainer">
+            {messagesAmount > messages.length ? <button onClick={fetchMoreMessages}>Fetch More</button> : null}
             {mappedMessages}
         </div>
     )
 }
 
-export default MessagesRedo
+export default MessagesContainer;

@@ -1,25 +1,26 @@
-import { useEffect } from "react";
 import { ChatInterface, UserInterface } from "../../../shared/interfaces/interfaces";
-import ConversationBanner from '../red-chatbanner/Conversation-Banner';
-import './conversation-list.css';
+import ConversationBanner from './banner/Conversation-Banner';
+import './conversation-list.css'
+import '../dashboard.css';
+import { useNavigate } from "react-router";
 
 type ConversationListProps = {
     chats: Array<ChatInterface>,
 };
 
 const ConversationList = ({ chats } : ConversationListProps) => {
-    
-    useEffect(() => {
-        console.log(chats)
-    }, []);
+    const navigate = useNavigate();
 
     const mappedChats = chats.map((chat) => 
         <ConversationBanner key={chat.Id} chat={chat} />
     );
 
+    const navigateToCreateChat = () => {
+        navigate('/chat/create')
+    }
     return(
         <div className="conversationListContainer">
-            <button>Create Conversation</button>
+            <button className="createConversationBtn" onClick={navigateToCreateChat}>Create Conversation</button>
             {mappedChats}
         </div>
     )
