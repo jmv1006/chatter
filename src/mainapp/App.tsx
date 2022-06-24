@@ -49,9 +49,11 @@ function App() {
     if (user) {
       const socket = io("https://jmv1006-chatterapi.herokuapp.com/");
       socket.emit("notificationlink", "Linking for notifications");
+      /*
       socket.on("notification", (object) => {
         setNotification(object);
       });
+      */
     }
   }, [user]);
 
