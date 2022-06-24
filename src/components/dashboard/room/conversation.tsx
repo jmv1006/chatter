@@ -40,7 +40,6 @@ const Conversation = () => {
     const {response: messagesAndAmount, error: messagesError, isLoading: messagesAreLoading, reFetch: messagesReFetch} = useFetch(`/chatroom/${params.chatId}/messages/${page}`);
     const {response: chatInfoReponse, error: chatInfoError, isLoading: chatInfoIsLoading, reFetch: chatInfoReFetch} = useFetch(`/chatroom/${params.chatId}`);
 
-
     useEffect(() => {
         const reloadInformation = () => {
             setPage(25);
@@ -79,7 +78,7 @@ const Conversation = () => {
             });
 
             socket.on("roommessage", async (message) => {
-                messagesReFetch();
+                //this is frozen in time state wise
             });
         };
     }, [socket]);
@@ -107,7 +106,7 @@ const Conversation = () => {
 
     return(
         <div className='conversationContainer'>
-            <div className='recipientNameContainer'>{chatInfo && handleRecipientName()}</div>
+            <div className='recipientNameContainer'>{chatInfo && handleRecipientName()}{page}</div>
             {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping}/>}
             <CreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
         </div>
