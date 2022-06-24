@@ -11,6 +11,7 @@ import NotFound from "./components/errors/not-found";
 import ServerError from "./components/errors/server-error";
 import UserInfo from "./components/user-info/user-info-page";
 import Dashboard from "./components/ui-redo/dashboard";
+import Conversation from "./components/ui-redo/room/conversation";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 root.render(
@@ -18,7 +19,9 @@ root.render(
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/chats" element={<Dashboard />} />
+        <Route path="/chats" element={<Dashboard />}>
+            <Route path="/chats/:chatId" element={<Conversation />} />
+        </Route>
         <Route path="sign-in" element={<SignIn />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="/chat/:chatId" element={<Chatroom />} />

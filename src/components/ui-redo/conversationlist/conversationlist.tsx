@@ -8,7 +8,7 @@ type ConversationListProps = {
 };
 
 const ConversationList = ({ chats } : ConversationListProps) => {
-
+    
     useEffect(() => {
         console.log(chats)
     }, []);

@@ -5,6 +5,7 @@ import Conversation from './room/conversation';
 import useFetch from '../../hooks/use-fetch';
 import AuthContext from '../../contexts/authcontext';
 import { ChatInterface } from '../../shared/interfaces/interfaces';
+import { Outlet } from 'react-router';
 
 const Dashboard = () => {
     const { userInfo } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const Dashboard = () => {
     return(
         <div className="dashBoardPage">
             <ConversationList chats={chats} />
-            <Conversation />
+            <Outlet />
         </div>
     )
 }

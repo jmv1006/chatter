@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../../../contexts/authcontext";
 import { ChatInterface } from "../../../shared/interfaces/interfaces"
 
@@ -24,6 +25,7 @@ const ConversationBanner = ({chat} : ConversationBannerPropTypes) => {
     return(
         <div>
             {handleRecipientName()}
+            <Link to={`/chats/${chat.Id}`}>Chat Info</Link>
         </div>
     )
 }

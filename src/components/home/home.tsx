@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import AuthContext from "../../contexts/authcontext";
 import ChatListContainer from "../chatlist/chatlist-container";
 import Dashboard from "../ui-redo/dashboard";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const { userInfo } = useContext(AuthContext);
@@ -12,7 +13,8 @@ const HomePage = () => {
 
   return (
     <div className="homepageContainer">
-      {user ? <Dashboard /> : <AuthPage />}
+      {user ? "User" : <AuthPage />}
+      <Link to="/chats">Chats here</Link>
     </div>
   );
 };
