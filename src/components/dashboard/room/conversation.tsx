@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router';
 import { Socket, io } from 'socket.io-client';
 import AuthContext from '../../../contexts/authcontext';
@@ -6,6 +6,7 @@ import useFetch from '../../../hooks/use-fetch';
 import MessagesContainer from './messages/container-messages';
 import CreateMessage from './create/create-message';
 import './conversation.css';
+import MobileDropdown from '../mobile-dropdown/mobile-dropdown';
 
 interface ServerToClientEvents {
     noArg: () => void;
@@ -32,37 +33,35 @@ const Conversation = () => {
 
     const [user] = userInfo;
 
+    const dummydiv = useRef<HTMLDivElement>(null);
+
     const [socket, setSocket] = useState<null | Socket>(null);
     const [isTyping, setIsTyping] = useState(false);
     const [chatInfo, setChatInfo] = useState<null | IChatInformation>(null);
     const [page, setPage] = useState(25);
 
+    const [mobileDropDown, setMobileDropDown] = useState(false);
+
     const {response: messagesAndAmount, error: messagesError, isLoading: messagesAreLoading, reFetch: messagesReFetch} = useFetch(`/chatroom/${params.chatId}/messages/${page}`);
     const {response: chatInfoReponse, error: chatInfoError, isLoading: chatInfoIsLoading, reFetch: chatInfoReFetch} = useFetch(`/chatroom/${params.chatId}`);
 
     useEffect(() => {
-        const reloadInformation = () => {
-            setPage(25);
-            chatInfoReFetch();
-            const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
-            setSocket(socket => newSocket);
-        }
-        reloadInformation();
+        setPage(25);
+        chatInfoReFetch();
+        const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
+        setSocket(socket => newSocket);
+    
+        return() => {
+            newSocket.close()
+        };
     }, [params.chatId]);
 
     useEffect(() => {
         if(chatInfoReponse) {
             setChatInfo(chatInfoReponse[0])
+            scrollToBottom()
         }
     }, [chatInfoReponse])
-
-    useEffect(() => {
-        const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
-        setSocket(socket => newSocket);
-        return () => {
-            newSocket.close();
-        };
-    },[setSocket]);
 
     useEffect(() => {
         if (socket) {
@@ -78,7 +77,8 @@ const Conversation = () => {
             });
 
             socket.on("roommessage", async (message) => {
-                //this is frozen in time state wise
+                await messagesReFetch();
+                scrollToBottom();
             });
         };
     }, [socket]);
@@ -104,10 +104,26 @@ const Conversation = () => {
         setPage(page + 25);
     };
 
+    const scrollToBottom = () => {
+        if(dummydiv.current) dummydiv.current.scrollIntoView({ behavior: "smooth" });
+    };
+
+    const toggleMobileDropdown = () => {
+        if(mobileDropDown) {
+            setMobileDropDown(false)
+            return
+        }
+        setMobileDropDown(true)
+    }
+
     return(
         <div className='conversationContainer'>
-            <div className='recipientNameContainer'>{chatInfo && handleRecipientName()}{page}</div>
-            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping}/>}
+            {mobileDropDown && <MobileDropdown toggle={toggleMobileDropdown}/>}
+            <button className='mobileDropDownBtn' onClick={toggleMobileDropdown}>My Conversations</button>
+            <div className='recipientNameContainer'>
+                {chatInfo && handleRecipientName()}
+            </div>
+            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping} dummydiv={dummydiv}/>}
             <CreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
         </div>
     )

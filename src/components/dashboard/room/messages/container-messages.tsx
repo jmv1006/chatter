@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { RefObject, useEffect, useState } from "react"
 import Message from './message';
 
 interface IMessage {
@@ -17,14 +17,28 @@ const TypingMessage: IMessage = {
     Chatroom: "typing"
 };
 
-const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping } : any) => {
+interface IMessagesAndAmount {
+    messages: Array<IMessage>,
+    messagesAmount: number
+}
+
+type MessagesContainerProps = {
+    messagesAndAmount: null | IMessagesAndAmount,
+    incrementPage: () => void,
+    isTyping: boolean,
+    dummydiv: RefObject<HTMLDivElement>,
+}
+
+const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping, dummydiv } : MessagesContainerProps) => {
 
     const [messages, setMessages] = useState<Array <IMessage>>([]);
     const [messagesAmount, setMessagesAmount] = useState(0);
 
     useEffect(() => {
-        setMessages(messages => messagesAndAmount.messages);
-        setMessagesAmount(messagesAmount => messagesAndAmount.messagesAmount)
+        if(messagesAndAmount) {
+            setMessages(messages => messagesAndAmount.messages);
+            setMessagesAmount(messagesAmount => messagesAndAmount.messagesAmount)
+        }
     }, [messagesAndAmount]);
 
     const mappedMessages = messages.map((message) => 
@@ -36,6 +50,7 @@ const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping } : any)
             {messagesAmount > messages.length ? <button onClick={incrementPage}>Fetch More</button> : null}
             {mappedMessages}
             {isTyping && <Message key="typing" message={TypingMessage} />}
+            <div ref={dummydiv}/>
         </div>
     )
 }

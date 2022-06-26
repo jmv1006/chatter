@@ -11,6 +11,7 @@ import ServerError from "./components/errors/server-error";
 import UserInfo from "./components/user-info/user-info-page";
 import Dashboard from "./components/dashboard/dashboard";
 import Conversation from "./components/dashboard/room/conversation";
+import DashboardLanding from "./components/dashboard/landing/dashboard-landing";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 root.render(
@@ -20,6 +21,7 @@ root.render(
         <Route path="/" element={<HomePage />} />
         <Route path="/chats" element={<Dashboard />}>
             <Route path="/chats/:chatId" element={<Conversation />} />
+            <Route path="/chats" element={<DashboardLanding />} />
         </Route>
         <Route path="sign-in" element={<SignIn />} />
         <Route path="sign-up" element={<SignUp />} />

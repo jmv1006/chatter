@@ -34,7 +34,7 @@ const Dashboard = () => {
     return(
         <div className="dashBoardPage">
             {user && <ConversationList chats={chats} />}
-            {user && <Outlet />}
+            {user && <Outlet/>}
         </div>
     )
 }

@@ -39,7 +39,7 @@ const Notification = ({ info, user, setNotification} : NotificationPropTypes) =>
         setNotification(null);
         return;
       }
-  
+      
       setTimeout(() => {
         closeNotification();
       }, 6000);

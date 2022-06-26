@@ -1,0 +1,35 @@
+.landingPageContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.recentChatsContainer {
+    width: 85%;
+    padding: .75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .75rem;
+    background-color: #f5f4f2;
+    border-radius: .75rem;
+}
+
+.landingPageChatsContainer {
+   width: 85%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: .5rem;
+}
+
+.titleContainer {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+}

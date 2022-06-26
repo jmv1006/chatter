@@ -20,7 +20,6 @@ const ConversationList = ({ chats } : ConversationListProps) => {
     }
     return(
         <div className="conversationListContainer">
-            Your Conversations:
             {chats.length === 0 && "Click Create Conversation"}
             <button className="createConversationBtn" onClick={navigateToCreateChat}>Create Conversation</button>
             {mappedChats}
