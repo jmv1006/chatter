@@ -1,0 +1,44 @@
+.conversationBanner {
+    width: 90%;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+
+.conversationBanner-Selected {
+    width: 90%;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border: 1px solid black;
+    background-color: #ebebeb;
+}
+.bannerName {
+    margin-left: .25rem;
+}
+.bannerMessage {
+    color: gray;
+    margin-left: .5rem;
+}
+
+.createConversationBtn {
+    margin-top: .5rem;
+    width: 80%;
+    height: 1.75rem;
+    background-color: #47a9ff;
+    border: none;
+}
+
+.createConversationBtn:hover {
+    margin-top: .5rem;
+    width: 80%;
+    height: 1.75rem;
+    background-color: #47a9ff;
+    border: 1px solid black;
+    cursor: pointer;
+}

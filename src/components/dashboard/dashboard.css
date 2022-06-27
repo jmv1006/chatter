@@ -1,0 +1,91 @@
+.dashBoardPage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.conversationListContainer {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+    border-right: 1px solid black;
+}
+
+.conversationContainer {
+    width: 70%;
+    height: 100%;
+}
+
+.mobileDropDownBtn {
+    display: none;
+}
+
+.mobileDropDownContainer {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .conversationContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .conversationListContainer {
+        display: none;
+    }
+
+    .mobileDropDownBtn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .mobileDropDownContainer {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        gap: .5rem;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        background-color: #f5f4f2;
+    }
+}
+
+.recipientNameContainer {
+    height: 5%;
+}
+
+.messagesContainer {
+    height: 87.5%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-top: 1.5%;
+    gap: .5rem;
+    padding-bottom: 1.5%;
+}
+
+.createMessageContainer {
+    height: 4%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

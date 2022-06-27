@@ -19,7 +19,7 @@ const Info = ({ user, chat, isLoading, chatIsLoading, isCurrentUser, createChat,
                 <div>User Id: {user && user.id}</div>
             </div>
             <div className="userInfoUsername">E-mail: {user && user.username}</div>
-            {chat && <Link to={`/chat/${chat.Id}`}>Go To Chat</Link>}
+            {chat && <Link to={`/chats/${chat.Id}`}>Go To Chat</Link>}
             {!chat && !isLoading && !chatIsLoading && !isCurrentUser ? (<button onClick={createChat} className="createChatBtn">{buttonText}</button>) : null}
         </div>
     )

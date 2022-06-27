@@ -35,11 +35,11 @@ const Notification = ({ info, user, setNotification} : NotificationPropTypes) =>
         setNotification(null);
         return;
       }
-      if (params.chatId && info.chatInfo.Id == params.chatId) {
+      if (params.chatId) {
         setNotification(null);
         return;
       }
-  
+      
       setTimeout(() => {
         closeNotification();
       }, 6000);

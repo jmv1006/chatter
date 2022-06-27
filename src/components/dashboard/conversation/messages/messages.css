@@ -1,0 +1,44 @@
+.userMessage {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.otherMessage {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.userText {
+    margin-right: .5rem;
+    background-color: #047ae0;
+    border: 2px solid #047ae0;
+    color: white;
+    padding: .22rem;
+    max-width: 50%;
+    border-radius: .75rem;
+}
+
+.otherText {
+    margin-left: .5rem;
+    background-color: lightgray;
+    padding: .22rem;
+    max-width: 50%;
+    border-radius: .75rem;
+}
+
+.loadMoreMessagesBtn {
+    width: 25%;
+    background-color: #47a9ff;
+    border: none;
+    padding: 1%;
+}
+
+.loadMoreMessagesBtn:hover {
+    width: 25%;
+    background-color: #47a9ff;
+    cursor: pointer;
+    padding: 1%;
+    text-decoration: underline;
+}
