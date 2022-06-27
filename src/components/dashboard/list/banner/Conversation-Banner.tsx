@@ -25,6 +25,7 @@ type IResponse = {
 
 const ConversationBanner = ({chat} : ConversationBannerPropTypes) => {
     const navigate = useNavigate();
+    const params = useParams();
     const { userInfo, notificationHandler } = useContext(AuthContext);
 
     const [user] = userInfo;
@@ -35,6 +36,7 @@ const ConversationBanner = ({chat} : ConversationBannerPropTypes) => {
 
     const [recentMessage, setRecentMessage] = useState("");
     const [recipientName, setRecipientName] = useState("");
+    const [isSelected, setIsSelected] = useState(false);
 
     useEffect(() => {
         if(chat.Member1 == user.id) {
@@ -51,6 +53,14 @@ const ConversationBanner = ({chat} : ConversationBannerPropTypes) => {
     useEffect(() => {
        if(response) handleRecentMessage(response)
     }, [response])
+
+    useEffect(() => {
+        if(params.chatId && params.chatId === chat.Id) {
+            setIsSelected(isSelected => true)
+            return
+        }
+        setIsSelected(false)
+    }, [params.chatId])
 
     const handleRecipientName = async (id: string) => {
         const res = await fetch(`/auth/users/${id}`, {
@@ -82,7 +92,7 @@ const ConversationBanner = ({chat} : ConversationBannerPropTypes) => {
     };
 
     return(
-        <div className="conversationBanner" onClick={navigateToChat}>
+        <div className={isSelected ? "conversationBanner-Selected" : "conversationBanner"} onClick={navigateToChat}>
             <div className="bannerName">{recipientName}</div>
             <div className="bannerMessage">{recentMessage}</div>
         </div>

@@ -13,6 +13,7 @@ const CreateMessage = ({ user, sendServerTyping, emitMessage }: CreateMessagePro
     const params = useParams();
 
     const [text, setText] = useState("");
+    const [isSending, setIsSending] = useState(false)
 
     const handleChange = (e: any) => {
         sendServerTyping();
@@ -21,6 +22,7 @@ const CreateMessage = ({ user, sendServerTyping, emitMessage }: CreateMessagePro
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setIsSending(isSending => true);
         
         const response = await fetch(`/chatroom/${params.chatId}`, {
             method: "POST",
@@ -33,19 +35,21 @@ const CreateMessage = ({ user, sendServerTyping, emitMessage }: CreateMessagePro
       
         if(!response.ok) {
             //error posting
+            setIsSending(isSending => false)
         };
     
         await response.json();
 
         emitMessage(text);
         setText(text => "");
+        setIsSending(isSending => false)
     };
 
     return(
         <div className="createMessageContainer">
             <form onSubmit={handleSubmit} className="createMessageForm">
                 <input className="messageInput" type="text" placeholder="Message Here" value={text} onChange={handleChange} required/>
-                <button className="messageSubmitBtn" type="submit">Send</button>
+                <button className="messageSubmitBtn" type="submit">{isSending ? "Sending..." : "Send"}</button>
             </form>
         </div>
     )

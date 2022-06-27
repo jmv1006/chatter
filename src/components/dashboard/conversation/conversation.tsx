@@ -27,6 +27,7 @@ interface IChatInformation {
     Member2Name: string
 };
 
+
 const Conversation = () => {
     const params = useParams();
 
@@ -47,7 +48,7 @@ const Conversation = () => {
     const {response: chatInfoReponse, error: chatInfoError, isLoading: chatInfoIsLoading, reFetch: chatInfoReFetch} = useFetch(`/chatroom/${params.chatId}`);
 
     useEffect(() => {
-        setPage(25);
+        setPage(45);
         chatInfoReFetch();
         const newSocket: Socket<ServerToClientEvents, ClientToServerEvents> = io("https://jmv1006-chatterapi.herokuapp.com/")
         setSocket(socket => newSocket);
@@ -112,7 +113,7 @@ const Conversation = () => {
     };
 
     const incrementPage = () => {
-        setPage(page + 25);
+        setPage(page + 45);
     };
 
     const scrollToBottom = () => {
@@ -132,11 +133,11 @@ const Conversation = () => {
             {mobileDropDown && <MobileDropdown toggle={toggleMobileDropdown}/>}
             <button className='mobileDropDownBtn' onClick={toggleMobileDropdown}>My Conversations</button>
             <div className='recipientNameContainer'>
-                <Link to={`/user/${handleUserId()}`}>
+                <Link to={`/user/${handleUserId()}`} className={"recipientNameLink"}>
                     {chatInfo && handleRecipientName()}
                 </Link>
             </div>
-            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping} dummydiv={dummydiv} scrollToBottom={scrollToBottom}/>}
+            {messagesAndAmount && <MessagesContainer  messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping} dummydiv={dummydiv} messagesAreLoading={messagesAreLoading}/>}
             <CreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
         </div>
     )

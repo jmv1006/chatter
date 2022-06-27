@@ -1,29 +1,31 @@
 import React from "react";
 import {screen, render} from '@testing-library/react';
+import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
-import HomePage from "../components/home/home-container";
+import ConversationList from "../components/dashboard/list/conversationlist";
 import AuthContext from '../contexts/authcontext';
 
-describe("Home Page", () => {
+describe("Conversation List Component", () => {
     it("renders without error", () => {
         render(
             <BrowserRouter>
                 <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
-                    <HomePage />
+                    <ConversationList chats={[]}/>
                 </AuthContext.Provider>
             </BrowserRouter>
         );
     });
 
-    it("renders auth page if no user is signed in", () => {
+    it("renders appropriate text when user has no conversations", () => {
         render(
             <BrowserRouter>
-                <AuthContext.Provider value={{ userInfo: [null, jest.fn()]}}>
-                    <HomePage />
+                <AuthContext.Provider value={{ userInfo: [{}, jest.fn()]}}>
+                    <ConversationList chats={[]}/>
                 </AuthContext.Provider>
             </BrowserRouter>
         );
-        expect(screen.getByText("Welcome to Chatter."))
+
+        expect(screen.getByText('Click Create Conversation To Start A Chat.'))
     });
 
 })

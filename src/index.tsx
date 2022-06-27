@@ -10,7 +10,7 @@ import NotFound from "./components/errors/not-found";
 import ServerError from "./components/errors/server-error";
 import UserInfo from "./components/user-info/user-info-page";
 import Dashboard from "./components/dashboard/dashboard";
-import Conversation from "./components/dashboard/room/conversation";
+import Conversation from "./components/dashboard/conversation/conversation";
 import DashboardLanding from "./components/dashboard/landing/dashboard-landing";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as Element);

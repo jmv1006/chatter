@@ -6,6 +6,7 @@ import '../dashboard.css';
 import './landing.css'
 import ConversationBanner from '../list/banner/Conversation-Banner';
 import { useNavigate } from 'react-router';
+import RecentUpdates from './info/recent-updates';
 
 
 const DashboardLanding = () => {
@@ -42,6 +43,7 @@ const DashboardLanding = () => {
                     </div>
                     <button onClick={navigateToCreateChat}>Create Chatroom</button>
                 </div>
+                <RecentUpdates />
             </div>
         </div>
     )

@@ -69,7 +69,7 @@
 }
 
 .messagesContainer {
-    height: 88%;
+    height: 87.5%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -83,7 +83,7 @@
 }
 
 .createMessageContainer {
-    height: 5%;
+    height: 4%;
     display: flex;
     justify-content: center;
     align-items: center;

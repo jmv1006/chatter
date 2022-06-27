@@ -1,0 +1,16 @@
+.recentUpdatesContainer {
+    padding: 1.5%;
+    width: 88%;
+    background-color: #f5f4f2;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .25rem;
+}
+
+.updatesHeader {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
