@@ -9,15 +9,7 @@
 }
 
 .recentChatsContainer {
-    width: 85%;
-    padding: .75rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: .75rem;
-    background-color: #f5f4f2;
-    border-radius: .75rem;
+    display: none;
 }
 
 .landingPageChatsContainer {
@@ -32,4 +24,18 @@
 .titleContainer {
     margin-top: 1rem;
     font-size: 1.2rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .recentChatsContainer {
+        width: 85%;
+        padding: .75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: .75rem;
+        background-color: #f5f4f2;
+        border-radius: .75rem;
+    }
 }

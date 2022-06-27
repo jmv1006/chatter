@@ -36,13 +36,11 @@ const DashboardLanding = () => {
                 </div>
                 <div className='recentChatsContainer'>
                     <div>Your Recent Chats:</div>
+                    {chats.length == 0 && "Click Create Chatroom To Start A Chat!"}
                     <div className='landingPageChatsContainer'>
                         {chats && mappedChats}
                     </div>
                     <button onClick={navigateToCreateChat}>Create Chatroom</button>
-                </div>
-                <div>
-                    Updates Here
                 </div>
             </div>
         </div>

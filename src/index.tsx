@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./mainapp/App";
 import SignIn from "./components/auth/sign-in";
-import HomePage from "./components/home/home";
+import HomePage from "./components/home/home-container";
 import SignUp from "./components/auth/sign-up";
 import CreateChatroom from "./components/create-chatroom/create-chatroom";
 import NotFound from "./components/errors/not-found";

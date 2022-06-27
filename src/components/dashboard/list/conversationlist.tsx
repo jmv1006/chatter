@@ -3,12 +3,14 @@ import ConversationBanner from './banner/Conversation-Banner';
 import './conversation-list.css'
 import '../dashboard.css';
 import { useNavigate } from "react-router";
+import { ClipLoader } from "react-spinners";
 
 type ConversationListProps = {
     chats: Array<ChatInterface>,
+    isLoading: boolean
 };
 
-const ConversationList = ({ chats } : ConversationListProps) => {
+const ConversationList = ({ chats, isLoading } : ConversationListProps) => {
     const navigate = useNavigate();
 
     const mappedChats = chats.map((chat) => 
@@ -20,9 +22,13 @@ const ConversationList = ({ chats } : ConversationListProps) => {
     }
     return(
         <div className="conversationListContainer">
-            {chats.length === 0 && "Click Create Conversation"}
-            <button className="createConversationBtn" onClick={navigateToCreateChat}>Create Conversation</button>
-            {mappedChats}
+            {isLoading ?  <ClipLoader /> : 
+                <>
+                    <button className="createConversationBtn" onClick={navigateToCreateChat}>Create Conversation</button>
+                    {chats.length === 0 && "Click Create Conversation To Start A Chat."}
+                    {mappedChats}
+                </>
+            }
         </div>
     )
 }

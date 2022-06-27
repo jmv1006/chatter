@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { ClipLoader } from 'react-spinners';
 import './dashboard.css';
 import ConversationList from './list/conversationlist';
 import useFetch from '../../hooks/use-fetch';
@@ -33,7 +34,7 @@ const Dashboard = () => {
 
     return(
         <div className="dashBoardPage">
-            {user && <ConversationList chats={chats} />}
+            {user && <ConversationList chats={chats} isLoading={isLoading}/>}
             {user && <Outlet/>}
         </div>
     )

@@ -27,9 +27,10 @@ type MessagesContainerProps = {
     incrementPage: () => void,
     isTyping: boolean,
     dummydiv: RefObject<HTMLDivElement>,
+    scrollToBottom: () => void
 }
 
-const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping, dummydiv } : MessagesContainerProps) => {
+const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping, dummydiv, scrollToBottom } : MessagesContainerProps) => {
 
     const [messages, setMessages] = useState<Array <IMessage>>([]);
     const [messagesAmount, setMessagesAmount] = useState(0);
@@ -47,7 +48,8 @@ const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping, dummydi
 
     return(
         <div className="messagesContainer">
-            {messagesAmount > messages.length ? <button onClick={incrementPage}>Fetch More</button> : null}
+            {messages.length === 0 && "No Messages!"}
+            {messagesAmount > messages.length ? <button onClick={incrementPage}>Load More</button> : null}
             {mappedMessages}
             {isTyping && <Message key="typing" message={TypingMessage} />}
             <div ref={dummydiv}/>

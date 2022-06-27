@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { UserInterface } from "../shared/interfaces/interfaces";
 import AuthContext from "../contexts/authcontext";
@@ -25,6 +25,7 @@ interface INotification {
 
 function App() {
   const params = useParams();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState<UserInterface | null>(null);
   const [notification, setNotification] = useState<INotification | null>(null);
@@ -39,7 +40,8 @@ function App() {
       }
       const responseObj = await response.json();
       const userResponse = responseObj.user;
-      setUser(userResponse);
+      await setUser(userResponse);
+      navigate('/chats')
     };
 
     checkForSession();

@@ -22,7 +22,7 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate("/chats");
     }
   }, []);
 
@@ -65,7 +65,7 @@ const SignIn = () => {
     const responseJSON = await response.json();
     setUser(responseJSON.user);
     setIsLoading(false);
-    navigate('/')
+    navigate('/chats')
   };
 
   return (

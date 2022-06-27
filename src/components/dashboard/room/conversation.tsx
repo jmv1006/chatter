@@ -7,6 +7,7 @@ import MessagesContainer from './messages/container-messages';
 import CreateMessage from './create/create-message';
 import './conversation.css';
 import MobileDropdown from '../mobile-dropdown/mobile-dropdown';
+import { Link } from 'react-router-dom';
 
 interface ServerToClientEvents {
     noArg: () => void;
@@ -59,7 +60,7 @@ const Conversation = () => {
     useEffect(() => {
         if(chatInfoReponse) {
             setChatInfo(chatInfoReponse[0])
-            scrollToBottom()
+            scrollToBottom();
         }
     }, [chatInfoReponse])
 
@@ -69,6 +70,7 @@ const Conversation = () => {
 
             socket.on("typing", (id) => {
                 if(id != user.id) {
+                    scrollToBottom();
                     setIsTyping(isTyping => true);
                     setTimeout(() => {
                         setIsTyping(isTyping => false)
@@ -77,7 +79,7 @@ const Conversation = () => {
             });
 
             socket.on("roommessage", async (message) => {
-                await messagesReFetch();
+                messagesReFetch();
                 scrollToBottom();
             });
         };
@@ -97,6 +99,15 @@ const Conversation = () => {
                 return chatInfo.Member2Name;
             }
             return chatInfo.Member1Name;
+        }
+    };
+
+    const handleUserId = () => {
+        if(chatInfo) {
+            if(chatInfo.Member1 == user.id) {
+                return chatInfo.Member2;
+            }
+            return chatInfo.Member1;
         }
     };
 
@@ -121,9 +132,11 @@ const Conversation = () => {
             {mobileDropDown && <MobileDropdown toggle={toggleMobileDropdown}/>}
             <button className='mobileDropDownBtn' onClick={toggleMobileDropdown}>My Conversations</button>
             <div className='recipientNameContainer'>
-                {chatInfo && handleRecipientName()}
+                <Link to={`/user/${handleUserId()}`}>
+                    {chatInfo && handleRecipientName()}
+                </Link>
             </div>
-            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping} dummydiv={dummydiv}/>}
+            {messagesAndAmount && <MessagesContainer messagesAndAmount={messagesAndAmount} incrementPage={incrementPage} isTyping={isTyping} dummydiv={dummydiv} scrollToBottom={scrollToBottom}/>}
             <CreateMessage user={user} sendServerTyping={sendServerTyping} emitMessage={emitMessage}/>
         </div>
     )

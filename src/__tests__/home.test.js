@@ -1,7 +1,7 @@
 import React from "react";
 import {screen, render} from '@testing-library/react';
 import { BrowserRouter } from "react-router-dom";
-import HomePage from "../components/home/home";
+import HomePage from "../components/home/home-container";
 import AuthContext from '../contexts/authcontext';
 
 describe("Home Page", () => {
