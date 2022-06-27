@@ -1,5 +1,6 @@
 import { RefObject, useEffect, useState } from "react"
 import Message from './message';
+import './messages.css';
 
 interface IMessage {
     Text: string, 
@@ -49,7 +50,7 @@ const MessagesContainer = ({ messagesAndAmount, incrementPage, isTyping, dummydi
     return(
         <div className="messagesContainer">
             {messages.length === 0 && "No Messages!"}
-            {messagesAmount > messages.length ? <button onClick={incrementPage}>{messagesAreLoading ? "Loading..": "Load More"}</button> : null}
+            {messagesAmount > messages.length ? <button onClick={incrementPage} className="loadMoreMessagesBtn">{messagesAreLoading ? "Loading..": "Load More"}</button> : null}
             {mappedMessages}
             {isTyping && <Message key="typing" message={TypingMessage} />}
             <div ref={dummydiv}/>

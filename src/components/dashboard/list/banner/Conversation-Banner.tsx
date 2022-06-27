@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
 import AuthContext from "../../../../contexts/authcontext";
 import { ChatInterface } from "../../../../shared/interfaces/interfaces"
 import useFetch from '../../../../hooks/use-fetch';
 import '../conversation-list.css';
-import { useParams } from "react-router";
 
 type ConversationBannerPropTypes = {
     chat: ChatInterface

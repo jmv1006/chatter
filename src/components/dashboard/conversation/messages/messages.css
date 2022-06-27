@@ -27,3 +27,18 @@
     max-width: 50%;
     border-radius: .75rem;
 }
+
+.loadMoreMessagesBtn {
+    width: 25%;
+    background-color: #47a9ff;
+    border: none;
+    padding: 1%;
+}
+
+.loadMoreMessagesBtn:hover {
+    width: 25%;
+    background-color: #47a9ff;
+    cursor: pointer;
+    padding: 1%;
+    text-decoration: underline;
+}

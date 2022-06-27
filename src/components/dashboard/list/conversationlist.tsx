@@ -1,9 +1,9 @@
-import { ChatInterface, UserInterface } from "../../../shared/interfaces/interfaces";
+import { useNavigate } from "react-router";
+import { ClipLoader } from "react-spinners";
+import { ChatInterface } from "../../../shared/interfaces/interfaces";
 import ConversationBanner from './banner/Conversation-Banner';
 import './conversation-list.css'
 import '../dashboard.css';
-import { useNavigate } from "react-router";
-import { ClipLoader } from "react-spinners";
 
 type ConversationListProps = {
     chats: Array<ChatInterface>,

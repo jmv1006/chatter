@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
+import { useNavigate, useParams } from 'react-router';
 import AuthContext from '../../../contexts/authcontext';
 import ConversationBanner from '../list/banner/Conversation-Banner';
 import { ChatInterface } from '../../../shared/interfaces/interfaces';
+import useFetch from '../../../hooks/use-fetch';
 import '../dashboard.css';
 import './mobile-dropdown.css';
-import useFetch from '../../../hooks/use-fetch';
-import { useNavigate, useParams } from 'react-router';
 
 type MobileDropdownProps = {
     toggle: () => void

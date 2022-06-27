@@ -5,7 +5,9 @@
     flex-direction: column;
     cursor: pointer;
     border: 1px solid black;
+    cursor: pointer;
 }
+
 
 .conversationBanner-Selected {
     width: 90%;
@@ -28,4 +30,15 @@
     margin-top: .5rem;
     width: 80%;
     height: 1.75rem;
+    background-color: #47a9ff;
+    border: none;
+}
+
+.createConversationBtn:hover {
+    margin-top: .5rem;
+    width: 80%;
+    height: 1.75rem;
+    background-color: #47a9ff;
+    border: 1px solid black;
+    cursor: pointer;
 }

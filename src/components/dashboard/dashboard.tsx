@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import './dashboard.css';
+import { Outlet, useNavigate } from 'react-router';
 import ConversationList from './list/conversationlist';
 import useFetch from '../../hooks/use-fetch';
 import AuthContext from '../../contexts/authcontext';
 import { ChatInterface } from '../../shared/interfaces/interfaces';
-import { Outlet, useNavigate } from 'react-router';
+import './dashboard.css';
 
 const Dashboard = () => {
     const navigate = useNavigate();
