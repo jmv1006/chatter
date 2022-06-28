@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Socket, io } from 'socket.io-client';
 import AuthContext from '../../../contexts/authcontext';
 import useFetch from '../../../hooks/use-fetch';
 import MessagesContainer from './messages/container-messages';
 import CreateMessage from './create/create-message';
-import './conversation.css';
 import MobileDropdown from '../mobile-dropdown/mobile-dropdown';
-import { Link } from 'react-router-dom';
+import './conversation.css';
 
 interface ServerToClientEvents {
     noArg: () => void;

@@ -48,6 +48,19 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        background-color: #47a9ff;
+        border: none;
+        height: 2rem;
+    }
+
+    .mobileDropDownBtn:hover {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #47a9ff;
+        height: 2rem;
+        text-decoration: underline;
     }
 
     .mobileDropDownContainer {

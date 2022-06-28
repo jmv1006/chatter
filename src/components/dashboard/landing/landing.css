@@ -22,6 +22,19 @@
    gap: .5rem;
 }
 
+.landingCreateChatBtn {
+    background-color: #47a9ff;
+    border: none;
+    padding: .5rem;
+}
+
+.landingCreateChatBtn:hover {
+    background-color: #47a9ff;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: .5rem;
+}
+
 .titleContainer {
     margin-top: 1rem;
     font-size: 1.2rem;

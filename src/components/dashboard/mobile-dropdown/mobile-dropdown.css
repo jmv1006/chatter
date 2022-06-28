@@ -1,5 +1,15 @@
 .mobileDropDownCloseBtn {
     width: 50%;
     height: 1.75rem;
+    background-color:  #47a9ff;
+    border: none;
+}
+
+.mobileDropDownCloseBtn:hover {
+    width: 50%;
+    height: 1.75rem;
+    background-color:  #47a9ff;
+    border: none;
+    text-decoration: underline;
     cursor: pointer;
 }

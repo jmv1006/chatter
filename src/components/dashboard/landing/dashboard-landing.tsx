@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import AuthContext from '../../../contexts/authcontext';
+import { ClipLoader } from 'react-spinners';
 import { ChatInterface } from '../../../shared/interfaces/interfaces';
 import useFetch from '../../../hooks/use-fetch';
 import ConversationBanner from '../list/banner/Conversation-Banner';
@@ -36,11 +37,12 @@ const DashboardLanding = () => {
                 </div>
                 <div className='recentChatsContainer'>
                     <div>Your Recent Chats:</div>
-                    {chats.length == 0 && "Click Create Chatroom To Start A Chat!"}
+                    {isLoading && <ClipLoader />}
+                    {chats.length == 0 && !isLoading ?  "Click Create Chatroom To Start A Chat!" : null}
                     <div className='landingPageChatsContainer'>
-                        {chats && mappedChats}
+                        {chats && !isLoading ? mappedChats : null}
                     </div>
-                    <button onClick={navigateToCreateChat}>Create Chatroom</button>
+                    <button onClick={navigateToCreateChat} className="landingCreateChatBtn">Create Chatroom</button>
                 </div>
                 <RecentUpdates />
             </div>

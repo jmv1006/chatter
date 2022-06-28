@@ -8,6 +8,17 @@
     cursor: pointer;
 }
 
+.conversationBanner:hover {
+    width: 90%;
+    height: 3rem;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    border: 1px solid black;
+    cursor: pointer;
+    background-color: #ebebeb;
+}
+
 
 .conversationBanner-Selected {
     width: 90%;
