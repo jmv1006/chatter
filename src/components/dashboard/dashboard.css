@@ -16,11 +16,16 @@
     align-items: center;
     gap: .5rem;
     border-right: 1px solid black;
+    overflow-y: auto;
 }
 
 .conversationContainer {
     width: 70%;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .mobileDropDownBtn {
@@ -41,6 +46,7 @@
 
     .conversationListContainer {
         display: none;
+        overflow: hidden;
     }
 
     .mobileDropDownBtn {
@@ -51,6 +57,7 @@
         background-color: #47a9ff;
         border: none;
         height: 2rem;
+        width: 100%;
     }
 
     .mobileDropDownBtn:hover {
@@ -60,6 +67,7 @@
         cursor: pointer;
         background-color: #47a9ff;
         height: 2rem;
+        width: 100%;
         text-decoration: underline;
     }
 
@@ -77,28 +85,17 @@
     }
 }
 
-.recipientNameContainer {
-    height: 5%;
-}
-
 .messagesContainer {
-    height: 87.5%;
     width: 100%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    overflow-y: auto;
-    overflow-x: hidden;
     padding-top: 1.5%;
     gap: .5rem;
-    padding-bottom: 1.5%;
-}
-
-.createMessageContainer {
-    height: 4%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding-bottom: 1%;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 

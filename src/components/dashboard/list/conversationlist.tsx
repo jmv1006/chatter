@@ -24,7 +24,7 @@ const ConversationList = ({ chats, isLoading } : ConversationListProps) => {
         <div className="conversationListContainer">
             {isLoading ?  <ClipLoader /> : 
                 <>
-                    <button className="createConversationBtn" onClick={navigateToCreateChat}>Create Conversation</button>
+                    <button className="createConversationBtn" onClick={navigateToCreateChat}>Create Chatroom</button>
                     {chats.length === 0 && "Click Create Conversation To Start A Chat."}
                     {mappedChats}
                 </>

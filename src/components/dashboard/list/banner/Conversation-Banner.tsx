@@ -95,6 +95,7 @@ const ConversationBanner = ({chat} : ConversationBannerPropTypes) => {
         <div className={isSelected ? "conversationBanner-Selected" : "conversationBanner"} onClick={navigateToChat}>
             <div className="bannerName">{recipientName}</div>
             <div className="bannerMessage">{recentMessage}</div>
+            {recentMessage == "" && !isLoading ? <div className="bannerMessage">...</div> : null}
         </div>
     )
 }

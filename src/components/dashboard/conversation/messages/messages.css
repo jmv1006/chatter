@@ -29,16 +29,16 @@
 }
 
 .loadMoreMessagesBtn {
-    width: 25%;
+    width: 20%;
     background-color: #47a9ff;
     border: none;
-    padding: 1%;
+    padding: .5%;
 }
 
 .loadMoreMessagesBtn:hover {
-    width: 25%;
+    width: 20%;
     background-color: #47a9ff;
     cursor: pointer;
-    padding: 1%;
+    padding: .5%;
     text-decoration: underline;
 }
